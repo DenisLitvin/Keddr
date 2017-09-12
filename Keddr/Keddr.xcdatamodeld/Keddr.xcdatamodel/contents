@@ -5,7 +5,7 @@
         <attribute name="type" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="savedPost" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="SavedPost" inverseName="savedFeedElements" inverseEntity="SavedPost" syncable="YES"/>
     </entity>
-    <entity name="SavedPost" representedClassName="SavedPost" syncable="YES" codeGenerationType="category">
+    <entity name="SavedPost" representedClassName="SavedPost" syncable="YES" codeGenerationType="class">
         <attribute name="authorName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="category" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="commentCount" optional="YES" attributeType="String" syncable="YES"/>
