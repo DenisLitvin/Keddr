@@ -14,9 +14,34 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
+    let menuView = MenuView()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        window = UIWindow(frame: UIScreen.main.bounds)
+        window?.makeKeyAndVisible()
+        
+        let layout = UICollectionViewFlowLayout()
+        let viewController = MainVC(collectionViewLayout: layout)
+        viewController.collectionView?.backgroundColor = .white
+        viewController.title = "Лента"
+        window?.rootViewController = UINavigationController(rootViewController: viewController)
+        menuView.delegate = viewController
+        
+        viewController.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor(red: 247/255, green: 206/255, blue: 10/255, alpha: 1.0)]
+        UINavigationBar.appearance().tintColor = UIColor(red: 247/255, green: 206/255, blue: 10/255, alpha: 1.0)
+        UINavigationBar.appearance().shadowImage = UIImage()
+        UINavigationBar.appearance().setBackgroundImage(UIImage(), for: .default)
+        UINavigationBar.appearance().backgroundColor = UIColor(white: 1, alpha: 0.9)
+        let statusBarView = UIView()
+        statusBarView.backgroundColor = UIColor(red: 247/255, green: 206/255, blue: 10/255, alpha: 1.0)
+        window?.addSubview(statusBarView)
+        window?.addSubview(menuView)
+        menuView.alpha = 0
+        menuView.transform = CGAffineTransform(translationX: -viewController.view.frame.width, y: 0)
+        menuView.fillSuperview()
+        statusBarView.anchor(top: window?.topAnchor, left: window?.leftAnchor, bottom: nil, right: window?.rightAnchor, topConstant: 0, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 20)
         return true
     }
 
@@ -90,4 +115,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
 }
+
+let delegate = UIApplication.shared.delegate as! AppDelegate
+
 
