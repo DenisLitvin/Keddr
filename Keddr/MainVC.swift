@@ -18,8 +18,9 @@ class MainVC: UICollectionViewController {
     var numberOfPagesLoaded = 0
     var textSizes: [CGSize] = []
     var itemHeights: [CGFloat] = []
-    weak var menuView = delegate.menuView
-    weak var container = delegate.persistentContainer
+    
+    weak var menuView = appDelegate.menuView
+    unowned var container = appDelegate.persistentContainer
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -77,8 +78,8 @@ class MainVC: UICollectionViewController {
         let request: NSFetchRequest<SavedPost> = SavedPost.fetchRequest()
         request.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
         do{
-            let results = try container?.viewContext.fetch(request)
-            if let results = results{
+            let results = try container.viewContext.fetch(request)
+//            if let results = results{
                 var posts = [Post]()
                 for post in results {
                     let postToDisplay = Post(savedPost: post)
@@ -86,7 +87,7 @@ class MainVC: UICollectionViewController {
                         self.setupCaclulations(for: postToDisplay)
                         posts.append(postToDisplay)
                     }
-                }
+//                }
                 self.posts = posts
                 self.collectionView?.reloadData()
                 self.collectionViewLayout.invalidateLayout()
@@ -104,33 +105,33 @@ class MainVC: UICollectionViewController {
     //MARK: - Persistence
     func handleSaveTapped(with post: Post, save: Bool){
         guard let url = post.url else { return }
-        self.container?.performBackgroundTask { (context) in
-            let savedPost = post.findPost(with: context)
+        self.container.performBackgroundTask { (context) in
+            let savedPost = post.findSavedPost(with: context)
             if !save, let savedPost = savedPost {
                 context.delete(savedPost)
-                deleteImages(for: url)
+                SavedImage.deleteImages(for: url)
                 try? context.save()
             } else if savedPost == nil {
                 Api.fetchFeed(url: url) { (elements) in
-                    post.createPost(with: context, feedElements: elements)
+                    post.createSavedPost(with: context, feedElements: elements)
                     try? context.save()
                 }
             }
         }
     }
     func printDatabaseStatistics() {
-        let context = container?.viewContext
-        context?.perform {
+        let context = container.viewContext
+        context.perform {
             if Thread.isMainThread {
                 print("on main thread")
             } else {
                 print("off main thread")
             }
-            if let postCount = try? context?.count(for: SavedPost.fetchRequest()) {
-                print("\(postCount!) Posts")
+            if let postCount = try? context.count(for: SavedPost.fetchRequest()) {
+                print("\(postCount) Posts")
             }
-            if let feedCount = try? context?.count(for: SavedFeedElement.fetchRequest()) {
-                print("\(feedCount!) FeedElements")
+            if let feedCount = try? context.count(for: SavedFeedElement.fetchRequest()) {
+                print("\(feedCount) FeedElements")
             }
         }
     }

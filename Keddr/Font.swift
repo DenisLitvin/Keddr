@@ -6,7 +6,7 @@
 //  Copyright © 2017 DenisLitvin. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 enum PostCategory: String {
     case Tape

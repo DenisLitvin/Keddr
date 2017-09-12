@@ -19,7 +19,7 @@ class ImageCell: FeedCell {
     override func setupViews() {
         super.setupViews()
         addSubview(view)
-        view.anchor(top: topAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, topConstant: 0, leftConstant: 0, bottomConstant: 5, rightConstant: 0, widthConstant: 0, heightConstant: 0)
+        view.anchor(top: topAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, topConstant: 3, leftConstant: 0, bottomConstant: 3, rightConstant: 0, widthConstant: 0, heightConstant: 0)
     }
     override func setupContent(with: FeedElement) {
         super.setupContent(with: with)

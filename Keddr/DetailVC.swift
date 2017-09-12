@@ -10,7 +10,7 @@ import UIKit
 
 class DetailVC: UICollectionViewController {
     
-    weak var context = delegate.persistentContainer.viewContext
+    unowned var context = appDelegate.persistentContainer.viewContext
     var feed: [FeedElement] = []
     
     var post: Post? {
@@ -23,9 +23,8 @@ class DetailVC: UICollectionViewController {
         setupCollectionView()
     }
     func updateUI(){
-        guard let post = post,
-        let context = context else { return }
-        if let savedPost = post.findPost(with: context) {
+        guard let post = post else { return }
+        if let savedPost = post.findSavedPost(with: context) {
             let savedFeed = post.findFeed(with: context, for: savedPost)
             var feed = [FeedElement]()
             for element in savedFeed{

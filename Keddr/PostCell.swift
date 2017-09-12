@@ -122,7 +122,7 @@ class PostCell: BaseCell {
             let width = calculateSize(for: [categories.first!], height: 21, width: self.bounds.width - 130 - widthToSubtract, positioning: .horizontal, fontName: [Font.category.name], fontSize: [Font.category.size + 2], removeIfNotFit: true).size.width
             categoryViewWidthAnchor?.constant = width == 0 ? 0 : width + 12
             if let delegate = delegate {
-                let savedPost = post.findPost(with: (delegate.container?.viewContext)!)
+                let savedPost = post.findSavedPost(with: delegate.container.viewContext)
                 if savedPost != nil {
                     circleButton.isOn = true
                 } else {
