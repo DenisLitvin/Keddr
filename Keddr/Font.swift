@@ -25,27 +25,29 @@ enum Font {
     var size: CGFloat {
         switch self {
         case .title:
-            return 18
+            return 19
         case .description:
-            return 15
+            return 16
         case .date:
-            return 11
-        case .author:
-            return 14
-        case .commentBubble:
             return 12
+        case .author:
+            return 15
+        case .commentBubble:
+            return 13
         case .category:
-            return 10
+            return 11
         case .menu:
             return 25
         }
     }
     var name: String {
         switch self {
-        case .description, .date, .menu:
+        case  .menu:
             return "AvenirNext-Regular"
+        case .description, .date:
+            return "AvenirNext-Medium"
         default:
-            return "AvenirNext-DemiBold"
+            return "AvenirNext-Bold"
         }
     }
 }

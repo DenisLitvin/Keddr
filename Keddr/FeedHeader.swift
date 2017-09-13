@@ -28,7 +28,7 @@ class FeedHeader: UICollectionReusableView {
         let date = with.date else { return }
         authorNameLabel.text = with.authorName
         thumbnailView.loadImageUsingUrlString(thumbnailUrl, postUrl: with.url!)
-        dateLabel.text = date
+        dateLabel.text = date.beautyDate()
     }
     var thumbnailViewTopAnchor: NSLayoutConstraint?
     lazy var thumbnailView: CustomImageView = { [unowned self] in
@@ -49,15 +49,15 @@ class FeedHeader: UICollectionReusableView {
     let authorNameLabel: UILabel = {
         let view = UILabel()
 //        view.backgroundColor = .green
-        view.font = UIFont(name: "AvenirNext-DemiBold", size: 14)
-        view.textColor = UIColor(red: 0.1294, green: 0.1294, blue: 0.1294, alpha: 1.0)
+        view.font = UIFont(name: Font.author.name, size: Font.author.size)
+        view.textColor = Color.darkGray
         return view
     }()
     let dateLabel: UILabel = {
         let view = UILabel()
         view.textAlignment = .center
         view.textColor = UIColor(red: 0.3176, green: 0.3176, blue: 0.3176, alpha: 1.0)
-        view.font = UIFont(name: "AvenirNext-Regular", size: 11)
+        view.font = UIFont(name: Font.date.name, size: Font.date.size)
 //        view.backgroundColor = .cyan
         return view
     }()

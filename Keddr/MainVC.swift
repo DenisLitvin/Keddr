@@ -26,14 +26,12 @@ class MainVC: UICollectionViewController {
         super.viewDidLoad()
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Menu", style: .plain, target: self, action: #selector(handleMenuTapped))
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Statistics", style: .plain, target: self, action: #selector(printDatabaseStatistics))
-        //        collectionView?.decelerationRate = UIScrollViewDecelerationRateFast
         collectionView?.register(PostCell.self, forCellWithReuseIdentifier: cellId)
         fetchPosts()
-//        collectionView?.contentInset = UIEdgeInsets(top: -64, left: 0, bottom: -300, right: 0)
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        navigationController?.navigationBar.backgroundColor = UIColor(white: 1, alpha: 0.9)
+        navigationController?.navigationBar.backgroundColor = UIColor(white: 1, alpha: 1)
         //            for cell in (collectionView?.visibleCells) as! [PostCell]{
         //                let index = collectionView?.indexPath(for: cell)?.item
         //                cell.animateViews(num: Double(index!))
@@ -45,18 +43,19 @@ class MainVC: UICollectionViewController {
     }
     
     override func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-//                        let maxOffset = (collectionView?.contentSize.height)! - view.bounds.height - 1100
-//                        let currentOffset = collectionView?.contentOffset.y
-//                        if currentOffset! > maxOffset && updatingPageNumber == numberOfFetches{
-//                            fetchNextPosts()
-//                            collectionView?.reloadData()
-//                        }
+        //                        let maxOffset = (collectionView?.contentSize.height)! - view.bounds.height - 1100
+        //                        let currentOffset = collectionView?.contentOffset.y
+        //                        if currentOffset! > maxOffset && updatingPageNumber == numberOfFetches{
+        //                            fetchNextPosts()
+        //                            collectionView?.reloadData()
+        //                        }
     }
+    //MARK: - Fetching posts
     func fetchPosts(){
         loadingPageNumber += 1
         Api.fetchPosts(for: loadingPageNumber, complition: { (posts) in
             for post in posts{
-                self.setupCaclulations(for: post)
+                self.setupCaclulations(for: post, layout: self.collectionView!.collectionViewLayout)
             }
             self.posts.append(contentsOf: posts)
             self.numberOfPagesLoaded += 1
@@ -64,30 +63,18 @@ class MainVC: UICollectionViewController {
             self.collectionViewLayout.invalidateLayout()
         })
     }
-    func setupCaclulations(for post: Post){
-        let layout = self.collectionView?.collectionViewLayout as! UICollectionViewFlowLayout
-        let textSize = self.textSizeForPost(post)
-        self.textSizes.append(textSize)
-        //                layout.addItemheight(height: textSize.height + (self.view.bounds.width * 9 / 16) + 48)
-        self.itemHeights.append(textSize.height + (self.view.bounds.width * 9 / 16) + 48)
-        layout.minimumLineSpacing = 0
-        layout.minimumInteritemSpacing = 0
-    }
     func fetchSavedPosts(){
-        posts = []
         let request: NSFetchRequest<SavedPost> = SavedPost.fetchRequest()
         request.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
         do{
             let results = try container.viewContext.fetch(request)
-//            if let results = results{
-                var posts = [Post]()
-                for post in results {
-                    let postToDisplay = Post(savedPost: post)
-                    if let postToDisplay = postToDisplay {
-                        self.setupCaclulations(for: postToDisplay)
-                        posts.append(postToDisplay)
-                    }
-//                }
+            var posts = [Post]()
+            for post in results {
+                let postToDisplay = Post(savedPost: post)
+                if let postToDisplay = postToDisplay {
+                    self.setupCaclulations(for: postToDisplay, layout: self.collectionView!.collectionViewLayout)
+                    posts.append(postToDisplay)
+                }
                 self.posts = posts
                 self.collectionView?.reloadData()
                 self.collectionViewLayout.invalidateLayout()
@@ -96,11 +83,30 @@ class MainVC: UICollectionViewController {
             //handle error
         }
     }
+    //MARK: - Handling events
     func handleMenuTapped(){
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseIn, animations: {
             self.menuView?.transform = .identity
             self.menuView?.alpha = 1
         })
+    }
+    func changelayout() {
+        var layout = UICollectionViewLayout()
+        if self.collectionView?.collectionViewLayout is OverlapLayout {
+            layout = UltraVisualLayout()
+            collectionView?.decelerationRate = UIScrollViewDecelerationRateFast
+            collectionView?.contentInset = UIEdgeInsets(top: -64, left: 0, bottom: -300, right: 0)
+            for post in posts{
+                setupCaclulations(for: post, layout: layout)
+            }
+        } else if self.collectionView?.collectionViewLayout is UltraVisualLayout {
+            layout = OverlapLayout()
+            collectionView?.decelerationRate = UIScrollViewDecelerationRateNormal
+            collectionView?.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        }
+        collectionView?.reloadData()
+        collectionViewLayout.invalidateLayout()
+        collectionView?.setCollectionViewLayout(layout, animated: true)
     }
     //MARK: - Persistence
     func handleSaveTapped(with post: Post, save: Bool){
@@ -119,6 +125,7 @@ class MainVC: UICollectionViewController {
             }
         }
     }
+    
     func printDatabaseStatistics() {
         let context = container.viewContext
         context.perform {
@@ -134,8 +141,10 @@ class MainVC: UICollectionViewController {
                 print("\(feedCount) FeedElements")
             }
         }
+        changelayout()
     }
-    //MARK: - UICollectionViewDelegate and DataSource
+    
+    //MARK: - UICollectionViewDataSource
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return posts.count
     }
@@ -148,13 +157,48 @@ class MainVC: UICollectionViewController {
         cell.post = post
         return cell
     }
+    //MARK: - UICollectionViewDelegate
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let post = posts[indexPath.item]
         let detailVC = DetailVC(collectionViewLayout: StretchyHeaderLayout())
         detailVC.post = post
         navigationController?.pushViewController(detailVC, animated: true)
     }
-    //MARK: - Helpers
+}
+//MARK: - UICollectionViewDelegateFlowLayout
+extension MainVC: UICollectionViewDelegateFlowLayout{
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: self.view.bounds.width, height: itemHeights[indexPath.item])
+    }
+}
+//MARK: - Helpers
+extension MainVC {
+    func invalidateLayoutAndData(){
+        posts = []
+        loadingPageNumber = 0
+        numberOfPagesLoaded = 0
+        textSizes = []
+        itemHeights = []
+        if let layout = collectionView?.collectionViewLayout as? UltraVisualLayout{
+            layout.itemHeights = []
+            layout.dragOffsets = []
+        }
+        if let layout = collectionView?.collectionViewLayout as? OverlapLayout {
+            layout.minimumLineSpacing = 0
+            layout.minimumInteritemSpacing = 0
+        }
+        collectionView?.reloadData()
+        collectionViewLayout.invalidateLayout()
+    }
+    func setupCaclulations(for post: Post, layout: UICollectionViewLayout){
+        let textSize = self.textSizeForPost(post)
+        let itemHeight = textSize.height + (self.view.bounds.width * 9 / 16) + 48
+        self.textSizes.append(textSize)
+        self.itemHeights.append(itemHeight)
+        if let layout = layout as? UltraVisualLayout {
+            layout.addItemheight(height: itemHeight)
+        }
+    }
     func textSizeForPost(_ post: Post) -> CGSize {
         if let title = post.title, let description = post.description {
             let screenWidth = self.view.bounds.width
@@ -167,11 +211,7 @@ class MainVC: UICollectionViewController {
         return CGSize.zero
     }
 }
-extension MainVC: UICollectionViewDelegateFlowLayout{
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: self.view.bounds.width, height: itemHeights[indexPath.item])
-    }
-}
+
 //MARK: - Prefetching
 //extension MainVC: UICollectionViewDataSourcePrefetching {
 //    func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
@@ -185,6 +225,7 @@ extension MainVC: UICollectionViewDelegateFlowLayout{
 //        }
 //    }
 //}
+
 
 
 

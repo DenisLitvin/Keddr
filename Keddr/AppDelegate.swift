@@ -22,20 +22,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.makeKeyAndVisible()
         
-        let layout = UICollectionViewFlowLayout()
+        let layout = OverlapLayout()
         let viewController = MainVC(collectionViewLayout: layout)
         viewController.collectionView?.backgroundColor = .white
         viewController.title = "Лента"
         window?.rootViewController = UINavigationController(rootViewController: viewController)
         menuView.delegate = viewController
         
-        viewController.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor(red: 247/255, green: 206/255, blue: 10/255, alpha: 1.0)]
-        UINavigationBar.appearance().tintColor = UIColor(red: 247/255, green: 206/255, blue: 10/255, alpha: 1.0)
+        viewController.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: Color.darkGray]
+        UINavigationBar.appearance().tintColor = Color.keddrYellow
         UINavigationBar.appearance().shadowImage = UIImage()
         UINavigationBar.appearance().setBackgroundImage(UIImage(), for: .default)
-        UINavigationBar.appearance().backgroundColor = UIColor(white: 1, alpha: 0.9)
+        UINavigationBar.appearance().backgroundColor = .white
         let statusBarView = UIView()
-        statusBarView.backgroundColor = UIColor(red: 247/255, green: 206/255, blue: 10/255, alpha: 1.0)
+        statusBarView.backgroundColor = .white
         window?.addSubview(statusBarView)
         window?.addSubview(menuView)
         menuView.alpha = 0
@@ -83,7 +83,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             if let error = error as NSError? {
                 // Replace this implementation with code to handle the error appropriately.
                 // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                 
+                
                 /*
                  Typical reasons for an error here include:
                  * The parent directory does not exist, cannot be created, or disallows writing.
@@ -117,5 +117,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 }
 
 let appDelegate = UIApplication.shared.delegate as! AppDelegate
+
+
+
 
 

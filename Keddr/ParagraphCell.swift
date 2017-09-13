@@ -12,7 +12,8 @@ class ParagraphCell: FeedCell {
     
     let view: UITextView = {
         let view = UITextView()
-        view.font = UIFont(name: "AvenirNext-Regular", size: 15)
+        view.textColor = Color.darkGray
+        view.font = UIFont(name: Font.description.name, size: Font.description.size)
         view.isUserInteractionEnabled = false
         return view
     }()

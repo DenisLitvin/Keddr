@@ -10,7 +10,7 @@ import UIKit
 
 class UltraVisualLayout: UICollectionViewLayout{
     
-    fileprivate var dragOffsets = [CGFloat]()
+    var dragOffsets = [CGFloat]()
     var itemHeights = [CGFloat]()
     var standartHeight: CGFloat {
         get{

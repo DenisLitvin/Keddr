@@ -12,7 +12,8 @@ class Header2Cell: FeedCell {
     
     let view: UITextView = {
         let view = UITextView()
-        view.font = UIFont(name: "AvenirNext-DemiBold", size: 18)
+        view.textColor = Color.darkGray
+        view.font = UIFont(name: Font.title.name, size: Font.title.size)
         view.isUserInteractionEnabled = false
         return view
     }()

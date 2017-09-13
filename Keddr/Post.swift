@@ -15,7 +15,7 @@ class Post {
     
     var title: String?
     var thumbnailImageUrl: String?
-    var date: String?
+    var date: Date?
     var authorName: String = ""
     var commentCount: String?
     var description: String?
@@ -33,16 +33,13 @@ class Post {
         self.url = URL(string: url)
         self.title = title
         self.thumbnailImageUrl = thumbnailUrl
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = .medium
-        self.date = dateFormatter.string(from: date as Date)
+        self.date = date as Date
         self.authorName = author
         self.categories = [category]
         self.description = description
         self.commentCount = commentCount
     }
     init?(xml: XMLElement){
-        //getting info for each post
         self.categories = [String]()
         for category in xml.css("div[class^='categories']"){
             let category = category.text!.trimmingCharacters(in: .whitespacesAndNewlines)
@@ -56,8 +53,10 @@ class Post {
         }
         if let dateNode = xml.at_css("span[class^='date']"), let text = dateNode.text{
             let components = text.trimmingCharacters(in: .whitespacesAndNewlines).components(separatedBy: " ")
-            let date = components[0].replacingOccurrences(of: "/", with: ".")
-            self.date = date
+            let dateString = components[0].replacingOccurrences(of: "/", with: ".")
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "dd.MM.yyyy"
+            self.date = dateFormatter.date(from: dateString)
         }
         if let thumbnailUrl = xml.at_css("div > div.thumbnailarea > a > img"){
             if let url = thumbnailUrl["data-original"]{

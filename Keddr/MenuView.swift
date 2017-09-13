@@ -22,9 +22,9 @@ class MenuView: UIVisualEffectView {
     }
     weak var delegate: MainVC?
     
-    let menu = ["Лента", "Блоги", "О проекте"]
+    let menu = ["Лента", "Блоги", "Сохраненное", "О проекте"]
     
-    lazy var dismissButton: UIButton = {
+    lazy var dismissButton: UIButton = { [unowned self] _ in
         let button = UIButton(type: UIButtonType.system)
         button.setTitle("back", for: .normal)
         button.tintColor = .white
@@ -45,8 +45,8 @@ class MenuView: UIVisualEffectView {
         contentView.addSubview(dismissButton)
         contentView.addSubview(collection)
         
-        collection.anchor(top: centerYAnchor, left: centerXAnchor, bottom: nil, right: nil, topConstant: -65, leftConstant: -100, bottomConstant: 0, rightConstant: 0, widthConstant: 200, heightConstant: 130)
-        dismissButton.anchor(top: topAnchor, left: leftAnchor, bottom: nil, right: nil, topConstant: 10, leftConstant: 10, bottomConstant: 0, rightConstant: 0, widthConstant: 40, heightConstant: 40)
+        collection.anchor(top: centerYAnchor, left: centerXAnchor, bottom: nil, right: nil, topConstant: -(CGFloat(menu.count * 40) / 2), leftConstant: -100, bottomConstant: 0, rightConstant: 0, widthConstant: 200, heightConstant: CGFloat(menu.count * 40))
+        dismissButton.anchor(top: topAnchor, left: leftAnchor, bottom: nil, right: nil, topConstant: 25, leftConstant: 20, bottomConstant: 0, rightConstant: 0, widthConstant: 40, heightConstant: 40)
     }
     func handleDismiss(){
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseIn, animations: {
@@ -58,7 +58,17 @@ class MenuView: UIVisualEffectView {
 //MARK: - UICollectionViewDelegate
 extension MenuView: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        delegate?.fetchSavedPosts()
+        if let posts = delegate?.posts, posts.count > 0 {
+            delegate?.collectionView?.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: false)
+        }
+        delegate?.invalidateLayoutAndData()
+        if indexPath.item == 2 {
+            delegate?.fetchSavedPosts()
+            self.handleDismiss()
+            return
+        }
+        delegate?.fetchPosts()
+        self.handleDismiss()
     }
 }
 //MARK: - UICollectionViewDataSource

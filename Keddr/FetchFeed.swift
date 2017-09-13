@@ -26,11 +26,12 @@ extension Api{
                         if let image = node.at_css("img")?["src"], node.tagName == "p"{
                             if let image = node.at_css("a")?["href"], image.hasSuffix("jpg"){
                                 for node in node.css("a"){
-                                    feed.append(FeedElement(type: .image, content: node["href"]!))
+                                    let image = node["href"]!
+                                    feed.append(FeedElement(type: .image, content: image.encodedCharacters()))
                                 }
                                 continue
                             }
-                            feed.append(FeedElement(type: .image, content: image))
+                            feed.append(FeedElement(type: .image, content: image.encodedCharacters()))
                         }
                         if node.tagName == "ul"{
                             var characteristicsField = ""
@@ -52,7 +53,7 @@ extension Api{
                             var fotorama = ""
                             for image in node.css("a"){
                                 if let image = image["href"]{
-                                    fotorama += "\(image),"
+                                    fotorama += "\(image.encodedCharacters()),"
                                 }
                             }
                             let fotoramaTrimmed = fotorama.characters.dropLast()

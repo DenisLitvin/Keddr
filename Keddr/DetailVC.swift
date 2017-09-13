@@ -11,6 +11,7 @@ import UIKit
 class DetailVC: UICollectionViewController {
     
     unowned var context = appDelegate.persistentContainer.viewContext
+    
     var feed: [FeedElement] = []
     
     var post: Post? {
@@ -25,9 +26,9 @@ class DetailVC: UICollectionViewController {
     func updateUI(){
         guard let post = post else { return }
         if let savedPost = post.findSavedPost(with: context) {
-            let savedFeed = post.findFeed(with: context, for: savedPost)
+            let sortedFeed = savedPost.sortFeed()
             var feed = [FeedElement]()
-            for element in savedFeed{
+            for element in sortedFeed{
                 if let feedElement = FeedElement(savedFeedElement: element){
                     feed.append(feedElement)
                 }
@@ -43,7 +44,7 @@ class DetailVC: UICollectionViewController {
     }
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let offset = collectionView?.contentOffset.y
-        let delta = min((offset! / (self.view.bounds.width * 9 / 16)), 0.9)
+        let delta = min((offset! / (self.view.bounds.width * 9 / 16)), 1)
         navigationController?.navigationBar.backgroundColor = UIColor(white: 1, alpha: delta)
     }
     func setupCollectionView(){

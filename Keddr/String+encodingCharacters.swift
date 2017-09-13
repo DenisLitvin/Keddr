@@ -6,7 +6,7 @@
 //  Copyright © 2017 DenisLitvin. All rights reserved.
 //
 
-import Foundation
+import UIKit
 extension String {
     func encodedCharacters() -> String{
         return self.addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlQueryAllowed)!
