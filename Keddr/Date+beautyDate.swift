@@ -11,7 +11,7 @@ import Foundation
 extension Date {
     func beautyDate() -> String{
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "MMMM d"
+        dateFormatter.dateFormat = "d MMMM"
         return dateFormatter.string(from: self)
     }
 }

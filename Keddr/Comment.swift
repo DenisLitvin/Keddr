@@ -27,8 +27,8 @@ class Comment {
         self.id = commentId
         self.parentId = parentId
         if parentId == "0"{
-            nestedLevel = 0
-            commentNestLevels[commentId] = 0
+            nestedLevel = 1
+            commentNestLevels[commentId] = 1
         } else if let parentLevel = commentNestLevels[parentId]{
             let selfLevel = parentLevel + 1
             nestedLevel = selfLevel
@@ -47,8 +47,7 @@ class Comment {
         }
         if let contentNode = xml.at_css(" div.decomments-comment-main > div > p"){
             self.content = contentNode.text
-        }
-        //        print("comment-id:", commentId,"     parent-id:", parentId)
+        }        //        print("comment-id:", commentId,"     parent-id:", parentId)
     }
 }
 

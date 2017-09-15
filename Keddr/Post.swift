@@ -47,7 +47,7 @@ class Post {
         self.categories = [String]()
         for category in xml.css("div[class^='categories']"){
             let category = category.text!.trimmingCharacters(in: .whitespacesAndNewlines)
-            self.categories?.append(category)
+            self.categories?.append(category.uppercased())
         }
         if let descriptionNode = xml.at_css("div > p"), let text = descriptionNode.text{
             self.description = text

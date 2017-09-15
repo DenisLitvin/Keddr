@@ -26,13 +26,13 @@ class FotoramaCell: FeedCell {
         addSubview(collection)
         collection.fillSuperview()
         collection.register(ImageCell.self, forCellWithReuseIdentifier: "cellId")
-        let layer = CAGradientLayer()
-        layer.startPoint = CGPoint(x: 0.0, y: 1.0)
-        layer.endPoint = CGPoint(x: 1.0, y: 1.0)
-        layer.frame = CGRect(x: 0, y: 0, width: self.bounds.width, height: self.bounds.width * 9 / 16)
-        layer.colors = [UIColor.black.cgColor, UIColor.clear.cgColor]
-        layer.locations = [0.9, 1]
-        self.layer.mask = layer
+//        let layer = CAGradientLayer()
+//        layer.startPoint = CGPoint(x: 0.0, y: 1.0)
+//        layer.endPoint = CGPoint(x: 1.0, y: 1.0)
+//        layer.frame = CGRect(x: 0, y: 0, width: self.bounds.width, height: self.bounds.width * 9 / 16)
+//        layer.colors = [UIColor.black.cgColor, UIColor.clear.cgColor]
+//        layer.locations = [0.9, 1]
+//        self.layer.mask = layer
     }
     override func setupContent(with: FeedElement) {
         super.setupContent(with: with)
@@ -59,7 +59,7 @@ extension FotoramaCell: UICollectionViewDataSource {
 //Mark: - UICollectionViewDelegateFlowLayout
 extension FotoramaCell: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: self.frame.height, height: self.frame.height)
+        return CGSize(width: self.frame.height * 1.4, height: self.frame.height)
     }
 }
 

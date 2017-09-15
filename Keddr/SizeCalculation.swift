@@ -13,12 +13,8 @@ enum TextPositioning {
     case horizontal
 }
 
-protocol SizeCalculation {}
-extension UIView: SizeCalculation {}
-extension UIViewController: SizeCalculation {}
-
-extension SizeCalculation{
-    func calculateSize(for texts: [String], height: CGFloat, width: CGFloat, positioning: TextPositioning, fontName: [String], fontSize: [CGFloat], removeIfNotFit: Bool) -> (size: CGSize, quantity: Int){
+class TextSize{
+    class func calculate(for texts: [String], height: CGFloat, width: CGFloat, positioning: TextPositioning, fontName: [String], fontSize: [CGFloat], removeIfNotFit: Bool) -> (size: CGSize, quantity: Int){
         
         var attributes: [[String: Any]] = []
         let options: NSStringDrawingOptions = NSStringDrawingOptions.usesLineFragmentOrigin

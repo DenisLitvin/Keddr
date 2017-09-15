@@ -14,12 +14,13 @@ class ImageCell: FeedCell {
         let view = CustomImageView()
         view.clipsToBounds = true
         view.contentMode = .scaleAspectFill
+        view.layer.cornerRadius = 7
         return view
     }()
     override func setupViews() {
         super.setupViews()
         addSubview(view)
-        view.anchor(top: topAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, topConstant: 3, leftConstant: 0, bottomConstant: 3, rightConstant: 0, widthConstant: 0, heightConstant: 0)
+        view.anchor(top: topAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, topConstant: 3, leftConstant: 5, bottomConstant: 3, rightConstant: 5, widthConstant: 0, heightConstant: 0)
     }
     override func setupContent(with: FeedElement) {
         super.setupContent(with: with)

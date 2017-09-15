@@ -23,8 +23,7 @@ class MainVC: UICollectionViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Menu", style: .plain, target: self, action: #selector(handleMenuTapped))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Menu", style: .plain, target: menuView, action: #selector(MenuView.slideIn))
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Statistics", style: .plain, target: self, action: #selector(printDatabaseStatistics))
         collectionView?.register(PostCell.self, forCellWithReuseIdentifier: cellId)
         fetchPosts()
@@ -86,9 +85,6 @@ class MainVC: UICollectionViewController {
         }
     }
     //MARK: - Handling events
-    func handleMenuTapped(){
-        menuView.slideIn()
-    }
     func changelayout() {
         var layout = UICollectionViewLayout()
         if self.collectionView?.collectionViewLayout is OverlapLayout {
@@ -201,7 +197,7 @@ extension MainVC {
             let screenHeight = self.view.bounds.height
             let height: CGFloat = screenHeight - (screenWidth * 9 / 16) - 93 - 50
             let width: CGFloat = screenWidth - 25
-            let textSize = calculateSize(for: [title, description], height: height, width: width, positioning: .vertical, fontName: [Font.title.name, Font.description.name], fontSize: [Font.title.size, Font.description.size], removeIfNotFit: false).size
+            let textSize = TextSize.calculate(for: [title, description], height: height, width: width, positioning: .vertical, fontName: [Font.title.name, Font.description.name], fontSize: [Font.title.size, Font.description.size], removeIfNotFit: false).size
             return CGSize(width: width, height: textSize.height)
         }
         return CGSize.zero

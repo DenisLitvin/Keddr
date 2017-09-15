@@ -79,7 +79,7 @@ class DetailVC: UICollectionViewController {
         return view
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        return CGSize(width: self.view.bounds.width, height: (self.view.bounds.width * 9 / 16) + 70)
+        return CGSize(width: self.view.bounds.width, height: (self.view.bounds.width * 9 / 16) + 22)
     }
 }
 //MARK: - CollectionViewDelegateFlowLayout
@@ -90,15 +90,16 @@ extension DetailVC: UICollectionViewDelegateFlowLayout {
         let width = self.view.bounds.width
         let height: CGFloat
         if element.type == .fotorama || element.type == .video || element.type == .image {
-            return CGSize(width: width, height: ((width) * 9 / 16))
+            return CGSize(width: width - 20, height: ((width - 20) * 9 / 16))
         }
         if element.type == .h2 {
             attributes = (Font.title.name, Font.title.size)
         } else {
             attributes = (Font.description.name, Font.description.size)
         }
-        height = calculateSize(for: [feed[indexPath.item].content], height: 9999, width: width - 30, positioning: .vertical, fontName: [attributes.name], fontSize: [attributes.size], removeIfNotFit: false).size.height
+        height = TextSize.calculate(for: [feed[indexPath.item].content], height: 9999, width: width - 30, positioning: .vertical, fontName: [attributes.name], fontSize: [attributes.size], removeIfNotFit: false).size.height
         return CGSize(width: width - 20, height: height + 13)
     }
 }
+
 

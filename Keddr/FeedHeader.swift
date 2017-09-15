@@ -25,11 +25,21 @@ class FeedHeader: UICollectionReusableView {
     }
     func setupContent(with: Post){
         guard let thumbnailUrl = with.thumbnailImageUrl,
-        let date = with.date else { return }
+        let date = with.date,
+        let url = with.url,
+        let categories = with.categories else { return }
         authorNameLabel.text = with.authorName
-        thumbnailView.loadImageUsingUrlString(thumbnailUrl, postUrl: with.url!)
+        thumbnailView.loadImageUsingUrlString(thumbnailUrl, postUrl: url)
         dateLabel.text = date.beautyDate()
+        categorySlider.categories = categories
     }
+    let containerView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .white
+        view.clipsToBounds = true
+        view.layer.cornerRadius = 20
+        return view
+    }()
     var thumbnailViewTopAnchor: NSLayoutConstraint?
     lazy var thumbnailView: CustomImageView = { [unowned self] in
         let view = CustomImageView()
@@ -56,30 +66,30 @@ class FeedHeader: UICollectionReusableView {
     let dateLabel: UILabel = {
         let view = UILabel()
         view.textAlignment = .center
-        view.textColor = UIColor(red: 0.3176, green: 0.3176, blue: 0.3176, alpha: 1.0)
+        view.textColor = Color.lightGray
         view.font = UIFont(name: Font.date.name, size: Font.date.size)
 //        view.backgroundColor = .cyan
         return view
     }()
-    let separatorLine: UIView = {
-        let view = UIView()
-        view.backgroundColor = UIColor.darkGray
-        view.layer.cornerRadius = 0.5
-        view.clipsToBounds = true
+    let categorySlider: CategorySlider = {
+        let view = CategorySlider()
         return view
     }()
+    
     func setupViews(){
         addSubview(thumbnailView)
-        addSubview(authorNameLabel)
-        addSubview(authorAvatarView)
-        addSubview(dateLabel)
-        addSubview(separatorLine)
+        addSubview(containerView)
+        containerView.addSubview(authorNameLabel)
+        containerView.addSubview(authorAvatarView)
+        containerView.addSubview(dateLabel)
+        containerView.addSubview(categorySlider)
 
         thumbnailViewTopAnchor = thumbnailView.anchorWithReturnAnchors(top: topAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, topConstant: 0, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: self.bounds.width * 9 / 16)[3]
-        authorAvatarView.anchor(top: thumbnailView.bottomAnchor, left: leftAnchor, bottom: nil, right: nil, topConstant: 10, leftConstant: 10, bottomConstant: 0, rightConstant: 0, widthConstant: 40, heightConstant: 40)
-         authorNameLabel.anchor(top: authorAvatarView.centerYAnchor, left: authorAvatarView.rightAnchor, bottom: nil, right: dateLabel.rightAnchor, topConstant: -20, leftConstant: 10, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 40)
-        dateLabel.anchor(top: authorAvatarView.centerYAnchor, left: nil, bottom: nil, right: rightAnchor, topConstant: -20, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 70, heightConstant: 40)
-        separatorLine.anchor(top: authorAvatarView.bottomAnchor, left: centerXAnchor, bottom: nil, right: nil, topConstant: 8, leftConstant: -25, bottomConstant: 8, rightConstant: 0, widthConstant: 50, heightConstant: 1)
+        containerView.anchor(top: thumbnailView.bottomAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, topConstant: -32, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 60)
+        authorAvatarView.anchor(top: containerView.topAnchor, left: leftAnchor, bottom: nil, right: nil, topConstant: 10, leftConstant: 10, bottomConstant: 0, rightConstant: 0, widthConstant: 40, heightConstant: 40)
+         authorNameLabel.anchor(top: authorAvatarView.topAnchor, left: authorAvatarView.rightAnchor, bottom: nil, right: dateLabel.rightAnchor, topConstant: 0, leftConstant: 10, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 17)
+        dateLabel.anchor(top: authorAvatarView.topAnchor, left: nil, bottom: nil, right: rightAnchor, topConstant: 0, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 100, heightConstant: 17)
+        categorySlider.anchor(top: dateLabel.bottomAnchor, left: authorAvatarView.rightAnchor, bottom: nil, right: rightAnchor, topConstant: 3, leftConstant: 10, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 20)
     }
     var previousDelta: CGFloat = 0
     override func apply(_ layoutAttributes: UICollectionViewLayoutAttributes) {
