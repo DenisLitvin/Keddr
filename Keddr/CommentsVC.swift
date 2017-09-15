@@ -6,4 +6,22 @@
 //  Copyright © 2017 DenisLitvin. All rights reserved.
 //
 
-import Foundation
+import UIKit
+
+class CommentsVC: UICollectionViewController {
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+    }
+    
+}
+
+
+
+
+
+
+
+
+
+
