@@ -98,7 +98,7 @@ extension DetailVC: UICollectionViewDelegateFlowLayout {
             attributes = (Font.description.name, Font.description.size)
         }
         height = TextSize.calculate(for: [feed[indexPath.item].content], height: 9999, width: width - 30, positioning: .vertical, fontName: [attributes.name], fontSize: [attributes.size], removeIfNotFit: false).size.height
-        return CGSize(width: width - 20, height: height + 13)
+        return CGSize(width: width - 20, height: height + 18)
     }
 }
 

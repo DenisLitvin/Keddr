@@ -9,9 +9,10 @@
 import UIKit
 
 struct Color {
-    static let keddrYellow = UIColor(red: 247/255, green: 206/255, blue: 10/255, alpha: 1.0)
-    static let darkGray = UIColor(red: 0.1882, green: 0.1882, blue: 0.1882, alpha: 1.0)
+    static let keddrYellow = UIColor(red: 251/255, green: 214/255, blue: 0/255, alpha: 1.0)
+    static let darkGray = UIColor(red: 38/255, green: 38/255, blue: 38/255, alpha: 1.0)
     static let lightGray = UIColor(red: 0.4588, green: 0.4588, blue: 0.4588, alpha: 1.0)
+    static let lightYellow = UIColor(red: 0.9569, green: 0.9373, blue: 0.8314, alpha: 1.0)
     
 }
 

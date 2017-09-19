@@ -13,8 +13,9 @@ class ParagraphCell: FeedCell {
     let view: UITextView = {
         let view = UITextView()
         view.textColor = Color.darkGray
-        view.font = UIFont(name: Font.description.name, size: Font.description.size)
-        view.isUserInteractionEnabled = false
+        view.isScrollEnabled = false
+        view.isEditable = false
+        view.font = Font.description.create()
         return view
     }()
     override func setupViews() {

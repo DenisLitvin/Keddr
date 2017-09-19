@@ -12,7 +12,7 @@ class MenuCell: BaseCell {
     
     let textView: UILabel = {
         let view = UILabel()
-        view.font = UIFont(name: Font.menu.name, size: Font.menu.size)
+        view.font = Font.menu.create()
         view.textColor = UIColor.white
         view.textAlignment = .center
         return view

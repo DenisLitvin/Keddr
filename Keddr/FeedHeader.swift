@@ -29,7 +29,7 @@ class FeedHeader: UICollectionReusableView {
         let url = with.url,
         let categories = with.categories else { return }
         authorNameLabel.text = with.authorName
-        thumbnailView.loadImageUsingUrlString(thumbnailUrl, postUrl: url)
+        thumbnailView.loadImageUsingUrlString(thumbnailUrl, directoryPathUrl: url)
         dateLabel.text = date.beautyDate()
         categorySlider.categories = categories
     }

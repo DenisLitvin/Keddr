@@ -8,12 +8,9 @@
 
 import UIKit
 
-protocol PostCellDelegate: class {
-    func handleSaveTapped(with: Post, save: Bool)
-}
 class PostCell: BaseCell {
     
-    weak var delegate: PostCellDelegate?
+    weak var mainVC: MainVC?
     
     let thumbnailView: CustomImageView = {
         let view = CustomImageView()
@@ -38,22 +35,21 @@ class PostCell: BaseCell {
     let textContainer: UITextView = {
         let view = UITextView()
         view.layer.cornerRadius = 20
-        view.isEditable = false
         view.isScrollEnabled = false
         view.isUserInteractionEnabled = false
-        view.textContainer.lineBreakMode = .byCharWrapping
+        view.textContainer.lineBreakMode = .byWordWrapping
         return view
     }()
     let dateLabel: UILabel = {
         let view = UILabel()
         view.textColor = Color.lightGray
-        view.font = UIFont(name: Font.date.name, size: Font.date.size)
+        view.font = Font.date.create()
         return view
     }()
     let authorNameLabel: UILabel = {
         let view = UILabel()
         //        view.text = "Александр Ляпота"
-        view.font = UIFont(name: Font.author.name, size: Font.author.size)
+        view.font = Font.author.create()
         view.textColor = Color.darkGray
         return view
     }()
@@ -65,16 +61,17 @@ class PostCell: BaseCell {
         view.contentMode = .scaleAspectFill
         return view
     }()
-    let commentBubble: UIButton = {
+    lazy var commentBubble: UIButton = { [unowned self] in
         let button = UIButton(type: .system)
         button.tintColor = Color.lightGray
         button.setImage(#imageLiteral(resourceName: "ChatBubble"), for: .normal)
         button.setTitleColor(Color.lightGray, for: .normal)
-        button.titleLabel?.font = UIFont(name: Font.commentBubble.name, size: Font.commentBubble.size)
+        button.titleLabel?.font = Font.commentBubble.create()
         button.titleLabel?.textAlignment = .right
         button.imageView?.contentMode = .scaleAspectFit
         button.imageEdgeInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0)
         button.titleEdgeInsets = UIEdgeInsets(top: 0, left: -70, bottom: 0, right: 0)
+        button.addTarget(self, action: #selector(commentBubbleTapped), for: .touchUpInside)
         return button
     }()
     var categoryViewWidthAnchor: NSLayoutConstraint?
@@ -83,7 +80,7 @@ class PostCell: BaseCell {
         view.clipsToBounds = true
         view.layer.cornerRadius = 11
         view.textAlignment = .center
-        view.font = UIFont(name: Font.category.name, size: Font.category.size)
+        view.font = Font.category.create()
         view.textColor = .white
         view.backgroundColor = Color.keddrYellow
         return view
@@ -96,9 +93,9 @@ class PostCell: BaseCell {
     func saveButtonTapped(_ sender: CircleButton){
         guard let post = post else { return }
         if sender.isOn {
-            delegate?.handleSaveTapped(with: post, save: true)
+            mainVC?.handleSaveTapped(with: post, save: true)
         } else {
-            delegate?.handleSaveTapped(with: post, save: false)
+            mainVC?.handleSaveTapped(with: post, save: false)
         }
     }
     var post: Post?{
@@ -113,7 +110,7 @@ class PostCell: BaseCell {
             let description = post.description,
             let commentCount = post.commentCount,
             let categories = post.categories {
-            thumbnailView.loadImageUsingUrlString(thumbnailUrl, postUrl: post.url!)
+            thumbnailView.loadImageUsingUrlString(thumbnailUrl, directoryPathUrl: post.url!)
             updateText(title: title, description: description)
             dateLabel.text = date.beautyDate()
             authorNameLabel.text = post.authorName
@@ -133,14 +130,10 @@ class PostCell: BaseCell {
         }
     }
     func updateText(title: String, description: String){
-            let title = ("\(title)\n")
-            let attributedText = NSMutableAttributedString(string: title, attributes: [NSForegroundColorAttributeName: Color.darkGray, NSFontAttributeName: UIFont(name: Font.title.name, size: Font.title.size)!])
-            let paragraph = NSMutableParagraphStyle()
-            paragraph.lineSpacing = 1
-            let range = NSMakeRange(0, attributedText.string.characters.count)
-            attributedText.addAttribute(NSParagraphStyleAttributeName, value: paragraph, range: range)
-            attributedText.append(NSAttributedString(string: description, attributes: [NSForegroundColorAttributeName: Color.darkGray, NSFontAttributeName: UIFont(name: Font.description.name, size: Font.description.size)!]))
-                self.textContainer.attributedText = attributedText
+        let title = ("\(title)\n")
+        let attributedText = NSMutableAttributedString(string: title, attributes: [NSForegroundColorAttributeName: Color.darkGray, NSFontAttributeName: Font.title.create(), NSParagraphStyleAttributeName: NSParagraphStyle.default])
+        attributedText.append(NSAttributedString(string: description, attributes: [NSForegroundColorAttributeName: Color.darkGray, NSFontAttributeName: Font.description.create(), NSParagraphStyleAttributeName: NSParagraphStyle.default]))
+        self.textContainer.attributedText = attributedText
     }
     
     override func setupViews(){
@@ -155,7 +148,7 @@ class PostCell: BaseCell {
         bottomContainerView.addSubview(textContainer)
         bottomContainerView.addSubview(dateLabel)
         bottomContainerView.addSubview(commentBubble)
-        
+    
         circleButton.anchor(top: topAnchor, left: nil, bottom: nil, right: rightAnchor, topConstant: 10, leftConstant: 0, bottomConstant: 0, rightConstant: 10, widthConstant: 34, heightConstant: 34)
         authorAvatarView.anchor(top: textContainer.bottomAnchor, left: bottomContainerView.leftAnchor, bottom: nil, right: nil, topConstant: 0, leftConstant: 8, bottomConstant: 0, rightConstant: 0, widthConstant: 38, heightConstant: 38)
         dateLabel.anchor(top: authorAvatarView.centerYAnchor, left: authorAvatarView.rightAnchor, bottom: nil, right: rightAnchor, topConstant: 0, leftConstant: 8, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 18)
@@ -168,6 +161,12 @@ class PostCell: BaseCell {
         authorNameLabel.anchor(top: nil, left: authorAvatarView.rightAnchor, bottom: authorAvatarView.centerYAnchor, right: categoryView.leftAnchor, topConstant: 0, leftConstant: 8, bottomConstant: 0, rightConstant: 5, widthConstant: 0, heightConstant: 0)
     }
     func animateViews(num: Double){
+    }
+    func commentBubbleTapped(){
+        let layout = UICollectionViewFlowLayout()
+        let commentsVC = CommentsVC(collectionViewLayout: layout)
+        commentsVC.post = post
+        mainVC?.navigationController?.pushViewController(commentsVC, animated: true)
     }
 }
 

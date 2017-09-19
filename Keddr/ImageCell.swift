@@ -24,6 +24,6 @@ class ImageCell: FeedCell {
     }
     override func setupContent(with: FeedElement) {
         super.setupContent(with: with)
-        view.loadImageUsingUrlString(with.content, postUrl: (post?.url)!)
+        view.loadImageUsingUrlString(with.content, directoryPathUrl: (post?.url)!)
     }
 }

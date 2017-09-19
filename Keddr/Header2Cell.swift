@@ -12,9 +12,10 @@ class Header2Cell: FeedCell {
     
     let view: UITextView = {
         let view = UITextView()
+        view.isScrollEnabled = false
+        view.isEditable = false
         view.textColor = Color.darkGray
-        view.font = UIFont(name: Font.title.name, size: Font.title.size)
-        view.isUserInteractionEnabled = false
+        view.font = Font.title.create()
         return view
     }()
     

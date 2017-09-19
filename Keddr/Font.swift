@@ -50,6 +50,9 @@ enum Font {
             return "AvenirNext-Bold"
         }
     }
+    func create() -> UIFont{
+        return UIFont(name: self.name, size: self.size)!
+    }
 }
 
 

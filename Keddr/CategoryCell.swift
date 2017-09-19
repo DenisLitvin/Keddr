@@ -15,7 +15,7 @@ class CategoryCell: BaseCell {
         view.backgroundColor = Color.keddrYellow
         view.clipsToBounds = true
         view.layer.cornerRadius = 10
-        view.font = UIFont(name: Font.category.name, size: Font.category.size )
+        view.font = Font.category.create()
         view.textColor = UIColor.white
         view.textAlignment = .center
         return view

@@ -13,14 +13,19 @@ import CoreData
 class MainVC: UICollectionViewController {
     
     fileprivate let cellId = "cellId"
-    var posts: [Post] = []
+    var posts: [Post] = [] {
+        didSet{
+            self.collectionView?.reloadData()
+            self.collectionViewLayout.invalidateLayout()
+        }
+    }
     var pageStatistics = PageStatistics()
     var textSizes: [CGSize] = []
     var itemHeights: [CGFloat] = []
+    var autoFetching = true
     
     unowned var menuView = appDelegate.menuView
     unowned var container = appDelegate.persistentContainer
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Menu", style: .plain, target: menuView, action: #selector(MenuView.slideIn))
@@ -30,27 +35,35 @@ class MainVC: UICollectionViewController {
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
+        let loginVC = LoginVC()
+        fetchId()
+//        self.present(loginVC, animated: false)
         //            for cell in (collectionView?.visibleCells) as! [PostCell]{
         //                let index = collectionView?.indexPath(for: cell)?.item
         //                cell.animateViews(num: Double(index!))
         //            }
     }
-    
+    func fetchId(){
+        Api.fetchUserId { (uid) in
+            print(uid)
+        }
+    }
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         collectionViewLayout.invalidateLayout()
     }
     
     override func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        //                        let maxOffset = (collectionView?.contentSize.height)! - view.bounds.height - 1100
-        //                        let currentOffset = collectionView?.contentOffset.y
-        //                        if currentOffset! > maxOffset && updatingPageNumber == numberOfFetches{
-        //                            fetchNextPosts()
-        //                            collectionView?.reloadData()
-        //                        }
+        let maxOffset = (collectionView?.contentSize.height)! - view.bounds.height - 1100
+        let currentOffset = collectionView?.contentOffset.y
+        if currentOffset! > maxOffset,
+        pageStatistics.loadingPageNumber == pageStatistics.numberOfPagesLoaded,
+        autoFetching{
+            fetchPosts()
+        }
     }
     //MARK: - Fetching posts
     func fetchPosts(){
+        autoFetching = true
         pageStatistics.loadingPageNumber += 1
         Api.fetchPosts(for: pageStatistics.loadingPageNumber, complition: { (posts) in
             for post in posts{
@@ -58,14 +71,10 @@ class MainVC: UICollectionViewController {
             }
             self.posts.append(contentsOf: posts)
             self.pageStatistics.numberOfPagesLoaded += 1
-            self.collectionView?.reloadData()
-            self.collectionViewLayout.invalidateLayout()
-            Api.fetchComments(for: posts[0]) { (comments) in
-                
-            }
         })
     }
     func fetchSavedPosts(){
+        autoFetching = false
         let request: NSFetchRequest<SavedPost> = SavedPost.fetchRequest()
         request.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
         do{
@@ -77,14 +86,28 @@ class MainVC: UICollectionViewController {
                     posts.append(post)
                 }
                 self.posts = posts
-                self.collectionView?.reloadData()
-                self.collectionViewLayout.invalidateLayout()
             }
         } catch {
-            //handle error
+            print("Failed to fetch saved posts, error:", error)
         }
     }
     //MARK: - Handling events
+    func handleSaveTapped(with post: Post, save: Bool){
+        guard let url = post.url else { return }
+        self.container.performBackgroundTask { (context) in
+            let savedPost = post.findSavedPost(with: context)
+            if !save, let savedPost = savedPost {
+                context.delete(savedPost)
+                SavedImage.deleteImages(for: url)
+                try? context.save()
+            } else if savedPost == nil {
+                Api.fetchFeed(url: url) { (elements) in
+                    post.createSavedPost(with: context, feedElements: elements)
+                    try? context.save()
+                }
+            }
+        }
+    }
     func changelayout() {
         var layout = UICollectionViewLayout()
         if self.collectionView?.collectionViewLayout is OverlapLayout {
@@ -122,24 +145,6 @@ class MainVC: UICollectionViewController {
         changelayout()
     }
 }
-extension MainVC: PostCellDelegate {
-    func handleSaveTapped(with post: Post, save: Bool){
-        guard let url = post.url else { return }
-        self.container.performBackgroundTask { (context) in
-            let savedPost = post.findSavedPost(with: context)
-            if !save, let savedPost = savedPost {
-                context.delete(savedPost)
-                SavedImage.deleteImages(for: url)
-                try? context.save()
-            } else if savedPost == nil {
-                Api.fetchFeed(url: url) { (elements) in
-                    post.createSavedPost(with: context, feedElements: elements)
-                    try? context.save()
-                }
-            }
-        }
-    }
-}
 extension MainVC {
     //MARK: - UICollectionViewDataSource
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -149,7 +154,7 @@ extension MainVC {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! PostCell
         let post = posts[indexPath.item]
         let size = textSizes[indexPath.item]
-        cell.delegate = self
+        cell.mainVC = self
         cell.textContainer.frame = CGRect(x: 8, y: 0, width: size.width + 9, height: size.height + 24)
         cell.post = post
         return cell
@@ -195,7 +200,7 @@ extension MainVC {
         if let title = post.title, let description = post.description {
             let screenWidth = self.view.bounds.width
             let screenHeight = self.view.bounds.height
-            let height: CGFloat = screenHeight - (screenWidth * 9 / 16) - 93 - 50
+            let height: CGFloat = screenHeight - (screenWidth * 9 / 16) - 93 - 30
             let width: CGFloat = screenWidth - 25
             let textSize = TextSize.calculate(for: [title, description], height: height, width: width, positioning: .vertical, fontName: [Font.title.name, Font.description.name], fontSize: [Font.title.size, Font.description.size], removeIfNotFit: false).size
             return CGSize(width: width, height: textSize.height)

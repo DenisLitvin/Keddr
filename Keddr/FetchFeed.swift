@@ -47,7 +47,7 @@ extension Api{
                             feed.append(FeedElement(type: .h2, content: text))
                         }
                         if let video = node.at_css("iframe")?["src"], node.tagName == "p"{
-                            feed.append(FeedElement(type: .video, content: video))
+                            feed.append(FeedElement(type: .video, content: video.encodedCharacters()))
                         }
                         if node.tagName == "div", node.className == "fotorama"{
                             var fotorama = ""
@@ -59,7 +59,6 @@ extension Api{
                             let fotoramaTrimmed = fotorama.characters.dropLast()
                             feed.append(FeedElement(type: .fotorama, content: String(fotoramaTrimmed)))
                         }
-                        
                     }
                 }
                 DispatchQueue.main.async {

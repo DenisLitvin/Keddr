@@ -11,20 +11,26 @@ import Kanna
 
 extension Api {
     
-    static func fetchComments(for post: Post, complition: @escaping([Comment]?)->()) {
-        let url = URL(string: "https://keddr.com/2017/09/apple-predstavila-iphone-8-i-iphone-8-plus/")
-        URLSession.shared.dataTask(with: url!, completionHandler: { (data, response, error) in
+    static func fetchComments(for post: Post, complition: @escaping([Comment], String?)->()) {
+        URLSession.shared.dataTask(with: post.url!, completionHandler: { (data, response, error) in
             if let error = error{
                 print(error.localizedDescription)
             }
-            if let data = data, let review = HTML(html: data, encoding: .utf8),
-                let container = review.at_css("#decomments-comment-section > div.decomments-comment-list"){
+            var comments = [Comment]()
+            guard let data = data, let review = HTML(html: data, encoding: .utf8) else { return }
+            if let container = review.at_css("#decomments-comment-section > div.decomments-comment-list"){
                 for xml in container.css("div[class^='comment']"){
-                    let comment = Comment(xml: xml)
+                    if let comment = Comment(xml: xml) {
+                        comments.append(comment)
+                    }
                 }
             }
+            var postId: String?
+            if let idNode = review.at_css("div.mistape_dialog_block > a:nth-child(1)"), let id = idNode["data-id"]{
+                postId = id
+            }
             DispatchQueue.main.async {
-//                complition(resultPosts)
+                complition(comments, postId)
             }
         }).resume()
     }

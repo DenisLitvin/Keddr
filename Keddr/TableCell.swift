@@ -11,7 +11,8 @@ import UIKit
 class TableCell: FeedCell {
     let view: UITextView = {
         let view = UITextView()
-        view.isUserInteractionEnabled = false
+        view.isScrollEnabled = false
+        view.isEditable = false
         view.font = UIFont(name: Font.description.name, size: Font.description.size)
         return view
     }()
