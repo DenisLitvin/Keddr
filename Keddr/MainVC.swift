@@ -28,26 +28,22 @@ class MainVC: UICollectionViewController {
     unowned var container = appDelegate.persistentContainer
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Menu", style: .plain, target: menuView, action: #selector(MenuView.slideIn))
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Statistics", style: .plain, target: self, action: #selector(printDatabaseStatistics))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Menu", style: .plain, target: menuView, action: #selector(MenuView.menuButtonTapped))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Statistics", style: .plain, target: self, action: #selector(statisticsButtonTapped))
         collectionView?.register(PostCell.self, forCellWithReuseIdentifier: cellId)
         fetchPosts()
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        
         let loginVC = LoginVC()
-        fetchId()
-//        self.present(loginVC, animated: false)
+        self.present(loginVC, animated: false)
         //            for cell in (collectionView?.visibleCells) as! [PostCell]{
         //                let index = collectionView?.indexPath(for: cell)?.item
         //                cell.animateViews(num: Double(index!))
         //            }
     }
-    func fetchId(){
-        Api.fetchUserId { (uid) in
-            print(uid)
-        }
-    }
+    
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         collectionViewLayout.invalidateLayout()
     }
@@ -92,7 +88,7 @@ class MainVC: UICollectionViewController {
         }
     }
     //MARK: - Handling events
-    func handleSaveTapped(with post: Post, save: Bool){
+    func handleSaveButton(with post: Post, save: Bool){
         guard let url = post.url else { return }
         self.container.performBackgroundTask { (context) in
             let savedPost = post.findSavedPost(with: context)
@@ -127,7 +123,7 @@ class MainVC: UICollectionViewController {
         collectionView?.setCollectionViewLayout(layout, animated: true)
     }
     //MARK: - Persistence
-    func printDatabaseStatistics() {
+    func statisticsButtonTapped() {
         let context = container.viewContext
         context.perform {
             if Thread.isMainThread {

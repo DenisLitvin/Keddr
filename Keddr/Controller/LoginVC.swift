@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import KeychainAccess
 
 class LoginVC: UIViewController{
     
@@ -62,7 +63,7 @@ class LoginVC: UIViewController{
         view.isSecureTextEntry = true
         return view
     }()
-    let signInButton: UIButton = {
+    lazy var signInButton: UIButton = {
         let view = UIButton(type: .system)
         view.setTitle("Войти", for: .normal)
         view.setTitleColor(.white, for: .normal)
@@ -71,6 +72,14 @@ class LoginVC: UIViewController{
         view.backgroundColor = Color.keddrYellow
         view.layer.cornerRadius = 15
         view.clipsToBounds = true
+        view.addTarget(self, action: #selector(handleSignInButton), for: .touchUpInside)
+        return view
+    }()
+    lazy var backButton: UIButton = {
+        let view = UIButton(type: .system)
+        view.setTitle("Позже", for: .normal)
+        view.setTitleColor(Color.keddrYellow, for: .normal)
+        view.addTarget(self, action: #selector(handleBackButton), for: .touchUpInside)
         return view
     }()
     override func viewDidLoad() {
@@ -86,6 +95,7 @@ class LoginVC: UIViewController{
         bottomContainerview.addSubview(loginField)
         bottomContainerview.addSubview(passwordField)
         bottomContainerview.addSubview(signInButton)
+        self.view.addSubview(backButton)
         
         logoView.anchor(top: self.view.centerYAnchor, left: self.view.centerXAnchor, bottom: nil, right: nil, topConstant: -(self.view.bounds.height * 2 / 5) + 50, leftConstant: -50, bottomConstant: 0, rightConstant: 0, widthConstant: 100, heightConstant: 100)
         titleView.anchor(top: logoView.bottomAnchor, left: loginField.leftAnchor, bottom: nil, right: loginField.rightAnchor, topConstant: 20, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 40)
@@ -95,6 +105,7 @@ class LoginVC: UIViewController{
         loginField.anchor(top: bottomContainerview.centerYAnchor, left: bottomContainerview.centerXAnchor, bottom: nil, right: nil, topConstant: -75, leftConstant: -100, bottomConstant: 0, rightConstant: 0, widthConstant: 200, heightConstant: 30)
         passwordField.anchor(top: loginField.bottomAnchor, left: bottomContainerview.centerXAnchor, bottom: nil, right: nil, topConstant: 30, leftConstant: -100, bottomConstant: 0, rightConstant: 0, widthConstant: 200, heightConstant: 30)
         signInButton.anchor(top: passwordField.bottomAnchor, left: bottomContainerview.centerXAnchor, bottom: nil, right: nil, topConstant: 30, leftConstant: -50, bottomConstant: 0, rightConstant: 0, widthConstant: 100, heightConstant: 30)
+        backButton.anchor(top: topLayoutGuide.topAnchor, left: self.view.leftAnchor, bottom: nil, right: nil, topConstant: 20, leftConstant: 20, bottomConstant: 0, rightConstant: 0, widthConstant: 60, heightConstant: 30)
     }
     fileprivate func setupNotifications() {
         NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboard), name: Notification.Name.UIKeyboardWillShow, object: nil)
@@ -103,7 +114,6 @@ class LoginVC: UIViewController{
     func handleKeyboard(_ notification: Notification){
         guard let info = notification.userInfo else { return }
         if let rect = info[UIKeyboardFrameEndUserInfoKey] as? CGRect{
-            print(rect.height)
             UIView.animate(withDuration: 0.25, delay: 0, options: .curveLinear, animations: {
                 self.bottomContainerviewTopConstraint?.constant = (self.view.bounds.height * 3 / 5) - rect.height
                 self.bottomContainerviewBottomConstraint?.constant = -rect.height
@@ -111,19 +121,25 @@ class LoginVC: UIViewController{
             })
         }
     }
+    func handleBackButton(){
+        dismiss(animated: true)
+    }
+    func handleSignInButton(){
+        guard let login = loginField.text,
+            let password = passwordField.text else { return }
+        let user = User(login: login, password: password)
+        AuthClient.signIn(with: user) { (error) in
+            if let error = error{
+                print(error.userDescription)
+            } else {
+                let keychain = Keychain(service: "com.keddr.credentials")
+                print("signed in with:", keychain["uid"]!, keychain["login"]!, keychain["password"]!)
+            }
+        }
+    }
 }
 
-class CSTextField: UITextField {
-    override func placeholderRect(forBounds bounds: CGRect) -> CGRect {
-        return CGRect(x: 5, y: 0, width: bounds.width - 5, height: bounds.height)
-    }
-    override func textRect(forBounds bounds: CGRect) -> CGRect {
-        return CGRect(x: 5, y: 0, width: bounds.width - 5, height: bounds.height)
-    }
-    override func editingRect(forBounds bounds: CGRect) -> CGRect {
-        return CGRect(x: 5, y: 0, width: bounds.width - 5, height: bounds.height)
-    }
-}
+
 
 
 

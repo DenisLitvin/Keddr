@@ -7,28 +7,7 @@
 //
 
 import UIKit
-class DotsView: UIView {
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        self.backgroundColor = .white
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    var numberOfDots = 0 {
-        didSet{
-            setNeedsDisplay()
-        }
-    }
-    override func draw(_ rect: CGRect) {
-        for dot in 0..<numberOfDots {
-            let dotPath = UIBezierPath(roundedRect: CGRect(x: 13 * dot, y: 0, width: 10, height: 10), cornerRadius: 5)
-            Color.lightGray.set()
-            dotPath.fill()
-        }
-    }
-}
+
 class CommentCell: BaseCell {
     
     var comment: Comment? {
@@ -56,8 +35,8 @@ class CommentCell: BaseCell {
         let view = DotsView(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
         return view
     }()
-    let avatarView: CustomImageView = {
-        let view = CustomImageView()
+    let avatarView: CSImageView = {
+        let view = CSImageView()
         view.contentMode = .scaleAspectFit
         view.clipsToBounds = true
         view.layer.cornerRadius = 25

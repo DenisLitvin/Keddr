@@ -10,8 +10,8 @@ import UIKit
 
 class ImageCell: FeedCell {
     
-    let view: CustomImageView = {
-        let view = CustomImageView()
+    let view: CSImageView = {
+        let view = CSImageView()
         view.clipsToBounds = true
         view.contentMode = .scaleAspectFill
         view.layer.cornerRadius = 7

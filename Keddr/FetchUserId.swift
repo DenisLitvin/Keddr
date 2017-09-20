@@ -12,12 +12,14 @@ import Kanna
 extension Api {
     static func fetchUserId(complition: @escaping (String?) -> ()){
         URLSession.shared.dataTask(with: URL(string: "https://keddr.com/profile/")!) { (data, response, error) in
-            var uid: String?
-            let data = HTML(html: data!, encoding: .utf8)
-            if let idNode = data?.at_css("#SaveUpload > input[type=\"hidden\"]:nth-child(10)"), let id = idNode["value"]{
-                uid = id
-            }
-            complition(uid)
+            if error != nil{
+                complition(nil)
+            } else if let data = data,
+                let html = HTML(html: data, encoding: .utf8),
+                let idNode = html.at_css("#SaveUpload > input[type=\"hidden\"]:nth-child(10)"),
+                let uid = idNode["value"]{
+                complition(uid)
+            } else { complition(nil) }
         }.resume()
     }
 }

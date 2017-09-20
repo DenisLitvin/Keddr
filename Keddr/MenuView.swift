@@ -28,7 +28,7 @@ class MenuView: UIVisualEffectView {
         let button = UIButton(type: UIButtonType.system)
         button.setTitle("back", for: .normal)
         button.tintColor = .white
-        button.addTarget(self, action: #selector(dismiss), for: .touchUpInside)
+        button.addTarget(self, action: #selector(dismissButtonTapped), for: .touchUpInside)
         return button
     }()
     lazy var collection: UICollectionView = { [unowned self] _ in
@@ -48,13 +48,13 @@ class MenuView: UIVisualEffectView {
         collection.anchor(top: centerYAnchor, left: centerXAnchor, bottom: nil, right: nil, topConstant: -(CGFloat(menu.count * 40) / 2), leftConstant: -100, bottomConstant: 0, rightConstant: 0, widthConstant: 200, heightConstant: CGFloat(menu.count * 40))
         dismissButton.anchor(top: topAnchor, left: leftAnchor, bottom: nil, right: nil, topConstant: 25, leftConstant: 20, bottomConstant: 0, rightConstant: 0, widthConstant: 40, heightConstant: 40)
     }
-    func slideIn(){
+    func menuButtonTapped(){
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
             self.transform = .identity
             self.effect = UIBlurEffect(style: .dark)
         })
     }
-    func dismiss(){
+    func dismissButtonTapped(){
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
             self.effect = nil
             self.transform = CGAffineTransform(translationX: -(self.superview?.bounds.width)!, y: 0)
@@ -70,11 +70,11 @@ extension MenuView: UICollectionViewDelegate {
         mainVC?.invalidateLayoutAndData()
         if indexPath.item == 2 {
             mainVC?.fetchSavedPosts()
-            self.dismiss()
+            self.dismissButtonTapped()
             return
         }
         mainVC?.fetchPosts()
-        self.dismiss()
+        self.dismissButtonTapped()
     }
 }
 //MARK: - UICollectionViewDataSource

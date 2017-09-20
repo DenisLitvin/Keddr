@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "63E402B1679C2716A776069D7D486309"
-               BuildableName = "Pods_Keddr.framework"
-               BlueprintName = "Pods-Keddr"
+               BlueprintIdentifier = "8905DB6521F8FDC34752B69DEE3FDEB7"
+               BuildableName = "KeychainAccess.framework"
+               BlueprintName = "KeychainAccess"
                ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -47,9 +47,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "63E402B1679C2716A776069D7D486309"
-            BuildableName = "Pods_Keddr.framework"
-            BlueprintName = "Pods-Keddr"
+            BlueprintIdentifier = "8905DB6521F8FDC34752B69DEE3FDEB7"
+            BuildableName = "KeychainAccess.framework"
+            BlueprintName = "KeychainAccess"
             ReferencedContainer = "container:Pods.xcodeproj">
          </BuildableReference>
       </MacroExpansion>

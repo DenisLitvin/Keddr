@@ -41,14 +41,14 @@ class FeedHeader: UICollectionReusableView {
         return view
     }()
     var thumbnailViewTopAnchor: NSLayoutConstraint?
-    lazy var thumbnailView: CustomImageView = { [unowned self] in
-        let view = CustomImageView()
+    lazy var thumbnailView: CSImageView = { [unowned self] in
+        let view = CSImageView()
         view.contentMode = .scaleAspectFill
 //        view.backgroundColor = .red
         return view
     }()
-    let authorAvatarView: CustomImageView = {
-        let view = CustomImageView()
+    let authorAvatarView: CSImageView = {
+        let view = CSImageView()
         view.image = #imageLiteral(resourceName: "asus")
 //        view.backgroundColor = .yellow
         view.layer.cornerRadius =  18

@@ -12,8 +12,8 @@ class PostCell: BaseCell {
     
     weak var mainVC: MainVC?
     
-    let thumbnailView: CustomImageView = {
-        let view = CustomImageView()
+    let thumbnailView: CSImageView = {
+        let view = CSImageView()
         view.image = #imageLiteral(resourceName: "asus")
         view.contentMode = .scaleAspectFill
         view.layer.cornerRadius = 20
@@ -93,9 +93,9 @@ class PostCell: BaseCell {
     func saveButtonTapped(_ sender: CircleButton){
         guard let post = post else { return }
         if sender.isOn {
-            mainVC?.handleSaveTapped(with: post, save: true)
+            mainVC?.handleSaveButton(with: post, save: true)
         } else {
-            mainVC?.handleSaveTapped(with: post, save: false)
+            mainVC?.handleSaveButton(with: post, save: false)
         }
     }
     var post: Post?{
