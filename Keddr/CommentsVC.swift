@@ -42,6 +42,18 @@ class CommentsVC: UICollectionViewController {
         layout.minimumInteritemSpacing = 0
         collectionView?.register(CommentCell.self, forCellWithReuseIdentifier: "cellId")
     }
+    //MARK: - Handling Events
+    func handleVoteButton(with comment: Comment, like: Bool){
+        AuthClient.voteComment(with: comment, like: like) { (error) in
+            if let error = error {
+                print(error.userDescription)
+                
+            } else {
+                let vote = like ? "like" : "dislike"
+                print("Successfuly voted with a ", vote)
+            }
+        }
+    }
 }
 //MARK: - UICollectionViewDataSource
 extension CommentsVC {
@@ -52,6 +64,7 @@ extension CommentsVC {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellId", for: indexPath) as! CommentCell
         let comment = comments[indexPath.item]
         let size = bubbleViewSizes[indexPath.item]
+        cell.commentsVC = self
         cell.bubbleViewWidthConstraint?.constant = size.width
         cell.comment = comment
         return cell

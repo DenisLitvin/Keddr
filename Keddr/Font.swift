@@ -21,6 +21,7 @@ enum Font {
     case commentBubble
     case category
     case menu
+    case replyButton
     
     var size: CGFloat {
         switch self {
@@ -38,6 +39,8 @@ enum Font {
             return 11
         case .menu:
             return 25
+        case .replyButton:
+            return 16
         }
     }
     var name: String {

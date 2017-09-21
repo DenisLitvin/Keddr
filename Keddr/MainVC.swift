@@ -35,9 +35,10 @@ class MainVC: UICollectionViewController {
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
-        let loginVC = LoginVC()
-        self.present(loginVC, animated: false)
+        if AuthClient.checkUser() == nil {
+            let loginVC = LoginVC()
+            self.present(loginVC, animated: false)
+        }
         //            for cell in (collectionView?.visibleCells) as! [PostCell]{
         //                let index = collectionView?.indexPath(for: cell)?.item
         //                cell.animateViews(num: Double(index!))

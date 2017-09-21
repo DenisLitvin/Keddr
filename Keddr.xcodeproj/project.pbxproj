@@ -224,7 +224,7 @@
 			isa = PBXGroup;
 			children = (
 				FA19452E1F5BD65500FC9CCD /* Layouts */,
-				FAF192331F67EE9200548384 /* Helpers */,
+				FAF192331F67EE9200548384 /* GlobalHelpers */,
 				FAF192321F67EDD800548384 /* Networking */,
 				FAF192241F67EB1A00548384 /* Persistence */,
 				FAF192251F67EB4600548384 /* PostsTape */,
@@ -314,6 +314,14 @@
 			);
 			name = Resources;
 			path = Keddr;
+			sourceTree = "<group>";
+		};
+		FAB773541F73C39A00C2BDB1 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				FA284FFC1F7285B20068F02B /* Int+isSuccessHttpCode.swift */,
+			);
+			name = Extensions;
 			sourceTree = "<group>";
 		};
 		FAD0E43F1F6BA1CE000FEEA0 /* Model */ = {
@@ -450,7 +458,6 @@
 				FA1619F01F294C5A00FDEB48 /* UIView+drawShadow.swift */,
 				FAF192381F67EF6700548384 /* String+encodingCharacters.swift */,
 				FABA19101F682F9F0047BCE3 /* Date+beautyDate.swift */,
-				FA284FFC1F7285B20068F02B /* Int+isSuccessHttpCode.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -458,20 +465,21 @@
 		FAF192321F67EDD800548384 /* Networking */ = {
 			isa = PBXGroup;
 			children = (
-				FA50CB811F727A1B00B74192 /* Authentication */,
 				FA2C55F41F233E4800430C1F /* ApiService */,
+				FA50CB811F727A1B00B74192 /* Authentication */,
+				FAB773541F73C39A00C2BDB1 /* Extensions */,
 				FA50CB801F727A1000B74192 /* Model */,
 			);
 			name = Networking;
 			sourceTree = "<group>";
 		};
-		FAF192331F67EE9200548384 /* Helpers */ = {
+		FAF192331F67EE9200548384 /* GlobalHelpers */ = {
 			isa = PBXGroup;
 			children = (
 				FA0DEFB31F6F044100784F2D /* Models */,
 				FAF192311F67ECB800548384 /* Extensions */,
 			);
-			name = Helpers;
+			name = GlobalHelpers;
 			sourceTree = "<group>";
 		};
 		FAF1923A1F67EFA200548384 /* Model */ = {

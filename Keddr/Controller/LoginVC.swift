@@ -72,14 +72,14 @@ class LoginVC: UIViewController{
         view.backgroundColor = Color.keddrYellow
         view.layer.cornerRadius = 15
         view.clipsToBounds = true
-        view.addTarget(self, action: #selector(handleSignInButton), for: .touchUpInside)
+        view.addTarget(self, action: #selector(signInButtonTapped), for: .touchUpInside)
         return view
     }()
     lazy var backButton: UIButton = {
         let view = UIButton(type: .system)
         view.setTitle("Позже", for: .normal)
         view.setTitleColor(Color.keddrYellow, for: .normal)
-        view.addTarget(self, action: #selector(handleBackButton), for: .touchUpInside)
+        view.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
         return view
     }()
     override func viewDidLoad() {
@@ -108,10 +108,10 @@ class LoginVC: UIViewController{
         backButton.anchor(top: topLayoutGuide.topAnchor, left: self.view.leftAnchor, bottom: nil, right: nil, topConstant: 20, leftConstant: 20, bottomConstant: 0, rightConstant: 0, widthConstant: 60, heightConstant: 30)
     }
     fileprivate func setupNotifications() {
-        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboard), name: Notification.Name.UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboard), name: Notification.Name.UIKeyboardWillHide, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardNotifications), name: Notification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardNotifications), name: Notification.Name.UIKeyboardWillHide, object: nil)
     }
-    func handleKeyboard(_ notification: Notification){
+    func handleKeyboardNotifications(_ notification: Notification){
         guard let info = notification.userInfo else { return }
         if let rect = info[UIKeyboardFrameEndUserInfoKey] as? CGRect{
             UIView.animate(withDuration: 0.25, delay: 0, options: .curveLinear, animations: {
@@ -121,10 +121,10 @@ class LoginVC: UIViewController{
             })
         }
     }
-    func handleBackButton(){
+    func backButtonTapped(){
         dismiss(animated: true)
     }
-    func handleSignInButton(){
+    func signInButtonTapped(){
         guard let login = loginField.text,
             let password = passwordField.text else { return }
         let user = User(login: login, password: password)
@@ -134,6 +134,7 @@ class LoginVC: UIViewController{
             } else {
                 let keychain = Keychain(service: "com.keddr.credentials")
                 print("signed in with:", keychain["uid"]!, keychain["login"]!, keychain["password"]!)
+                self.dismiss(animated: true)
             }
         }
     }
