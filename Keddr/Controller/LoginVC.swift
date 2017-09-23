@@ -88,6 +88,10 @@ class LoginVC: UIViewController{
         setupNotifications()
         self.view.backgroundColor = Color.darkGray
     }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        UserDefaults.standard.setIsLoginScreenShown(value: true)
+    }
     fileprivate func setupViews() {
         self.view.addSubview(logoView)
         self.view.addSubview(titleView)

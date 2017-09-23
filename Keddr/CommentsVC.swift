@@ -29,6 +29,7 @@ class CommentsVC: UICollectionViewController {
                 let timeStamp = comment.timeStamp,
                 let nestLevel = comment.nestLevel,
                 let authorName = comment.authorName else { return }
+                comment.postId = postId
                 let widthForDots = CGFloat(nestLevel * 13)
                 let textSize = TextSize.calculate(for: [authorName, timeStamp, content], height: 9999, width: bubbleViewWidth - widthForDots - 25, positioning: .vertical, fontName: [Font.date.name, Font.title.name, Font.description.name], fontSize: [Font.date.size, Font.title.size, Font.description.size], removeIfNotFit: false).size
                 self.bubbleViewSizes.append(CGSize(width: bubbleViewWidth - widthForDots, height: textSize.height + 40))
@@ -40,6 +41,7 @@ class CommentsVC: UICollectionViewController {
         let layout = collectionView?.collectionViewLayout as! UICollectionViewFlowLayout
         layout.minimumLineSpacing = 5
         layout.minimumInteritemSpacing = 0
+        collectionView?.contentInset = UIEdgeInsets(top: 10, left: 0, bottom: 10, right: 0)
         collectionView?.register(CommentCell.self, forCellWithReuseIdentifier: "cellId")
     }
     //MARK: - Handling Events
@@ -47,10 +49,18 @@ class CommentsVC: UICollectionViewController {
         AuthClient.voteComment(with: comment, like: like) { (error) in
             if let error = error {
                 print(error.userDescription)
-                
             } else {
                 let vote = like ? "like" : "dislike"
-                print("Successfuly voted with a ", vote)
+                print("Successfuly voted with a", vote)
+            }
+        }
+    }
+    func handleReplyButton(with comment: Comment){
+        AuthClient.reply(for: comment) { (error) in
+            if let error = error {
+                print(error.userDescription)
+            } else {
+                print("Successfuly commented:", comment)
             }
         }
     }

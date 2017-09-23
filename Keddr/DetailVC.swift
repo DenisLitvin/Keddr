@@ -25,11 +25,11 @@ class DetailVC: UICollectionViewController {
     }
     func updateUI(){
         guard let post = post else { return }
-        if let savedPost = post.findSavedPost(with: context) {
-            let sortedFeed = savedPost.sortFeed()
+        if let savedPost = post.findSavedPost(with: context),
+            let sortedFeed = savedPost.savedFeedElements {
             var feed = [FeedElement]()
             for element in sortedFeed{
-                if let feedElement = FeedElement(savedFeedElement: element){
+                if let feedElement = FeedElement(savedFeedElement: element as! SavedFeedElement ){
                     feed.append(feedElement)
                 }
             }

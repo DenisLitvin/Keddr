@@ -9,6 +9,7 @@
 import UIKit
 import Kanna
 import CoreData
+import KeychainAccess
 
 class MainVC: UICollectionViewController {
     
@@ -24,18 +25,23 @@ class MainVC: UICollectionViewController {
     var itemHeights: [CGFloat] = []
     var autoFetching = true
     
+    let keychain = Keychain(service: "com.keddr.credentials")
+    
     unowned var menuView = appDelegate.menuView
     unowned var container = appDelegate.persistentContainer
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Menu", style: .plain, target: menuView, action: #selector(MenuView.menuButtonTapped))
+        UserDefaults.standard.setIsLoginScreenShown(value: false)
+//        try? keychain.removeAll()
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Menu", style: .plain, target: self, action: #selector(menuButtonTapped))
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Statistics", style: .plain, target: self, action: #selector(statisticsButtonTapped))
         collectionView?.register(PostCell.self, forCellWithReuseIdentifier: cellId)
         fetchPosts()
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        if AuthClient.checkUser() == nil {
+        if !UserDefaults.standard.isLoginScreenShown(){
             let loginVC = LoginVC()
             self.present(loginVC, animated: false)
         }
@@ -89,6 +95,17 @@ class MainVC: UICollectionViewController {
         }
     }
     //MARK: - Handling events
+    func menuButtonTapped(){
+        if self.navigationController?.view.transform == .identity {
+            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+                self.navigationController?.view.transform = CGAffineTransform(translationX: self.view.bounds.width * 0.8, y: 0)
+            })
+        } else {
+            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+                self.navigationController?.view.transform  = .identity
+            })
+        }
+    }
     func handleSaveButton(with post: Post, save: Bool){
         guard let url = post.url else { return }
         self.container.performBackgroundTask { (context) in
@@ -139,6 +156,7 @@ class MainVC: UICollectionViewController {
                 print("\(feedCount) FeedElements")
             }
         }
+        print(keychain.allItems())
         changelayout()
     }
 }

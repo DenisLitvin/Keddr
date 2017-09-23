@@ -62,6 +62,7 @@ class CommentCell: BaseCell {
         view.setTitle("Ответить", for: .normal)
         view.setTitleColor(Color.darkGray, for: .normal)
         view.titleLabel?.font = Font.replyButton.create()
+        view.addTarget(self, action: #selector(replyButtonTapped), for: .touchUpInside)
         return view
     }()
     lazy var likeButton: UIButton = {
@@ -146,6 +147,10 @@ class CommentCell: BaseCell {
         likeButton.anchor(top: likeContainerView.topAnchor, left: likeContainerView.centerXAnchor, bottom: likeContainerView.bottomAnchor, right: nil, topConstant: 0, leftConstant: -8, bottomConstant: 0, rightConstant: 0, widthConstant: 33, heightConstant: 0)
         dislikeButton.anchor(top: dislikeContainerView.topAnchor, left: dislikeContainerView.centerXAnchor, bottom: dislikeContainerView.bottomAnchor, right: nil, topConstant: 0, leftConstant: -8, bottomConstant: 0, rightConstant: 0, widthConstant: 33, heightConstant: 0)
         }
+    func replyButtonTapped(){
+        guard let comment = comment else { return }
+        commentsVC?.handleReplyButton(with: comment)
+    }
     func likeButtonTapped(){
         guard let comment = comment else { return }
         commentsVC?.handleVoteButton(with: comment, like: true)

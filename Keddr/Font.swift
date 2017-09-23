@@ -38,16 +38,14 @@ enum Font {
         case .category:
             return 11
         case .menu:
-            return 25
+            return 17
         case .replyButton:
             return 16
         }
     }
     var name: String {
         switch self {
-        case  .menu:
-            return "AvenirNext-Regular"
-        case .description, .date:
+        case .menu, .description, .date:
             return "AvenirNext-Medium"
         default:
             return "AvenirNext-Bold"

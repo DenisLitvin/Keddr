@@ -38,10 +38,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        let statusBarView = UIView()
 //        statusBarView.backgroundColor = .white
 //        window?.addSubview(statusBarView)
-        window?.addSubview(menuView)
+        window?.insertSubview(menuView, at: 0)
         menuView.fillSuperview()
-        menuView.transform = CGAffineTransform(translationX: -mainVC.view.frame.width, y: 0)
-//        statusBarView.anchor(top: window?.topAnchor, left: window?.leftAnchor, bottom: mainVC.topLayoutGuide.topAnchor, right: window?.rightAnchor, topConstant: 0, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 0)
         return true
     }
 

@@ -32,6 +32,6 @@ extension Post {
         savedPost.commentCount = self.commentCount
         savedPost.authorName = self.authorName
         savedPost.date = self.date! as NSDate
-        savedPost.savedFeedElements = NSSet(array: feed)
+        savedPost.savedFeedElements = NSOrderedSet(array: feed)
     }
 }

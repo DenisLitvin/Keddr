@@ -8,28 +8,28 @@
 
 import UIKit
 
-class MenuView: UIVisualEffectView {
-    override init(effect: UIVisualEffect?) {
-        super.init(effect: effect)
+class MenuView: CSImageView {
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         collection.register(MenuCell.self, forCellWithReuseIdentifier: "cellId")
+        image = #imageLiteral(resourceName: "asus")
+        isUserInteractionEnabled = true
+        contentMode = .scaleAspectFill
         setupViews()
     }
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    convenience init(){
-        self.init(effect: UIBlurEffect(style: .dark))
+    convenience init() {
+        self.init(frame: .zero)
     }
-    
     weak var mainVC: MainVC?
-    let menu = ["Лента", "Блоги", "Сохраненное", "О проекте"]
+    let menuItems = [MenuItem(text: "Мой Профиль", image: #imageLiteral(resourceName: "user")), MenuItem(text: "Лента", image: #imageLiteral(resourceName: "lenta")), MenuItem(text: "Блоги", image: #imageLiteral(resourceName: "blogs")), MenuItem(text: "Сохраненное", image: #imageLiteral(resourceName: "saved")), MenuItem(text: "О Проекте", image: #imageLiteral(resourceName: "about")), MenuItem(text: "Настройки", image: #imageLiteral(resourceName: "settings")), MenuItem(text: "Выход", image: #imageLiteral(resourceName: "exit"))]
     
-    lazy var dismissButton: UIButton = { [unowned self] _ in
-        let button = UIButton(type: UIButtonType.system)
-        button.setTitle("back", for: .normal)
-        button.tintColor = .white
-        button.addTarget(self, action: #selector(dismissButtonTapped), for: .touchUpInside)
-        return button
+    let backgroundView: UIVisualEffectView = {
+        let effect = UIBlurEffect(style: UIBlurEffectStyle.dark)
+        let view = UIVisualEffectView(effect: effect)
+        return view
     }()
     lazy var collection: UICollectionView = { [unowned self] _ in
         let layout = UICollectionViewFlowLayout()
@@ -37,28 +37,25 @@ class MenuView: UIVisualEffectView {
         layout.minimumInteritemSpacing = 0
         let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collection.backgroundColor = .clear
+        collection.alwaysBounceVertical = true
         collection.delegate = self
         collection.dataSource = self
         return collection
     }()
-    func setupViews(){
-        contentView.addSubview(dismissButton)
-        contentView.addSubview(collection)
+    lazy var vibrancyView: UIVisualEffectView = {
+        let effect = UIVibrancyEffect(blurEffect: self.backgroundView.effect as! UIBlurEffect)
+        let view = UIVisualEffectView(effect: effect)
+        return view
+    }()
+    func setupViews() {
+        insertSubview(backgroundView, at: 0)
+//        addSubview(collection)
+//        addSubview(vibrancyView)
+        addSubview(collection)
         
-        collection.anchor(top: centerYAnchor, left: centerXAnchor, bottom: nil, right: nil, topConstant: -(CGFloat(menu.count * 40) / 2), leftConstant: -100, bottomConstant: 0, rightConstant: 0, widthConstant: 200, heightConstant: CGFloat(menu.count * 40))
-        dismissButton.anchor(top: topAnchor, left: leftAnchor, bottom: nil, right: nil, topConstant: 25, leftConstant: 20, bottomConstant: 0, rightConstant: 0, widthConstant: 40, heightConstant: 40)
-    }
-    func menuButtonTapped(){
-        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
-            self.transform = .identity
-            self.effect = UIBlurEffect(style: .dark)
-        })
-    }
-    func dismissButtonTapped(){
-        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
-            self.effect = nil
-            self.transform = CGAffineTransform(translationX: -(self.superview?.bounds.width)!, y: 0)
-        })
+        backgroundView.fillSuperview()
+//        vibrancyView.fillSuperview()
+        collection.anchor(top: topAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, topConstant: 60, leftConstant: 10, bottomConstant: 10, rightConstant: 10, widthConstant: 0, heightConstant: 0)
     }
 }
 //MARK: - UICollectionViewDelegate
@@ -70,27 +67,30 @@ extension MenuView: UICollectionViewDelegate {
         mainVC?.invalidateLayoutAndData()
         if indexPath.item == 2 {
             mainVC?.fetchSavedPosts()
-            self.dismissButtonTapped()
-            return
         }
-        mainVC?.fetchPosts()
-        self.dismissButtonTapped()
+        if indexPath.item == 0 {
+            mainVC?.fetchPosts()
+        }
+        mainVC?.menuButtonTapped()
     }
 }
 //MARK: - UICollectionViewDataSource
 extension MenuView: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return menu.count
+        return menuItems.count
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellId", for: indexPath) as! MenuCell
-        cell.textView.text = menu[indexPath.item]
+        cell.menuItem = menuItems[indexPath.item]
+        if indexPath.item == menuItems.count - 1 {
+            cell.separatorLineView.alpha = 0
+        }
         return cell
     }
 }
 extension MenuView: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 200, height: 40)
+        return CGSize(width: self.bounds.width - 20, height: 50)
     }
 }
 

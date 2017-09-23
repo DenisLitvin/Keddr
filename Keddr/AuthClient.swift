@@ -20,7 +20,6 @@ class AuthClient {
         request.allHTTPHeaderFields =  [
             "Host": "keddr.com",
             "Connection" : "keep-alive",
-            "Content-Length": "44",
             "Accept": "*/*",
             "Origin": "https://keddr.com",
             "X-Requested-With": "XMLHttpRequest",
@@ -33,7 +32,10 @@ class AuthClient {
     }()
     
     static func signIn(with user: User, complition: @escaping(_ error: ApiError?)->() ){
-        guard let url = URL(string: "https://keddr.com/wp-login.php") else { complition(ApiErrorConstructor.genericError); return }
+        guard let url = URL(string: "https://keddr.com/wp-login.php") else {
+            complition(ApiErrorConstructor.genericError)
+            return
+        }
         var request = baseUrlRequest
         request.url = url
         let httpBodyString = "log=\(user.login)&pwd=\(user.password)&testcookie=1"
@@ -45,49 +47,81 @@ class AuthClient {
             }
             if let response = response as? HTTPURLResponse,
                 let responseCookie = response.allHeaderFields["Set-Cookie"] as? String, responseCookie.contains("wordpress_sec"){
+                keychain[UserCredentials.login.rawValue] = user.login
+                keychain[UserCredentials.password.rawValue] = user.password
                 if keychain[UserCredentials.uid.rawValue] != nil{
                     complition(nil)
                     return
                 }
-                keychain[UserCredentials.login.rawValue] = user.login
-                keychain[UserCredentials.password.rawValue] = user.password
                 Api.fetchUserId(complition: { (uid) in
-                    guard let uid = uid else { complition(ApiErrorConstructor.genericError); return}
+                    guard let uid = uid else {
+                        complition(ApiErrorConstructor.genericError)
+                        return
+                    }
                     keychain[UserCredentials.uid.rawValue] = uid
                     complition(nil)
                 })
-            } else { complition(ApiErrorConstructor.badCredentialsError) }
+            } else { try? keychain.removeAll(); complition(ApiErrorConstructor.badCredentialsError) }
             }.resume()
     }
-    static func baseInteractionRequest(with request: URLRequest, complition: @escaping(_ error: ApiError?) -> () ){
-        checkAndValidateUser() { (error) in
+    static func reply(for comment: Comment, complition: @escaping(_ error: ApiError?) -> () ){
+        checkAndValidateUser { (error) in
             if let error = error { complition(error); return }
-            URLSession.shared.dataTask(with: request) { (data, response, error) in
-                if error != nil {
+            guard let url = URL(string: "https://keddr.com/wp-comments-post.php"),
+                let uid = keychain[UserCredentials.uid.rawValue],
+                let parentId = comment.commentId,
+                let postId = comment.postId else {
                     complition(ApiErrorConstructor.genericError)
                     return
-                }
-                if let response = response as? HTTPURLResponse, response.statusCode.isSuccessHttpCode{
-                    complition(nil)
+            }
+            let httpBodyString = "user_id=\(uid)&comment_post_ID=\(postId)&comment=d&url=&comment_parent=\(parentId)&subscribe_all_comments=false&subscribe_my_comment=false&social_icon="
+            var request = baseUrlRequest
+            request.url = url
+            request.httpBody = httpBodyString.data(using: .utf8)
+            baseInteractionTask(with: request, complition: { (error) in
+                if let error = error {
+                    complition(error)
                     return
                 }
-                complition(ApiErrorConstructor.genericError)
-                }.resume()
+                complition(nil)
+            })
         }
     }
     static func voteComment(with comment: Comment, like: Bool, complition: @escaping(_ error: ApiError?) -> () ){
-        guard let url = URL(string: "https://keddr.com/wp-admin/admin-ajax.php?lang=en&action=decom_comments&f=voting"),
-            let uid = keychain[UserCredentials.uid.rawValue],
-            let commentId = comment.commentId else { complition(ApiErrorConstructor.genericError);return }
-        let vote = like ? "like" : "dislike"
-        var request = baseUrlRequest
-        request.url = url
-        let httpBodyString = "fk_comment_id=\(commentId)&fk_user_id=\(uid)&voice=\(vote)"
-        request.httpBody = httpBodyString.data(using: .utf8)
-        baseInteractionRequest(with: request) { (error) in
+        checkAndValidateUser { (error) in
             if let error = error { complition(error); return }
-            complition(nil)
+            guard let url = URL(string: "https://keddr.com/wp-admin/admin-ajax.php?lang=en&action=decom_comments&f=voting"),
+                let uid = keychain[UserCredentials.uid.rawValue],
+                let commentId = comment.commentId else {
+                    complition(ApiErrorConstructor.genericError)
+                    return
+            }
+            let vote = like ? "like" : "dislike"
+            var request = baseUrlRequest
+            request.url = url
+            let httpBodyString = "fk_comment_id=\(commentId)&fk_user_id=\(uid)&voice=\(vote)"
+            request.httpBody = httpBodyString.data(using: .utf8)
+            baseInteractionTask(with: request) { (error) in
+                if let error = error {
+                    complition(error)
+                    return
+                }
+                complition(nil)
+            }
         }
+    }
+    static func baseInteractionTask(with request: URLRequest, complition: @escaping(_ error: ApiError?) -> () ){
+        URLSession.shared.dataTask(with: request) { (data, response, error) in
+            if error != nil {
+                complition(ApiErrorConstructor.genericError)
+                return
+            }
+            if let response = response as? HTTPURLResponse, response.statusCode.isSuccessHttpCode{
+                complition(nil)
+                return
+            }
+            complition(ApiErrorConstructor.genericError)
+            }.resume()
     }
     static func checkUser() -> User? {
         guard let login = keychain[UserCredentials.login.rawValue],
