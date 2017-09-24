@@ -42,19 +42,11 @@ class MenuView: CSImageView {
         collection.dataSource = self
         return collection
     }()
-    lazy var vibrancyView: UIVisualEffectView = {
-        let effect = UIVibrancyEffect(blurEffect: self.backgroundView.effect as! UIBlurEffect)
-        let view = UIVisualEffectView(effect: effect)
-        return view
-    }()
     func setupViews() {
         insertSubview(backgroundView, at: 0)
-//        addSubview(collection)
-//        addSubview(vibrancyView)
         addSubview(collection)
         
         backgroundView.fillSuperview()
-//        vibrancyView.fillSuperview()
         collection.anchor(top: topAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, topConstant: 60, leftConstant: 10, bottomConstant: 10, rightConstant: 10, widthConstant: 0, heightConstant: 0)
     }
 }

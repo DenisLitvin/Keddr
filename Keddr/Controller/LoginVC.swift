@@ -11,11 +11,6 @@ import KeychainAccess
 
 class LoginVC: UIViewController{
     
-    let backgroudView: UIImageView = {
-        let view = UIImageView()
-//        view.image = #imageLiteral(resourceName: "gradient")
-        return view
-    }()
     let logoView: UIImageView = {
         let view = UIImageView()
         view.image = #imageLiteral(resourceName: "keddr_icon")
@@ -30,14 +25,13 @@ class LoginVC: UIViewController{
         view.textColor = Color.keddrYellow
         return view
     }()
-    var bottomContainerviewTopConstraint: NSLayoutConstraint?
     var bottomContainerviewBottomConstraint: NSLayoutConstraint?
     let bottomContainerview: UIView = {
         let view = UIView()
         view.backgroundColor = .white
         return view
     }()
-    let loginField: CSTextField = {
+    lazy var loginField: CSTextField = { [unowned self] in
         let view = CSTextField()
         view.backgroundColor = .white
         view.placeholder = "Имя пользователя"
@@ -48,9 +42,10 @@ class LoginVC: UIViewController{
         view.layer.borderColor = Color.lightGray.cgColor
         view.layer.cornerRadius = 5
         view.keyboardType = UIKeyboardType.emailAddress
+        view.delegate = self
         return view
     }()
-    let passwordField: CSTextField = {
+    lazy var passwordField: CSTextField = { [unowned self] in
         let view = CSTextField()
         view.backgroundColor = .white
         view.placeholder = "Пароль"
@@ -61,6 +56,7 @@ class LoginVC: UIViewController{
         view.layer.borderColor = Color.lightGray.cgColor
         view.layer.cornerRadius = 5
         view.isSecureTextEntry = true
+        view.delegate = self
         return view
     }()
     lazy var signInButton: UIButton = {
@@ -68,7 +64,7 @@ class LoginVC: UIViewController{
         view.setTitle("Войти", for: .normal)
         view.setTitleColor(.white, for: .normal)
         view.titleLabel?.textAlignment = .center
-        view.titleLabel?.font = Font.description.create()
+        view.titleLabel?.font = Font.signInButton.create()
         view.backgroundColor = Color.keddrYellow
         view.layer.cornerRadius = 15
         view.clipsToBounds = true
@@ -86,12 +82,19 @@ class LoginVC: UIViewController{
         super.viewDidLoad()
         setupViews()
         setupNotifications()
-        self.view.backgroundColor = Color.darkGray
+        self.view.backgroundColor = Color.keddrBlack
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         UserDefaults.standard.setIsLoginScreenShown(value: true)
     }
+    
+    override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
+        changeConstraints(for: newCollection)
+    }
+    var regularHeightConstraints: [NSLayoutConstraint] = []
+    var compactHeightConstraints: [NSLayoutConstraint] = []
+    
     fileprivate func setupViews() {
         self.view.addSubview(logoView)
         self.view.addSubview(titleView)
@@ -101,13 +104,23 @@ class LoginVC: UIViewController{
         bottomContainerview.addSubview(signInButton)
         self.view.addSubview(backButton)
         
-        logoView.anchor(top: self.view.centerYAnchor, left: self.view.centerXAnchor, bottom: nil, right: nil, topConstant: -(self.view.bounds.height * 2 / 5) + 50, leftConstant: -50, bottomConstant: 0, rightConstant: 0, widthConstant: 100, heightConstant: 100)
-        titleView.anchor(top: logoView.bottomAnchor, left: loginField.leftAnchor, bottom: nil, right: loginField.rightAnchor, topConstant: 20, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 40)
-        let bottomContainerViewConstraints = bottomContainerview.anchorWithReturnAnchors(top: self.view.topAnchor, left: self.view.leftAnchor, bottom: self.view.bottomAnchor, right: self.view.rightAnchor, topConstant: (self.view.bounds.height * 3 / 5), leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 0)
-        bottomContainerviewTopConstraint = bottomContainerViewConstraints[0]
-        bottomContainerviewBottomConstraint = bottomContainerViewConstraints[2]
-        loginField.anchor(top: bottomContainerview.centerYAnchor, left: bottomContainerview.centerXAnchor, bottom: nil, right: nil, topConstant: -75, leftConstant: -100, bottomConstant: 0, rightConstant: 0, widthConstant: 200, heightConstant: 30)
-        passwordField.anchor(top: loginField.bottomAnchor, left: bottomContainerview.centerXAnchor, bottom: nil, right: nil, topConstant: 30, leftConstant: -100, bottomConstant: 0, rightConstant: 0, widthConstant: 200, heightConstant: 30)
+        regularHeightConstraints.append(contentsOf: logoView.anchorWithReturnAnchors(top: self.view.centerYAnchor, left: self.view.centerXAnchor, bottom: nil, right: nil, topConstant: -(self.view.frame.height * 2 / 5) + 50, leftConstant: -50, bottomConstant: 0, rightConstant: 0, widthConstant: 100, heightConstant: 100))
+        
+        compactHeightConstraints.append(logoView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: -20))
+        compactHeightConstraints.append(logoView.leftAnchor.constraint(equalTo: self.view.leftAnchor))
+        compactHeightConstraints.append(logoView.rightAnchor.constraint(equalTo: self.view.centerXAnchor))
+        compactHeightConstraints.append(logoView.heightAnchor.constraint(equalToConstant: 100))
+        
+        regularHeightConstraints.append(contentsOf: titleView.anchorWithReturnAnchors(top: logoView.bottomAnchor, left: loginField.leftAnchor, bottom: nil, right: loginField.rightAnchor, topConstant: 20, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 40))
+        
+        compactHeightConstraints.append(titleView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 40))
+        compactHeightConstraints.append(titleView.leftAnchor.constraint(equalTo: self.view.centerXAnchor))
+        compactHeightConstraints.append(titleView.rightAnchor.constraint(equalTo: self.view.rightAnchor))
+        
+        let bottomContainerViewConstraints = bottomContainerview.anchorWithReturnAnchors(top: nil, left: self.view.leftAnchor, bottom: self.view.bottomAnchor, right: self.view.rightAnchor, topConstant: 0, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 200)
+        bottomContainerviewBottomConstraint = bottomContainerViewConstraints[1]
+        loginField.anchor(top: bottomContainerview.centerYAnchor, left: bottomContainerview.centerXAnchor, bottom: nil, right: nil, topConstant: -75, leftConstant: -115, bottomConstant: 0, rightConstant: 0, widthConstant: 230, heightConstant: 30)
+        passwordField.anchor(top: loginField.bottomAnchor, left: bottomContainerview.centerXAnchor, bottom: nil, right: nil, topConstant: 30, leftConstant: -115, bottomConstant: 0, rightConstant: 0, widthConstant: 230, heightConstant: 30)
         signInButton.anchor(top: passwordField.bottomAnchor, left: bottomContainerview.centerXAnchor, bottom: nil, right: nil, topConstant: 30, leftConstant: -50, bottomConstant: 0, rightConstant: 0, widthConstant: 100, heightConstant: 30)
         backButton.anchor(top: topLayoutGuide.topAnchor, left: self.view.leftAnchor, bottom: nil, right: nil, topConstant: 20, leftConstant: 20, bottomConstant: 0, rightConstant: 0, widthConstant: 60, heightConstant: 30)
     }
@@ -118,12 +131,35 @@ class LoginVC: UIViewController{
     func handleKeyboardNotifications(_ notification: Notification){
         guard let info = notification.userInfo else { return }
         if let rect = info[UIKeyboardFrameEndUserInfoKey] as? CGRect{
-            UIView.animate(withDuration: 0.25, delay: 0, options: .curveLinear, animations: {
-                self.bottomContainerviewTopConstraint?.constant = (self.view.bounds.height * 3 / 5) - rect.height
-                self.bottomContainerviewBottomConstraint?.constant = -rect.height
-                self.view.layoutIfNeeded()
-            })
+            changeConstraintsForHandlingKeyboard(with: rect)
+            animateBottomContainer(with: self.view.bounds.height - rect.origin.y)
         }
+    }
+    func changeConstraintsForHandlingKeyboard(with rect: CGRect){
+        if traitCollection.verticalSizeClass == .compact || traitCollection.horizontalSizeClass == .compact {
+            if rect.origin.y
+                == self.view.bounds.height {
+                changeConstraints(for: traitCollection)
+            } else {
+                NSLayoutConstraint.deactivate(regularHeightConstraints)
+                NSLayoutConstraint.activate(compactHeightConstraints)
+            }
+        }
+    }
+    private func changeConstraints(for collection: UITraitCollection){
+        if collection.verticalSizeClass == .compact{
+            NSLayoutConstraint.deactivate(regularHeightConstraints)
+            NSLayoutConstraint.activate(compactHeightConstraints)
+        } else {
+            NSLayoutConstraint.activate(regularHeightConstraints)
+            NSLayoutConstraint.deactivate(compactHeightConstraints)
+        }
+    }
+    func animateBottomContainer(with constant: CGFloat){
+        UIView.animate(withDuration: 0.25, delay: 0, options: .curveEaseOut, animations: {
+            self.bottomContainerviewBottomConstraint?.constant = -constant
+            self.view.layoutIfNeeded()
+        })
     }
     func backButtonTapped(){
         dismiss(animated: true)
@@ -141,6 +177,12 @@ class LoginVC: UIViewController{
                 self.dismiss(animated: true)
             }
         }
+    }
+}
+extension LoginVC: UITextFieldDelegate{
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
 }
 

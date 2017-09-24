@@ -22,6 +22,7 @@ class Comment {
     var parentId: String?
     var commentVotes: String?
     var postId: String?
+    var isLiked: Bool?
     
     init?(xml: XMLElement) {
         guard let commentId = xml["id"]?.replacingOccurrences(of: "comment-", with: ""),

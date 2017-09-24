@@ -9,6 +9,12 @@
 import UIKit
 
 class CSTextField: UITextField {
+    override func draw(_ rect: CGRect) {
+        super.draw(rect)
+        var path = UIBezierPath()
+        path.move(to: CGPoint(x: 0, y: 30))
+        path.addLine(to: CGPoint())
+    }
     override func placeholderRect(forBounds bounds: CGRect) -> CGRect {
         return CGRect(x: 5, y: 0, width: bounds.width - 5, height: bounds.height)
     }

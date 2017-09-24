@@ -16,8 +16,7 @@ class CommentsVC: UICollectionViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        collectionView?.backgroundColor = .white
-        setupViews()
+        setupAppearence()
     }
     func fetchComments(){
         guard let post = post else { return }
@@ -37,7 +36,9 @@ class CommentsVC: UICollectionViewController {
             self.comments = comments
         }
     }
-    func setupViews(){
+    func setupAppearence(){
+        collectionView?.backgroundColor = .white
+        collectionView?.alwaysBounceVertical = true
         let layout = collectionView?.collectionViewLayout as! UICollectionViewFlowLayout
         layout.minimumLineSpacing = 5
         layout.minimumInteritemSpacing = 0
@@ -50,6 +51,7 @@ class CommentsVC: UICollectionViewController {
             if let error = error {
                 print(error.userDescription)
             } else {
+//                comment.isLiked = like
                 let vote = like ? "like" : "dislike"
                 print("Successfuly voted with a", vote)
             }

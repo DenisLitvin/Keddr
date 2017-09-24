@@ -8,15 +8,8 @@
 
 import UIKit
 
-class CircleButton: UIButton {
+class CircleButton: CSButton {
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        setupAppearance()
-    }
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
     override func draw(_ rect: CGRect) {
         super.draw(rect)
         let midPoint = CGPoint(x: self.bounds.midX, y: self.bounds.midY)
@@ -28,28 +21,20 @@ class CircleButton: UIButton {
         circle.lineWidth = 7
         circle.stroke()
         innerCircle.fill()
-    }
-    var isOn = false { didSet { setupAppearance(); setNeedsDisplay() } }
-    
-    func setupAppearance(){
+    }    
+    override func setupAppearance(){
         drawShadow()
-//        backgroundColor = isOn ? UIColor(red: 247/255, green: 206/255, blue: 10/255, alpha: 0.9) : .clear
-//        layer.borderWidth = 8
-//        layer.cornerRadius = 17
-//        layer.masksToBounds = true
-//        layer.borderColor = UIColor.white.cgColor
-    }
-    
-    override func beginTracking(_ touch: UITouch, with event: UIEvent?) -> Bool {
-        UIView.animate(withDuration: 0.2) {
-            self.alpha = 0.3
-        }
-        return true
-    }
-    override func endTracking(_ touch: UITouch?, with event: UIEvent?) {
-        isOn = !isOn
-        UIView.animate(withDuration: 0.2) {
-            self.alpha = 1
-        }
+        //        backgroundColor = isOn ? UIColor(red: 247/255, green: 206/255, blue: 10/255, alpha: 0.9) : .clear
+        //        layer.borderWidth = 8
+        //        layer.cornerRadius = 17
+        //        layer.masksToBounds = true
+        //        layer.borderColor = UIColor.white.cgColor
     }
 }
+
+
+
+
+
+
+

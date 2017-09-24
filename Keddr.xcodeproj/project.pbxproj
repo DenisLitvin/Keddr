@@ -33,6 +33,7 @@
 		FA2C55F61F233E8E00430C1F /* FetchPosts.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2C55F51F233E8E00430C1F /* FetchPosts.swift */; };
 		FA2C55F81F23668D00430C1F /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2C55F71F23668D00430C1F /* Post.swift */; };
 		FA34D8311F6C0D38000364F3 /* CategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA34D8301F6C0D38000364F3 /* CategoryCell.swift */; };
+		FA4D028B1F767B280090CAC6 /* CSButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4D028A1F767B280090CAC6 /* CSButton.swift */; };
 		FA50CB831F727A8100B74192 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA50CB821F727A8100B74192 /* User.swift */; };
 		FA582C801F6B9F6000466C3E /* CommentsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA582C7F1F6B9F6000466C3E /* CommentsVC.swift */; };
 		FA5A71F31F697F620076E444 /* PageStatistics.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA5A71F21F697F620076E444 /* PageStatistics.swift */; };
@@ -109,6 +110,7 @@
 		FA2C55F51F233E8E00430C1F /* FetchPosts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FetchPosts.swift; sourceTree = "<group>"; };
 		FA2C55F71F23668D00430C1F /* Post.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		FA34D8301F6C0D38000364F3 /* CategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCell.swift; sourceTree = "<group>"; };
+		FA4D028A1F767B280090CAC6 /* CSButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSButton.swift; sourceTree = "<group>"; };
 		FA50CB821F727A8100B74192 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		FA582C7F1F6B9F6000466C3E /* CommentsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsVC.swift; sourceTree = "<group>"; };
 		FA5A71F21F697F620076E444 /* PageStatistics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageStatistics.swift; sourceTree = "<group>"; };
@@ -338,6 +340,7 @@
 			children = (
 				FA10C1051F330E69008582E4 /* CSImageView.swift */,
 				FAF9D92E1F56A71C0059050C /* BaseCell.swift */,
+				FA4D028A1F767B280090CAC6 /* CSButton.swift */,
 			);
 			name = "Views&LayoutElements";
 			sourceTree = "<group>";
@@ -717,6 +720,7 @@
 				FA2C55F61F233E8E00430C1F /* FetchPosts.swift in Sources */,
 				FAF9D92F1F56A71C0059050C /* BaseCell.swift in Sources */,
 				FAD5BBD81F72BF83007944E5 /* DotsView.swift in Sources */,
+				FA4D028B1F767B280090CAC6 /* CSButton.swift in Sources */,
 				FAEC1AA11F6FA8F8005E45B1 /* LoginVC.swift in Sources */,
 				FA29A04A1F57E447001779D3 /* ImageCell.swift in Sources */,
 				FAF9D92B1F569B640059050C /* ParagraphCell.swift in Sources */,

@@ -31,7 +31,7 @@ class MainVC: UICollectionViewController {
     unowned var container = appDelegate.persistentContainer
     
     override func viewDidLoad() {
-        super.viewDidLoad()
+        super.viewDidLoad()        
         UserDefaults.standard.setIsLoginScreenShown(value: false)
 //        try? keychain.removeAll()
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Menu", style: .plain, target: self, action: #selector(menuButtonTapped))

@@ -7,7 +7,18 @@
 //
 
 import UIKit
-
+class LikeButton: CSButton {
+    override func setupAppearance() {
+        super.setupAppearance()
+        tintColor = isOn ? .green : Color.lightGray
+    }
+}
+class DislikeButton: CSButton {
+    override func setupAppearance() {
+        super.setupAppearance()
+        tintColor = isOn ? .red : Color.lightGray
+    }
+}
 class CommentCell: BaseCell {
     
     weak var commentsVC: CommentsVC?
@@ -21,7 +32,7 @@ class CommentCell: BaseCell {
     var bubbleViewWidthConstraint: NSLayoutConstraint?
     let bubbleView: UIView = {
         let view = UIView()
-        view.backgroundColor = Color.lightYellow
+        view.backgroundColor = Color.ultraLightGray
         view.clipsToBounds = true
         view.layer.cornerRadius = 20
         return view
@@ -30,7 +41,7 @@ class CommentCell: BaseCell {
         let view = UITextView()
         view.isScrollEnabled = false
         view.isEditable = false
-        view.backgroundColor = Color.lightYellow
+        view.backgroundColor = Color.ultraLightGray
         return view
     }()
     let dotArrayView: DotsView = {
@@ -65,17 +76,15 @@ class CommentCell: BaseCell {
         view.addTarget(self, action: #selector(replyButtonTapped), for: .touchUpInside)
         return view
     }()
-    lazy var likeButton: UIButton = {
-        let view = UIButton(type: .system)
-        view.tintColor = Color.darkGray
+    lazy var likeButton: LikeButton = {
+        let view = LikeButton()
         view.setImage(#imageLiteral(resourceName: "thumbUp"), for: .normal)
         view.imageView?.contentMode = .scaleAspectFit
         view.addTarget(self, action: #selector(likeButtonTapped), for: .touchUpInside)
         return view
     }()
-    lazy var dislikeButton: UIButton = {
-        let view = UIButton(type: .system)
-        view.tintColor = Color.darkGray
+    lazy var dislikeButton: DislikeButton = {
+        let view = DislikeButton()
         view.setImage(#imageLiteral(resourceName: "thumbDown"), for: .normal)
         view.imageEdgeInsets = UIEdgeInsets(top: 5, left: 0, bottom: -5, right: 0)
         view.imageView?.contentMode = .scaleAspectFit
@@ -83,12 +92,6 @@ class CommentCell: BaseCell {
         return view
     }()
     let stackView: UIStackView = {
-//        let testView3 = UIView()
-//        testView3.backgroundColor = .green
-//        let testView4 = UIView()
-//        testView4.backgroundColor = .black
-        
-//        let view = UIStackView(arrangedSubviews: [testView1, testView4, testView3, testView2])
         let view = UIStackView()
         view.distribution = UIStackViewDistribution.fillEqually
         view.axis = .horizontal
@@ -104,6 +107,14 @@ class CommentCell: BaseCell {
         avatarView.loadImageUsingUrlString(authorAvatarUrlString)
         updateText(date: date, authorName: authorName, description: description)
         votesLabel.text = votes
+        //like button appearence
+        if let isLiked = comment?.isLiked {
+            if isLiked{
+                likeButton.isOn = true
+            } else {
+                dislikeButton.isOn = true
+            }
+        }
         //draw circles
         dotArrayView.numberOfDots = nestlevel
     }
@@ -153,9 +164,15 @@ class CommentCell: BaseCell {
     }
     func likeButtonTapped(){
         guard let comment = comment else { return }
+        if dislikeButton.isOn {
+            dislikeButton.isOn = false
+        }
         commentsVC?.handleVoteButton(with: comment, like: true)
     }
     func dislikeButtonTapped(){
+        if likeButton.isOn {
+            likeButton.isOn = false
+        }
         guard let comment = comment else { return }
         commentsVC?.handleVoteButton(with: comment, like: false)
     }

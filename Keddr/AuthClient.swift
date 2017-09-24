@@ -118,6 +118,9 @@ class AuthClient {
             }
             if let response = response as? HTTPURLResponse, response.statusCode.isSuccessHttpCode{
                 complition(nil)
+                print(data)
+                print()
+                print(response)
                 return
             }
             complition(ApiErrorConstructor.genericError)

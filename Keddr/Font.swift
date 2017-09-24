@@ -22,6 +22,7 @@ enum Font {
     case category
     case menu
     case replyButton
+    case signInButton
     
     var size: CGFloat {
         switch self {
@@ -41,12 +42,16 @@ enum Font {
             return 17
         case .replyButton:
             return 16
+        case .signInButton:
+            return 16
         }
     }
     var name: String {
         switch self {
+        case .signInButton:
+            return "Avenir-Medium"
         case .menu, .description, .date:
-            return "AvenirNext-Medium"
+            return "AvenirNext-Regular"
         default:
             return "AvenirNext-Bold"
         }
