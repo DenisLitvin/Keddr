@@ -16,7 +16,7 @@ class CommentsVC: UICollectionViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupAppearence()
+        setupCollectionView()
     }
     func fetchComments(){
         guard let post = post else { return }
@@ -30,13 +30,13 @@ class CommentsVC: UICollectionViewController {
                 let authorName = comment.authorName else { return }
                 comment.postId = postId
                 let widthForDots = CGFloat(nestLevel * 13)
-                let textSize = TextSize.calculate(for: [authorName, timeStamp, content], height: 9999, width: bubbleViewWidth - widthForDots - 25, positioning: .vertical, fontName: [Font.date.name, Font.title.name, Font.description.name], fontSize: [Font.date.size, Font.title.size, Font.description.size], removeIfNotFit: false).size
+                let textSize = TextSize.calculate(for: [timeStamp, authorName, content], height: 9999, width: bubbleViewWidth - widthForDots - 25, positioning: .vertical, fontName: [Font.date.name, Font.title.name, Font.description.name], fontSize: [Font.date.size, Font.title.size, Font.description.size], removeIfNotFit: false).size
                 self.bubbleViewSizes.append(CGSize(width: bubbleViewWidth - widthForDots, height: textSize.height + 40))
             }
             self.comments = comments
         }
     }
-    func setupAppearence(){
+    func setupCollectionView(){
         collectionView?.backgroundColor = .white
         collectionView?.alwaysBounceVertical = true
         let layout = collectionView?.collectionViewLayout as! UICollectionViewFlowLayout
@@ -81,6 +81,7 @@ extension CommentsVC {
         cell.comment = comment
         return cell
     }
+    
 }
 //Mark: - UICollectionViewDelegateFlowLayout
 extension CommentsVC: UICollectionViewDelegateFlowLayout {

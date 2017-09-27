@@ -40,6 +40,8 @@
 		FA5E0FBD1F56A9B000581288 /* VideoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA5E0FBC1F56A9B000581288 /* VideoCell.swift */; };
 		FA5EC5831F27522900E160F7 /* FeedElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA5EC5821F27522900E160F7 /* FeedElement.swift */; };
 		FA7793E01F7535B30067F3CE /* MenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7793DF1F7535B30067F3CE /* MenuItem.swift */; };
+		FA8938091F7BB15400176318 /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8938081F7BB15400176318 /* ProfileVC.swift */; };
+		FA89380C1F7BB2BE00176318 /* ProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA89380B1F7BB2BE00176318 /* ProfileCell.swift */; };
 		FA9958001F67B35A002B8800 /* MenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9957FF1F67B35A002B8800 /* MenuCell.swift */; };
 		FAAB50991F67F39800C3ECDE /* SavedImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAAB50981F67F39800C3ECDE /* SavedImage.swift */; };
 		FAB279B71F2887A300FB904E /* Gilroy-ExtraBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = FAB279B61F2887A300FB904E /* Gilroy-ExtraBold.otf */; };
@@ -117,6 +119,8 @@
 		FA5E0FBC1F56A9B000581288 /* VideoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCell.swift; sourceTree = "<group>"; };
 		FA5EC5821F27522900E160F7 /* FeedElement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedElement.swift; sourceTree = "<group>"; };
 		FA7793DF1F7535B30067F3CE /* MenuItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuItem.swift; sourceTree = "<group>"; };
+		FA8938081F7BB15400176318 /* ProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileVC.swift; sourceTree = "<group>"; };
+		FA89380B1F7BB2BE00176318 /* ProfileCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCell.swift; sourceTree = "<group>"; };
 		FA9957FF1F67B35A002B8800 /* MenuCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuCell.swift; sourceTree = "<group>"; };
 		FAAB50981F67F39800C3ECDE /* SavedImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedImage.swift; sourceTree = "<group>"; };
 		FAB279B61F2887A300FB904E /* Gilroy-ExtraBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gilroy-ExtraBold.otf"; sourceTree = "<group>"; };
@@ -236,6 +240,7 @@
 				FAF192261F67EB5D00548384 /* PostDetails */,
 				FA582C7E1F6B9F2900466C3E /* CommentsScreen */,
 				FAEC1A9C1F6FA8C4005E45B1 /* LoginScreen */,
+				FA8938051F7BB12800176318 /* ProfileScreen */,
 				FA2C55EE1F23390A00430C1F /* Supporting */,
 			);
 			path = Keddr;
@@ -343,6 +348,39 @@
 				FA4D028A1F767B280090CAC6 /* CSButton.swift */,
 			);
 			name = "Views&LayoutElements";
+			sourceTree = "<group>";
+		};
+		FA8938051F7BB12800176318 /* ProfileScreen */ = {
+			isa = PBXGroup;
+			children = (
+				FA8938071F7BB13E00176318 /* Controller */,
+				FA8938061F7BB13600176318 /* Model */,
+				FA89380A1F7BB2A000176318 /* View */,
+			);
+			path = ProfileScreen;
+			sourceTree = "<group>";
+		};
+		FA8938061F7BB13600176318 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		FA8938071F7BB13E00176318 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				FA8938081F7BB15400176318 /* ProfileVC.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		FA89380A1F7BB2A000176318 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				FA89380B1F7BB2BE00176318 /* ProfileCell.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		FAB279BE1F288A0F00FB904E /* Resources */ = {
@@ -719,6 +757,7 @@
 				FA5A71F31F697F620076E444 /* PageStatistics.swift in Sources */,
 				FA2C55F61F233E8E00430C1F /* FetchPosts.swift in Sources */,
 				FAF9D92F1F56A71C0059050C /* BaseCell.swift in Sources */,
+				FA89380C1F7BB2BE00176318 /* ProfileCell.swift in Sources */,
 				FAD5BBD81F72BF83007944E5 /* DotsView.swift in Sources */,
 				FA4D028B1F767B280090CAC6 /* CSButton.swift in Sources */,
 				FAEC1AA11F6FA8F8005E45B1 /* LoginVC.swift in Sources */,
@@ -748,6 +787,7 @@
 				FA1945321F5BDD8700FC9CCD /* CircleButton.swift in Sources */,
 				FA049A501F5AA1220078841E /* StreatchyHeader.swift in Sources */,
 				FA284FFD1F7285B20068F02B /* Int+isSuccessHttpCode.swift in Sources */,
+				FA8938091F7BB15400176318 /* ProfileVC.swift in Sources */,
 				FA2C55F81F23668D00430C1F /* Post.swift in Sources */,
 				FAD0E43E1F6BA168000FEEA0 /* FetchComments.swift in Sources */,
 				FAB552671F59442400618892 /* FeedHeader.swift in Sources */,

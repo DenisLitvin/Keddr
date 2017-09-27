@@ -118,15 +118,12 @@ class AuthClient {
             }
             if let response = response as? HTTPURLResponse, response.statusCode.isSuccessHttpCode{
                 complition(nil)
-                print(data)
-                print()
-                print(response)
                 return
             }
             complition(ApiErrorConstructor.genericError)
             }.resume()
     }
-    static func checkUser() -> User? {
+    static private func checkUser() -> User? {
         guard let login = keychain[UserCredentials.login.rawValue],
             let password = keychain[UserCredentials.password.rawValue] else { return nil }
         return User(login: login, password: password)

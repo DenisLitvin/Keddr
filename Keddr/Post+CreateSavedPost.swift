@@ -10,7 +10,7 @@ import CoreData
 
 extension Post {
     func createSavedPost(with context: NSManagedObjectContext, feedElements: [FeedElement]) {
-        guard let postUrl = self.url, let thumbnailImageUrl = self.thumbnailImageUrl else { return }
+        guard let postUrl = self.url, let thumbnailImageUrl = self.thumbnailImageUrlString else { return }
         var feed = [SavedFeedElement]()
         for (position, feedElement) in feedElements.enumerated() {
             let element = feedElement.findOrCreateSavedFeedElement(with: context, position: position)
@@ -27,7 +27,7 @@ extension Post {
         savedPost.title = self.title
         savedPost.postDescription = self.description
         savedPost.category = self.categories?.first
-        savedPost.thumbnailImageUrl = self.thumbnailImageUrl
+        savedPost.thumbnailImageUrl = self.thumbnailImageUrlString
         SavedImage.saveImage(with: thumbnailImageUrl, postUrl: postUrl)
         savedPost.commentCount = self.commentCount
         savedPost.authorName = self.authorName

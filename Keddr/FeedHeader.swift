@@ -24,7 +24,7 @@ class FeedHeader: UICollectionReusableView {
         }
     }
     func setupContent(with: Post){
-        guard let thumbnailUrl = with.thumbnailImageUrl,
+        guard let thumbnailUrl = with.thumbnailImageUrlString,
         let date = with.date,
         let url = with.url,
         let categories = with.categories else { return }

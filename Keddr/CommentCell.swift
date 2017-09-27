@@ -45,7 +45,7 @@ class CommentCell: BaseCell {
         return view
     }()
     let dotArrayView: DotsView = {
-        let view = DotsView(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
+        let view = DotsView()
         return view
     }()
     let avatarView: CSImageView = {
@@ -170,10 +170,10 @@ class CommentCell: BaseCell {
         commentsVC?.handleVoteButton(with: comment, like: true)
     }
     func dislikeButtonTapped(){
+        guard let comment = comment else { return }
         if likeButton.isOn {
             likeButton.isOn = false
         }
-        guard let comment = comment else { return }
         commentsVC?.handleVoteButton(with: comment, like: false)
     }
 }

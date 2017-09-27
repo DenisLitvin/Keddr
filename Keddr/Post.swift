@@ -14,7 +14,7 @@ class Post {
     var url: URL?
     
     var title: String?
-    var thumbnailImageUrl: String?
+    var thumbnailImageUrlString: String?
     var date: Date?
     var authorName: String = ""
     var commentCount: String?
@@ -32,7 +32,7 @@ class Post {
             let category = savedPost.category else { return }
         self.url = URL(string: url)
         self.title = title
-        self.thumbnailImageUrl = thumbnailUrl
+        self.thumbnailImageUrlString = thumbnailUrl
         self.date = date as Date
         self.authorName = author
         self.categories = [category]
@@ -61,9 +61,9 @@ class Post {
         }
         if let thumbnailNode = xml.at_css("div > div.thumbnailarea > a > img"){
             if let url = thumbnailNode["data-original"]{
-                self.thumbnailImageUrl = url.encodedCharacters()
+                self.thumbnailImageUrlString = url.encodedCharacters()
             }else if let url = thumbnailNode["src"]{
-                self.thumbnailImageUrl = url.encodedCharacters()
+                self.thumbnailImageUrlString = url.encodedCharacters()
             }
         }
         if let titleNode = xml.at_css("div > h2 > a"), let title = titleNode.text{

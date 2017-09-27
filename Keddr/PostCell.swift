@@ -104,7 +104,7 @@ class PostCell: BaseCell {
         }
     }
     func setupContent(with post: Post){
-        if let thumbnailUrl = post.thumbnailImageUrl,
+        if let thumbnailUrl = post.thumbnailImageUrlString,
             let date = post.date,
             let title = post.title,
             let description = post.description,
