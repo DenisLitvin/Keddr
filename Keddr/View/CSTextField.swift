@@ -11,7 +11,7 @@ import UIKit
 class CSTextField: UITextField {
     override func draw(_ rect: CGRect) {
         super.draw(rect)
-        var path = UIBezierPath()
+        let path = UIBezierPath()
         path.move(to: CGPoint(x: 0, y: 30))
         path.addLine(to: CGPoint())
     }

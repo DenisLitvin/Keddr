@@ -23,7 +23,12 @@ class MenuView: CSImageView {
     convenience init() {
         self.init(frame: .zero)
     }
-    weak var mainVC: MainVC?
+    
+    var navcon: UINavigationController?
+    var mainVC: MainVC?
+    var profileVC: ProfileVC?
+    var currentVC: SlideOutViewController?
+    
     let menuItems = [MenuItem(text: "Мой Профиль", image: #imageLiteral(resourceName: "user")), MenuItem(text: "Лента", image: #imageLiteral(resourceName: "lenta")), MenuItem(text: "Блоги", image: #imageLiteral(resourceName: "blogs")), MenuItem(text: "Сохраненное", image: #imageLiteral(resourceName: "saved")), MenuItem(text: "О Проекте", image: #imageLiteral(resourceName: "about")), MenuItem(text: "Настройки", image: #imageLiteral(resourceName: "settings")), MenuItem(text: "Выход", image: #imageLiteral(resourceName: "exit"))]
     
     let backgroundView: UIVisualEffectView = {
@@ -56,14 +61,57 @@ extension MenuView: UICollectionViewDelegate {
         if let posts = mainVC?.posts, posts.count > 0 {
             mainVC?.collectionView?.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: false)
         }
-        mainVC?.invalidateLayoutAndData()
-        if indexPath.item == 2 {
-            mainVC?.fetchSavedPosts()
-        }
-        if indexPath.item == 0 {
+        
+        switch indexPath.item {
+        case 0:
+            //profile
+            if profileVC == nil{
+                profileVC = ProfileVC(collectionViewLayout: StretchyHeaderLayout())
+            }
+            profileVC?.profileUrlString = "https://keddr.com/profile/"
+            currentVC = profileVC
+            navcon?.setViewControllers([profileVC!], animated: false)
+        case 1:
+            //posts
+            if mainVC == nil{
+                mainVC = MainVC(collectionViewLayout: OverlapLayout())
+            }
+            mainVC?.invalidateLayoutAndData()
             mainVC?.fetchPosts()
+            currentVC = mainVC
+            navcon?.setViewControllers([mainVC!], animated: false)
+        case 2:
+            //blogs
+            if mainVC == nil{
+                mainVC = MainVC(collectionViewLayout: OverlapLayout())
+            }
+            mainVC?.invalidateLayoutAndData()
+            mainVC?.fetchBlogPosts()
+            currentVC = mainVC
+            navcon?.setViewControllers([mainVC!], animated: false)
+        case 3:
+            //saved posts
+            mainVC?.invalidateLayoutAndData()
+            if mainVC == nil{
+                mainVC = MainVC(collectionViewLayout: OverlapLayout())
+            }
+            mainVC?.fetchSavedPosts()
+            currentVC = mainVC
+            navcon?.setViewControllers([mainVC!], animated: false)
+        case 4:
+            //about page
+            ()
+        case 5:
+            //settings
+            ()
+        case 6:
+            AuthClient.logOut()
+            let loginVC = LoginVC()
+            currentVC?.present(loginVC, animated: true)
+        default:
+            break
         }
-        mainVC?.menuButtonTapped()
+        currentVC?.menuButtonTapped()
     }
 }
 //MARK: - UICollectionViewDataSource

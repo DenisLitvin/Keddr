@@ -40,7 +40,7 @@ class FeedHeader: UICollectionReusableView {
         view.layer.cornerRadius = 20
         return view
     }()
-    var thumbnailViewTopAnchor: NSLayoutConstraint?
+    var thumbnailViewHeightAnchor: NSLayoutConstraint?
     lazy var thumbnailView: CSImageView = { [unowned self] in
         let view = CSImageView()
         view.contentMode = .scaleAspectFill
@@ -84,7 +84,7 @@ class FeedHeader: UICollectionReusableView {
         containerView.addSubview(dateLabel)
         containerView.addSubview(categorySlider)
 
-        thumbnailViewTopAnchor = thumbnailView.anchorWithReturnAnchors(top: topAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, topConstant: 0, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: self.bounds.width * 9 / 16)[3]
+        thumbnailViewHeightAnchor = thumbnailView.anchorWithReturnAnchors(top: topAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, topConstant: 0, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: self.bounds.width * 9 / 16)[3]
         containerView.anchor(top: thumbnailView.bottomAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, topConstant: -32, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 60)
         authorAvatarView.anchor(top: containerView.topAnchor, left: leftAnchor, bottom: nil, right: nil, topConstant: 10, leftConstant: 10, bottomConstant: 0, rightConstant: 0, widthConstant: 40, heightConstant: 40)
          authorNameLabel.anchor(top: authorAvatarView.topAnchor, left: authorAvatarView.rightAnchor, bottom: nil, right: dateLabel.rightAnchor, topConstant: 0, leftConstant: 10, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 17)
@@ -98,7 +98,7 @@ class FeedHeader: UICollectionReusableView {
 
         let delta = attributes.deltaY
         if previousDelta != delta {
-            thumbnailViewTopAnchor?.constant =  (self.bounds.width * 9 / 16) + delta
+            thumbnailViewHeightAnchor?.constant =  (self.bounds.width * 9 / 16) + delta
             previousDelta = delta
         }
     }

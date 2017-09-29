@@ -20,16 +20,19 @@ class Post {
     var commentCount: String?
     var description: String?
     var categories: [String]?
+    var postAuthorUrlString: String?
     
+    init() {}
     init?(savedPost: SavedPost) {
-        guard let url = savedPost.url,
-            let thumbnailUrl = savedPost.thumbnailImageUrl,
+        guard let url = savedPost.urlString,
+            let thumbnailUrl = savedPost.thumbnailImageUrlString,
             let title = savedPost.title,
             let date = savedPost.date,
             let author = savedPost.authorName,
             let commentCount = savedPost.commentCount,
             let description = savedPost.postDescription,
-            let category = savedPost.category else { return }
+            let category = savedPost.category,
+            let postAuthorUrlString = savedPost.postAuthorUrlString else { return nil }
         self.url = URL(string: url)
         self.title = title
         self.thumbnailImageUrlString = thumbnailUrl
@@ -38,6 +41,7 @@ class Post {
         self.categories = [category]
         self.description = description
         self.commentCount = commentCount
+        self.postAuthorUrlString = postAuthorUrlString
     }
     init?(xml: XMLElement){
         if let urlNode = xml.at_css("div > h2 > a"), let urlString = urlNode["href"], let url = URL(string: urlString.encodedCharacters()) {
@@ -71,6 +75,7 @@ class Post {
         }
         if let authorNode = xml.at_css("div > span > noindex > a"), let authorName = authorNode.text {
             self.authorName = authorName
+            self.postAuthorUrlString = authorNode["href"]
         }
         self.commentCount = "0"
         if let commentsNode = xml.at_css("div > span > a"), let comments = commentsNode.text{

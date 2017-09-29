@@ -61,7 +61,10 @@ class AuthClient {
                     keychain[UserCredentials.uid.rawValue] = uid
                     complition(nil)
                 })
-            } else { try? keychain.removeAll(); complition(ApiErrorConstructor.badCredentialsError) }
+            } else {
+                try? keychain.removeAll()
+                complition(ApiErrorConstructor.badCredentialsError)
+            }
             }.resume()
     }
     static func reply(for comment: Comment, complition: @escaping(_ error: ApiError?) -> () ){
@@ -138,6 +141,12 @@ class AuthClient {
                 complition(nil)
             })
         } else { complition(ApiErrorConstructor.authorizeError) }
+    }
+    static func logOut(){
+        do{
+            try keychain.removeAll()
+            UserDefaults.standard.setIsLoginScreenShown(value: false)
+        } catch { print("Failed logging out") }
     }
 }
 

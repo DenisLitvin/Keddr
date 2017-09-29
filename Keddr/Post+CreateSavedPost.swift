@@ -23,15 +23,16 @@ extension Post {
             feed.append(element)
         }
         let savedPost = SavedPost(context: context)
-        savedPost.url = postUrl.absoluteString
+        savedPost.urlString = postUrl.absoluteString
         savedPost.title = self.title
         savedPost.postDescription = self.description
         savedPost.category = self.categories?.first
-        savedPost.thumbnailImageUrl = self.thumbnailImageUrlString
+        savedPost.thumbnailImageUrlString = self.thumbnailImageUrlString
         SavedImage.saveImage(with: thumbnailImageUrl, postUrl: postUrl)
         savedPost.commentCount = self.commentCount
         savedPost.authorName = self.authorName
         savedPost.date = self.date! as NSDate
         savedPost.savedFeedElements = NSOrderedSet(array: feed)
+        savedPost.postAuthorUrlString = self.postAuthorUrlString
     }
 }

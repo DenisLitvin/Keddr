@@ -22,7 +22,6 @@ extension FeedElement {
             print(error)
         }
         let feedElement = SavedFeedElement(context: context)
-        feedElement.position = Int16(position)
         feedElement.type = self.type.rawValue
         feedElement.content = self.content
         return feedElement

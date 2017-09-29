@@ -13,7 +13,7 @@ extension Post {
     func findSavedPost(with context: NSManagedObjectContext) -> SavedPost? {
         guard let url = self.url else { return nil}
         let request: NSFetchRequest<SavedPost> = SavedPost.fetchRequest()
-        request.predicate = NSPredicate(format: "url = %@", "\(url)")
+        request.predicate = NSPredicate(format: "urlString = %@", "\(url)")
         do{
             let result = try context.fetch(request)
             if result.count > 0 {

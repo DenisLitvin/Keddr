@@ -26,10 +26,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let mainVC = MainVC(collectionViewLayout: layout)
         mainVC.collectionView?.backgroundColor = .white
         mainVC.title = "Лента"
-        window?.rootViewController = UINavigationController(rootViewController: mainVC)
+        let navcon = UINavigationController(rootViewController: mainVC)
+        window?.rootViewController = navcon
         menuView.mainVC = mainVC
+        menuView.navcon = navcon
         
-        mainVC.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: Color.darkGray]
+        navcon.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: Color.darkGray]
         UIApplication.shared.statusBarStyle = .default
         UINavigationBar.appearance().tintColor = Color.keddrYellow
 //        UINavigationBar.appearance().shadowImage = UIImage()

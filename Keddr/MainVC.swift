@@ -11,7 +11,7 @@ import Kanna
 import CoreData
 import KeychainAccess
 
-class MainVC: UICollectionViewController {
+class MainVC: SlideOutViewController {
     
     fileprivate let cellId = "cellId"
     var posts: [Post] = [] {
@@ -21,7 +21,7 @@ class MainVC: UICollectionViewController {
         }
     }
     var pageStatistics = PageStatistics()
-    var textSizes: [CGSize] = []
+    var textSizes: [(title: CGSize, description: CGSize)] = []
     var itemHeights: [CGFloat] = []
     var autoFetching = true
     
@@ -32,9 +32,7 @@ class MainVC: UICollectionViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()        
-        UserDefaults.standard.setIsLoginScreenShown(value: false)
-//        try? keychain.removeAll()
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Menu", style: .plain, target: self, action: #selector(menuButtonTapped))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Menu", style: .plain, target: self, action: #selector(MainVC.menuButtonTapped))
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Statistics", style: .plain, target: self, action: #selector(statisticsButtonTapped))
         collectionView?.register(PostCell.self, forCellWithReuseIdentifier: cellId)
         fetchPosts()
@@ -56,7 +54,7 @@ class MainVC: UICollectionViewController {
     }
     
     override func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        let maxOffset = (collectionView?.contentSize.height)! - view.bounds.height - 1100
+        let maxOffset = (collectionView?.contentSize.height)! - view.bounds.height - 800
         let currentOffset = collectionView?.contentOffset.y
         if currentOffset! > maxOffset,
         pageStatistics.loadingPageNumber == pageStatistics.numberOfPagesLoaded,
@@ -69,6 +67,17 @@ class MainVC: UICollectionViewController {
         autoFetching = true
         pageStatistics.loadingPageNumber += 1
         Api.fetchPosts(for: pageStatistics.loadingPageNumber, complition: { (posts) in
+            for post in posts{
+                self.setupCaclulations(for: post, layout: self.collectionView!.collectionViewLayout)
+            }
+            self.posts.append(contentsOf: posts)
+            self.pageStatistics.numberOfPagesLoaded += 1
+        })
+    }
+    func fetchBlogPosts(){
+        autoFetching = true
+        pageStatistics.loadingPageNumber += 1
+        Api.fetchBlogPosts(for: pageStatistics.loadingPageNumber, complition: { (posts) in
             for post in posts{
                 self.setupCaclulations(for: post, layout: self.collectionView!.collectionViewLayout)
             }
@@ -95,17 +104,7 @@ class MainVC: UICollectionViewController {
         }
     }
     //MARK: - Handling events
-    func menuButtonTapped(){
-        if self.navigationController?.view.transform == .identity {
-            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
-                self.navigationController?.view.transform = CGAffineTransform(translationX: self.view.bounds.width * 0.8, y: 0)
-            })
-        } else {
-            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
-                self.navigationController?.view.transform  = .identity
-            })
-        }
-    }
+    
     func handleSaveButton(with post: Post, save: Bool){
         guard let url = post.url else { return }
         self.container.performBackgroundTask { (context) in
@@ -170,7 +169,8 @@ extension MainVC {
         let post = posts[indexPath.item]
         let size = textSizes[indexPath.item]
         cell.mainVC = self
-        cell.textContainer.frame = CGRect(x: 8, y: 0, width: size.width + 9, height: size.height + 24)
+        cell.titleHeightConstraint?.constant = size.title.height + 20
+        cell.descriptionHeightConstraint?.constant = size.description.height + 19
         cell.post = post
         return cell
     }
@@ -204,23 +204,24 @@ extension MainVC {
     }
     func setupCaclulations(for post: Post, layout: UICollectionViewLayout){
         let textSize = self.textSizeForPost(post)
-        let itemHeight = textSize.height + (self.view.bounds.width * 9 / 16) + 43
         self.textSizes.append(textSize)
+        let itemHeight = textSize.0.height + textSize.1.height + (self.view.bounds.width * 9 / 16) + 43
         self.itemHeights.append(itemHeight)
         if let layout = layout as? UltraVisualLayout {
             layout.addItemheight(height: itemHeight)
         }
     }
-    func textSizeForPost(_ post: Post) -> CGSize {
+    func textSizeForPost(_ post: Post) -> (CGSize, CGSize){
         if let title = post.title, let description = post.description {
             let screenWidth = self.view.bounds.width
             let screenHeight = self.view.bounds.height
             let height: CGFloat = screenHeight - (screenWidth * 9 / 16) - 93 - 30
             let width: CGFloat = screenWidth - 25
-            let textSize = TextSize.calculate(for: [title, description], height: height, width: width, positioning: .vertical, fontName: [Font.title.name, Font.description.name], fontSize: [Font.title.size, Font.description.size], removeIfNotFit: false).size
-            return CGSize(width: width, height: textSize.height)
+            let titleSize = TextSize.calculate(for: [title], height: height, width: width, positioning: .vertical, fontName: [Font.title.name], fontSize: [Font.title.size], removeIfNotFit: false).size
+            let descriptionSize = TextSize.calculate(for: [description], height: height, width: width, positioning: .vertical, fontName: [Font.description.name], fontSize: [Font.description.size], removeIfNotFit: false).size
+            return (CGSize(width: width, height: titleSize.height), CGSize(width: width, height: descriptionSize.height))
         }
-        return CGSize.zero
+        return (.zero, .zero)
     }
 }
 

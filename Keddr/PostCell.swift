@@ -32,8 +32,20 @@ class PostCell: BaseCell {
         view.drawShadow()
         return view
     }()
-    let textContainer: UITextView = {
+    var titleHeightConstraint: NSLayoutConstraint?
+    let titleLabel: UITextView = {
         let view = UITextView()
+        view.layer.cornerRadius = 20
+        view.isScrollEnabled = false
+        view.isUserInteractionEnabled = false
+        view.textContainer.lineBreakMode = .byWordWrapping
+        view.font = Font.title.create()
+        return view
+    }()
+    var descriptionHeightConstraint: NSLayoutConstraint?
+    let descriptionLabel: UITextView = {
+        let view = UITextView()
+        view.font = Font.description.create()
         view.layer.cornerRadius = 20
         view.isScrollEnabled = false
         view.isUserInteractionEnabled = false
@@ -111,7 +123,8 @@ class PostCell: BaseCell {
             let commentCount = post.commentCount,
             let categories = post.categories {
             thumbnailView.loadImageUsingUrlString(thumbnailUrl, directoryPathUrl: post.url!)
-            updateText(title: title, description: description)
+            titleLabel.text = title
+            descriptionLabel.text = description
             dateLabel.text = date.beautyDate()
             authorNameLabel.text = post.authorName
             commentBubble.setTitle(commentCount, for: .normal)
@@ -129,12 +142,6 @@ class PostCell: BaseCell {
             }
         }
     }
-    func updateText(title: String, description: String){
-        let title = ("\(title)\n")
-        let attributedText = NSMutableAttributedString(string: title, attributes: [NSForegroundColorAttributeName: Color.darkGray, NSFontAttributeName: Font.title.create(), NSParagraphStyleAttributeName: NSParagraphStyle.default])
-        attributedText.append(NSAttributedString(string: description, attributes: [NSForegroundColorAttributeName: Color.darkGray, NSFontAttributeName: Font.description.create(), NSParagraphStyleAttributeName: NSParagraphStyle.default]))
-        self.textContainer.attributedText = attributedText
-    }
     
     override func setupViews(){
         addSubview(topContainerView)
@@ -145,17 +152,20 @@ class PostCell: BaseCell {
         bottomContainerView.addSubview(authorAvatarView)
         bottomContainerView.addSubview(categoryView)
         bottomContainerView.addSubview(authorNameLabel)
-        bottomContainerView.addSubview(textContainer)
+        bottomContainerView.addSubview(titleLabel)
+        bottomContainerView.addSubview(descriptionLabel)
         bottomContainerView.addSubview(dateLabel)
         bottomContainerView.addSubview(commentBubble)
     
         circleButton.anchor(top: topAnchor, left: nil, bottom: nil, right: rightAnchor, topConstant: 10, leftConstant: 0, bottomConstant: 0, rightConstant: 10, widthConstant: 34, heightConstant: 34)
-        authorAvatarView.anchor(top: textContainer.bottomAnchor, left: bottomContainerView.leftAnchor, bottom: nil, right: nil, topConstant: 0, leftConstant: 8, bottomConstant: 0, rightConstant: 0, widthConstant: 38, heightConstant: 38)
+        authorAvatarView.anchor(top: descriptionLabel.bottomAnchor, left: bottomContainerView.leftAnchor, bottom: nil, right: nil, topConstant: 0, leftConstant: 8, bottomConstant: 0, rightConstant: 0, widthConstant: 38, heightConstant: 38)
+        descriptionHeightConstraint = descriptionLabel.anchorWithReturnAnchors(top: titleLabel.bottomAnchor, left: titleLabel.leftAnchor, bottom: nil, right: titleLabel.rightAnchor, topConstant: -15, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 1)[3]
+        titleHeightConstraint = titleLabel.anchorWithReturnAnchors(top: bottomContainerView.topAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, topConstant: 3, leftConstant: 10, bottomConstant: 0, rightConstant: 5, widthConstant: 0, heightConstant: 1)[3]
         dateLabel.anchor(top: authorAvatarView.centerYAnchor, left: authorAvatarView.rightAnchor, bottom: nil, right: rightAnchor, topConstant: 0, leftConstant: 8, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 18)
         topContainerView.anchor(top: topAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, topConstant: 0, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: bounds.width * 9 / 16)
         thumbnailView.fillSuperview()
         bottomContainerView.anchor(top: topContainerView.bottomAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, topConstant: -32, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 0)
-        bottomContainerView.heightAnchor.constraint(equalTo: textContainer.heightAnchor, constant: 76).isActive = true
+        bottomContainerView.heightAnchor.constraint(equalTo: self.heightAnchor, constant: -80).isActive = true
         categoryViewWidthAnchor = categoryView.anchorWithReturnAnchors(top: nil, left: nil, bottom: dateLabel.bottomAnchor, right: commentBubble.leftAnchor, topConstant: -13, leftConstant: 8, bottomConstant: 0, rightConstant: 20, widthConstant: 10, heightConstant: 22)[2]
         commentBubble.anchor(top: nil, left: nil, bottom: categoryView.centerYAnchor, right: rightAnchor, topConstant: 0, leftConstant: 0, bottomConstant: -10, rightConstant: 11, widthConstant: 30, heightConstant: 16)
         authorNameLabel.anchor(top: nil, left: authorAvatarView.rightAnchor, bottom: authorAvatarView.centerYAnchor, right: categoryView.leftAnchor, topConstant: 0, leftConstant: 8, bottomConstant: 0, rightConstant: 5, widthConstant: 0, heightConstant: 0)
