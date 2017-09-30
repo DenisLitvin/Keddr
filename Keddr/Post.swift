@@ -36,7 +36,7 @@ class Post {
         self.url = URL(string: url)
         self.title = title
         self.thumbnailImageUrlString = thumbnailUrl
-        self.date = date as Date
+        self.date = date
         self.authorName = author
         self.categories = [category]
         self.description = description

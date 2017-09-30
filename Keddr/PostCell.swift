@@ -101,8 +101,8 @@ class PostCell: BaseCell {
         let button = CircleButton()
         button.addTarget(self, action: #selector(PostCell.saveButtonTapped), for: .touchUpInside)
         return button
-    }()
-    func saveButtonTapped(_ sender: CircleButton){
+    }(())
+    @objc func saveButtonTapped(_ sender: CircleButton){
         guard let post = post else { return }
         if sender.isOn {
             mainVC?.handleSaveButton(with: post, save: true)
@@ -172,7 +172,7 @@ class PostCell: BaseCell {
     }
     func animateViews(num: Double){
     }
-    func commentBubbleTapped(){
+    @objc func commentBubbleTapped(){
         let layout = UICollectionViewFlowLayout()
         let commentsVC = CommentsVC(collectionViewLayout: layout)
         commentsVC.post = post

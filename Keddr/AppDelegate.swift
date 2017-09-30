@@ -31,15 +31,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         menuView.mainVC = mainVC
         menuView.navcon = navcon
         
-        navcon.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: Color.darkGray]
+        navcon.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: Color.darkGray]
         UIApplication.shared.statusBarStyle = .default
         UINavigationBar.appearance().tintColor = Color.keddrYellow
-//        UINavigationBar.appearance().shadowImage = UIImage()
-        UINavigationBar.appearance().setBackgroundImage(UIImage(named: "background"), for: .default)
-//        UINavigationBar.appearance().backgroundColor = .white
-//        let statusBarView = UIView()
-//        statusBarView.backgroundColor = .white
-//        window?.addSubview(statusBarView)
+
         window?.insertSubview(menuView, at: 0)
         menuView.fillSuperview()
         return true

@@ -25,21 +25,24 @@ class DetailVC: UICollectionViewController {
     }
     func updateUI(){
         guard let post = post else { return }
+        CSActivityIndicator.startAnimating(in: self.view)
         if let savedPost = post.findSavedPost(with: context),
             let sortedFeed = savedPost.savedFeedElements {
             var feed = [FeedElement]()
-            for element in sortedFeed{
-                if let feedElement = FeedElement(savedFeedElement: element as! SavedFeedElement ){
+            sortedFeed.forEach {
+                if let feedElement = FeedElement(savedFeedElement: $0 as! SavedFeedElement ){
                     feed.append(feedElement)
                 }
             }
             self.feed = feed
             self.collectionView?.reloadData()
+            CSActivityIndicator.stopAnimating()
             return
         }
         Api.fetchFeed(url: post.url!) { (feed) in
             self.feed = feed
             self.collectionView?.reloadData()
+            CSActivityIndicator.stopAnimating()
         }
     }
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -56,7 +59,6 @@ class DetailVC: UICollectionViewController {
         collectionView?.register(FotoramaCell.self, forCellWithReuseIdentifier: ElementType.fotorama.rawValue)
         collectionView?.register(TableCell.self, forCellWithReuseIdentifier: ElementType.table.rawValue)
         collectionView?.backgroundColor = .white
-//        collectionView?.contentInset = UIEdgeInsets(top: -44, left: 0, bottom: 44, right: 0)
         let layout = collectionViewLayout as! UICollectionViewFlowLayout
         layout.minimumLineSpacing = 0
         layout.minimumInteritemSpacing = 0
@@ -79,7 +81,7 @@ class DetailVC: UICollectionViewController {
         return view
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        return CGSize(width: self.view.bounds.width, height: (self.view.bounds.width * 9 / 16) + 22)
+        return CGSize(width: self.view.bounds.width, height: (self.view.bounds.width * 9 / 16) + 28)
     }
 }
 //MARK: - CollectionViewDelegateFlowLayout

@@ -31,7 +31,7 @@ extension Post {
         SavedImage.saveImage(with: thumbnailImageUrl, postUrl: postUrl)
         savedPost.commentCount = self.commentCount
         savedPost.authorName = self.authorName
-        savedPost.date = self.date! as NSDate
+        savedPost.date = self.date
         savedPost.savedFeedElements = NSOrderedSet(array: feed)
         savedPost.postAuthorUrlString = self.postAuthorUrlString
     }

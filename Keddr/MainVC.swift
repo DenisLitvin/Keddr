@@ -32,7 +32,7 @@ class MainVC: SlideOutViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()        
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Menu", style: .plain, target: self, action: #selector(MainVC.menuButtonTapped))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Menu", style: .plain, target: self, action: #selector(menuButtonTapped))
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Statistics", style: .plain, target: self, action: #selector(statisticsButtonTapped))
         collectionView?.register(PostCell.self, forCellWithReuseIdentifier: cellId)
         fetchPosts()
@@ -43,6 +43,7 @@ class MainVC: SlideOutViewController {
             let loginVC = LoginVC()
             self.present(loginVC, animated: false)
         }
+
         //            for cell in (collectionView?.visibleCells) as! [PostCell]{
         //                let index = collectionView?.indexPath(for: cell)?.item
         //                cell.animateViews(num: Double(index!))
@@ -66,7 +67,9 @@ class MainVC: SlideOutViewController {
     func fetchPosts(){
         autoFetching = true
         pageStatistics.loadingPageNumber += 1
+        CSActivityIndicator.startAnimating(in: self.view)
         Api.fetchPosts(for: pageStatistics.loadingPageNumber, complition: { (posts) in
+            CSActivityIndicator.stopAnimating()
             for post in posts{
                 self.setupCaclulations(for: post, layout: self.collectionView!.collectionViewLayout)
             }
@@ -77,7 +80,9 @@ class MainVC: SlideOutViewController {
     func fetchBlogPosts(){
         autoFetching = true
         pageStatistics.loadingPageNumber += 1
+        CSActivityIndicator.startAnimating(in: self.view)
         Api.fetchBlogPosts(for: pageStatistics.loadingPageNumber, complition: { (posts) in
+            CSActivityIndicator.stopAnimating()
             for post in posts{
                 self.setupCaclulations(for: post, layout: self.collectionView!.collectionViewLayout)
             }
@@ -87,11 +92,13 @@ class MainVC: SlideOutViewController {
     }
     func fetchSavedPosts(){
         autoFetching = false
+        CSActivityIndicator.startAnimating(in: self.view)
         let request: NSFetchRequest<SavedPost> = SavedPost.fetchRequest()
         request.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
         do{
             let results = try container.viewContext.fetch(request)
             var posts = [Post]()
+            CSActivityIndicator.stopAnimating()
             for post in results {
                 if let post = Post(savedPost: post){
                     self.setupCaclulations(for: post, layout: self.collectionView!.collectionViewLayout)
@@ -140,7 +147,7 @@ class MainVC: SlideOutViewController {
         collectionView?.setCollectionViewLayout(layout, animated: true)
     }
     //MARK: - Persistence
-    func statisticsButtonTapped() {
+    @objc func statisticsButtonTapped() {
         let context = container.viewContext
         context.perform {
             if Thread.isMainThread {

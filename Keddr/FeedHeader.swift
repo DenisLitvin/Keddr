@@ -51,7 +51,7 @@ class FeedHeader: UICollectionReusableView {
         let view = CSImageView()
         view.image = #imageLiteral(resourceName: "asus")
 //        view.backgroundColor = .yellow
-        view.layer.cornerRadius =  18
+        view.layer.cornerRadius =  20
         view.layer.masksToBounds = true
         view.contentMode = .scaleAspectFill
         return view
@@ -84,7 +84,7 @@ class FeedHeader: UICollectionReusableView {
         containerView.addSubview(dateLabel)
         containerView.addSubview(categorySlider)
 
-        thumbnailViewHeightAnchor = thumbnailView.anchorWithReturnAnchors(top: topAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, topConstant: 0, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: self.bounds.width * 9 / 16)[3]
+        thumbnailViewHeightAnchor = thumbnailView.anchorWithReturnAnchors(top: layoutMarginsGuide.topAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, topConstant: 0, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: self.bounds.width * 9 / 16)[3]
         containerView.anchor(top: thumbnailView.bottomAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, topConstant: -32, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 60)
         authorAvatarView.anchor(top: containerView.topAnchor, left: leftAnchor, bottom: nil, right: nil, topConstant: 10, leftConstant: 10, bottomConstant: 0, rightConstant: 0, widthConstant: 40, heightConstant: 40)
          authorNameLabel.anchor(top: authorAvatarView.topAnchor, left: authorAvatarView.rightAnchor, bottom: nil, right: dateLabel.rightAnchor, topConstant: 0, leftConstant: 10, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 17)

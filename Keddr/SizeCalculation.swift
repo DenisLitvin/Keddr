@@ -15,11 +15,11 @@ enum TextPositioning {
 class TextSize{
     class func calculate(for texts: [String], height: CGFloat, width: CGFloat, positioning: TextPositioning, fontName: [String], fontSize: [CGFloat], removeIfNotFit: Bool) -> (size: CGSize, quantity: Int){
         
-        var attributes: [[String: Any]] = []
+        var attributes: [[NSAttributedStringKey: Any]] = []
         
         let options: NSStringDrawingOptions = NSStringDrawingOptions.usesLineFragmentOrigin
         for index in 0..<texts.count{
-            attributes.append([NSFontAttributeName: UIFont(name: fontName[index], size: fontSize[index])!, NSParagraphStyleAttributeName: NSParagraphStyle.default, NSForegroundColorAttributeName: UIColor.black])
+            attributes.append([NSAttributedStringKey.font: UIFont(name: fontName[index], size: fontSize[index])!, NSAttributedStringKey.paragraphStyle: NSParagraphStyle.default, NSAttributedStringKey.foregroundColor: UIColor.black])
         }
         var estimatedHeight: CGFloat = 0
         var estimatedWidth: CGFloat = 0

@@ -10,7 +10,7 @@ import UIKit
 
 class SlideOutViewController: UICollectionViewController{
     
-    func menuButtonTapped(){
+    @objc func menuButtonTapped(){
         if self.navigationController?.view.transform == .identity {
             UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
                 self.navigationController?.view.transform = CGAffineTransform(translationX: self.view.bounds.width * 0.8, y: 0)

@@ -49,8 +49,8 @@ class ProfileCell: BaseCell {
     func updateText(date: String, title: String, description: String){
         let date = (date + "\n")
         let title = (title + "\n")
-        let attributedText = NSMutableAttributedString(string: date, attributes: [NSForegroundColorAttributeName: Color.lightGray, NSFontAttributeName: UIFont(name: Font.date.name, size: Font.date.size - 2)!])
-        attributedText.append(NSAttributedString(string: title, attributes: [NSForegroundColorAttributeName: Color.darkGray, NSFontAttributeName: UIFont(name: Font.title.name, size: Font.title.size - 4)!]))
+        let attributedText = NSMutableAttributedString(string: date, attributes: [NSAttributedStringKey.foregroundColor: Color.lightGray, NSAttributedStringKey.font: UIFont(name: Font.date.name, size: Font.date.size - 2)!])
+        attributedText.append(NSAttributedString(string: title, attributes: [NSAttributedStringKey.foregroundColor: Color.darkGray, NSAttributedStringKey.font: UIFont(name: Font.title.name, size: Font.title.size - 4)!]))
 //        attributedText.append(NSAttributedString(string: description, attributes: [NSForegroundColorAttributeName: Color.darkGray, NSFontAttributeName: Font.description.create()]))
         self.textContainer.attributedText = attributedText
     }

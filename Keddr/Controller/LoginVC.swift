@@ -128,7 +128,7 @@ class LoginVC: UIViewController{
         NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardNotifications), name: Notification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardNotifications), name: Notification.Name.UIKeyboardWillHide, object: nil)
     }
-    func handleKeyboardNotifications(_ notification: Notification){
+    @objc func handleKeyboardNotifications(_ notification: Notification){
         guard let info = notification.userInfo else { return }
         if let rect = info[UIKeyboardFrameEndUserInfoKey] as? CGRect{
             changeConstraintsForHandlingKeyboard(with: rect)
@@ -161,10 +161,10 @@ class LoginVC: UIViewController{
             self.view.layoutIfNeeded()
         })
     }
-    func backButtonTapped(){
+    @objc func backButtonTapped(){
         dismiss(animated: true)
     }
-    func signInButtonTapped(){
+    @objc func signInButtonTapped(){
         guard let login = loginField.text,
             let password = passwordField.text else { return }
         let user = User(login: login, password: password)

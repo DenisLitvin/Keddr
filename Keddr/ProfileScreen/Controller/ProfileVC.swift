@@ -12,7 +12,9 @@ class ProfileVC: SlideOutViewController {
     
     var profileUrlString: String? {
         didSet{
+            CSActivityIndicator.startAnimating(in: self.view)
             Api.fetchProfileInfo(with: profileUrlString!) { (posts, profile, error) in
+                CSActivityIndicator.stopAnimating()
                 if let error = error {
                     print(error.userDescription)
                 } else if let posts = posts, let profile = profile{

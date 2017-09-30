@@ -121,9 +121,9 @@ class CommentCell: BaseCell {
     func updateText(date: String, authorName: String, description: String){
         let date = ("\(date)\n")
         let authorName = ("\(authorName)\n")
-        let attributedText = NSMutableAttributedString(string: date, attributes: [NSForegroundColorAttributeName: Color.lightGray, NSFontAttributeName: Font.date.create()])
-        attributedText.append(NSAttributedString(string: authorName, attributes: [NSForegroundColorAttributeName: Color.darkGray, NSFontAttributeName: Font.title.create()]))
-        attributedText.append(NSAttributedString(string: description, attributes: [NSForegroundColorAttributeName: Color.darkGray, NSFontAttributeName: Font.description.create()]))
+        let attributedText = NSMutableAttributedString(string: date, attributes: [NSAttributedStringKey.foregroundColor: Color.lightGray, NSAttributedStringKey.font: Font.date.create()])
+        attributedText.append(NSAttributedString(string: authorName, attributes: [NSAttributedStringKey.foregroundColor: Color.darkGray, NSAttributedStringKey.font: Font.title.create()]))
+        attributedText.append(NSAttributedString(string: description, attributes: [NSAttributedStringKey.foregroundColor: Color.darkGray, NSAttributedStringKey.font: Font.description.create()]))
         self.textContainer.attributedText = attributedText
     }
     
@@ -158,18 +158,18 @@ class CommentCell: BaseCell {
         likeButton.anchor(top: likeContainerView.topAnchor, left: likeContainerView.centerXAnchor, bottom: likeContainerView.bottomAnchor, right: nil, topConstant: 0, leftConstant: -8, bottomConstant: 0, rightConstant: 0, widthConstant: 33, heightConstant: 0)
         dislikeButton.anchor(top: dislikeContainerView.topAnchor, left: dislikeContainerView.centerXAnchor, bottom: dislikeContainerView.bottomAnchor, right: nil, topConstant: 0, leftConstant: -8, bottomConstant: 0, rightConstant: 0, widthConstant: 33, heightConstant: 0)
         }
-    func replyButtonTapped(){
+    @objc func replyButtonTapped(){
         guard let comment = comment else { return }
         commentsVC?.handleReplyButton(with: comment)
     }
-    func likeButtonTapped(){
+    @objc func likeButtonTapped(){
         guard let comment = comment else { return }
         if dislikeButton.isOn {
             dislikeButton.isOn = false
         }
         commentsVC?.handleVoteButton(with: comment, like: true)
     }
-    func dislikeButtonTapped(){
+    @objc func dislikeButtonTapped(){
         guard let comment = comment else { return }
         if likeButton.isOn {
             likeButton.isOn = false

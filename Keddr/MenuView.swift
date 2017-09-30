@@ -46,7 +46,7 @@ class MenuView: CSImageView {
         collection.delegate = self
         collection.dataSource = self
         return collection
-    }()
+    }(())
     func setupViews() {
         insertSubview(backgroundView, at: 0)
         addSubview(collection)
