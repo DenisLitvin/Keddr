@@ -20,8 +20,9 @@ class CommentsVC: UICollectionViewController {
     }
     func fetchComments(){
         guard let post = post else { return }
+        CSActivityIndicator.startAnimating(in: self.view)
         Api.fetchComments(for: post) { (comments, postId) in
-            //calculateSize
+            CSActivityIndicator.stopAnimating()
             let bubbleViewWidth = self.view.bounds.width - 65
             for comment in comments{
                 guard let content = comment.content,
@@ -49,9 +50,8 @@ class CommentsVC: UICollectionViewController {
     func handleVoteButton(with comment: Comment, like: Bool){
         AuthClient.voteComment(with: comment, like: like) { (error) in
             if let error = error {
-                print(error.userDescription)
+                CSAlertView.showAlert(with: error.userDescription, in: self.view)
             } else {
-//                comment.isLiked = like
                 let vote = like ? "like" : "dislike"
                 print("Successfuly voted with a", vote)
             }
@@ -60,7 +60,7 @@ class CommentsVC: UICollectionViewController {
     func handleReplyButton(with comment: Comment){
         AuthClient.reply(for: comment) { (error) in
             if let error = error {
-                print(error.userDescription)
+                CSAlertView.showAlert(with: error.userDescription, in: self.view)
             } else {
                 print("Successfuly commented:", comment)
             }

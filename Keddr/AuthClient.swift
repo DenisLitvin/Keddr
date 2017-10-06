@@ -114,6 +114,9 @@ class AuthClient {
         }
     }
     static func baseInteractionTask(with request: URLRequest, complition: @escaping(_ error: ApiError?) -> () ){
+        let config = URLSessionConfiguration.default
+        config.httpCookieStorage = 
+        let session = URLSession(configuration: config)
         URLSession.shared.dataTask(with: request) { (data, response, error) in
             if error != nil {
                 complition(ApiErrorConstructor.genericError)

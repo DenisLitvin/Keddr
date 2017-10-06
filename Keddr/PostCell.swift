@@ -81,8 +81,8 @@ class PostCell: BaseCell {
         button.titleLabel?.font = Font.commentBubble.create()
         button.titleLabel?.textAlignment = .right
         button.imageView?.contentMode = .scaleAspectFit
-        button.imageEdgeInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0)
-        button.titleEdgeInsets = UIEdgeInsets(top: 0, left: -70, bottom: 0, right: 0)
+        button.imageEdgeInsets = UIEdgeInsets(top: 6, left: 20, bottom: 6, right: 0)
+        button.titleEdgeInsets = UIEdgeInsets(top: 0, left: -75, bottom: 0, right: 0)
         button.addTarget(self, action: #selector(commentBubbleTapped), for: .touchUpInside)
         return button
     }()
@@ -97,11 +97,11 @@ class PostCell: BaseCell {
         view.backgroundColor = Color.keddrYellow
         return view
     }()
-    lazy var circleButton: CircleButton = { [unowned self] _ in
+    lazy var circleButton: CircleButton = { [unowned self] in
         let button = CircleButton()
         button.addTarget(self, action: #selector(PostCell.saveButtonTapped), for: .touchUpInside)
         return button
-    }(())
+    }()
     @objc func saveButtonTapped(_ sender: CircleButton){
         guard let post = post else { return }
         if sender.isOn {
@@ -148,12 +148,12 @@ class PostCell: BaseCell {
         topContainerView.addSubview(thumbnailView)
         topContainerView.addSubview(circleButton)
         addSubview(bottomContainerView)
-
+        
+        bottomContainerView.addSubview(titleLabel)
+        bottomContainerView.addSubview(descriptionLabel)
         bottomContainerView.addSubview(authorAvatarView)
         bottomContainerView.addSubview(categoryView)
         bottomContainerView.addSubview(authorNameLabel)
-        bottomContainerView.addSubview(titleLabel)
-        bottomContainerView.addSubview(descriptionLabel)
         bottomContainerView.addSubview(dateLabel)
         bottomContainerView.addSubview(commentBubble)
     
@@ -166,8 +166,8 @@ class PostCell: BaseCell {
         thumbnailView.fillSuperview()
         bottomContainerView.anchor(top: topContainerView.bottomAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, topConstant: -32, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 0)
         bottomContainerView.heightAnchor.constraint(equalTo: self.heightAnchor, constant: -80).isActive = true
-        categoryViewWidthAnchor = categoryView.anchorWithReturnAnchors(top: nil, left: nil, bottom: dateLabel.bottomAnchor, right: commentBubble.leftAnchor, topConstant: -13, leftConstant: 8, bottomConstant: 0, rightConstant: 20, widthConstant: 10, heightConstant: 22)[2]
-        commentBubble.anchor(top: nil, left: nil, bottom: categoryView.centerYAnchor, right: rightAnchor, topConstant: 0, leftConstant: 0, bottomConstant: -10, rightConstant: 11, widthConstant: 30, heightConstant: 16)
+        categoryViewWidthAnchor = categoryView.anchorWithReturnAnchors(top: nil, left: nil, bottom: commentBubble.centerYAnchor, right: commentBubble.leftAnchor, topConstant: 0, leftConstant: 8, bottomConstant: -11, rightConstant: 10, widthConstant: 10, heightConstant: 22)[2]
+        commentBubble.anchor(top: nil, left: nil, bottom: dateLabel.bottomAnchor, right: rightAnchor, topConstant: 0, leftConstant: 0, bottomConstant: 0, rightConstant: 11, widthConstant: 45, heightConstant: 30)
         authorNameLabel.anchor(top: nil, left: authorAvatarView.rightAnchor, bottom: authorAvatarView.centerYAnchor, right: categoryView.leftAnchor, topConstant: 0, leftConstant: 8, bottomConstant: 0, rightConstant: 5, widthConstant: 0, heightConstant: 0)
     }
     func animateViews(num: Double){

@@ -8,14 +8,14 @@
 
 import UIKit
 
-class FeedCell: BaseCell {
+class PostDetailsCell: BaseCell {
     
     var post: Post?
     
-    var content: FeedElement? {
+    var content: PostElement? {
         didSet{
             setupContent(with: content!)
         }
     }
-    func setupContent(with: FeedElement){}
+    func setupContent(with: PostElement){}
 }

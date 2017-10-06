@@ -12,7 +12,7 @@ class DetailVC: UICollectionViewController {
     
     unowned var context = appDelegate.persistentContainer.viewContext
     
-    var feed: [FeedElement] = []
+    var postElements: [PostElement] = []
     
     var post: Post? {
         didSet{
@@ -27,20 +27,20 @@ class DetailVC: UICollectionViewController {
         guard let post = post else { return }
         CSActivityIndicator.startAnimating(in: self.view)
         if let savedPost = post.findSavedPost(with: context),
-            let sortedFeed = savedPost.savedFeedElements {
-            var feed = [FeedElement]()
+            let sortedFeed = savedPost.savedPostElements {
+            var postElement = [PostElement]()
             sortedFeed.forEach {
-                if let feedElement = FeedElement(savedFeedElement: $0 as! SavedFeedElement ){
-                    feed.append(feedElement)
+                if let feedElement = PostElement(savedFeedElement: $0 as! SavedPostElement ){
+                    postElement.append(feedElement)
                 }
             }
-            self.feed = feed
+            self.postElements = postElement
             self.collectionView?.reloadData()
             CSActivityIndicator.stopAnimating()
             return
         }
-        Api.fetchFeed(url: post.url!) { (feed) in
-            self.feed = feed
+        Api.fetchPostElements(url: post.url!) { (feed) in
+            self.postElements = feed
             self.collectionView?.reloadData()
             CSActivityIndicator.stopAnimating()
         }
@@ -51,7 +51,7 @@ class DetailVC: UICollectionViewController {
 //        navigationController?.navigationBar.backgroundColor = UIColor(white: 1, alpha: delta)
     }
     func setupCollectionView(){
-        collectionView?.register(FeedHeader.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "headerId")
+        collectionView?.register(PostDetailsHeader.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "headerId")
         collectionView?.register(ParagraphCell.self, forCellWithReuseIdentifier: ElementType.p.rawValue)
         collectionView?.register(VideoCell.self, forCellWithReuseIdentifier: ElementType.video.rawValue)
         collectionView?.register(Header2Cell.self, forCellWithReuseIdentifier: ElementType.h2.rawValue)
@@ -65,18 +65,18 @@ class DetailVC: UICollectionViewController {
     }
     //MARK: - CollectionViewDelegate & CollectionViewDataSource
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let content = feed[indexPath.item]
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: content.type.rawValue, for: indexPath) as! FeedCell
+        let content = postElements[indexPath.item]
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: content.type.rawValue, for: indexPath) as! PostDetailsCell
         cell.post = post
         cell.content = content
         return cell
     }
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return feed.count
+        return postElements.count
     }
     // Header
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "headerId", for: indexPath) as! FeedHeader
+        let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "headerId", for: indexPath) as! PostDetailsHeader
         view.content = post
         return view
     }
@@ -87,7 +87,7 @@ class DetailVC: UICollectionViewController {
 //MARK: - CollectionViewDelegateFlowLayout
 extension DetailVC: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let element = feed[indexPath.item]
+        let element = postElements[indexPath.item]
         var attributes: (name: String, size: CGFloat)
         let width = self.view.bounds.width
         let height: CGFloat
@@ -99,7 +99,7 @@ extension DetailVC: UICollectionViewDelegateFlowLayout {
         } else {
             attributes = (Font.description.name, Font.description.size)
         }
-        height = TextSize.calculate(for: [feed[indexPath.item].content], height: 9999, width: width - 30, positioning: .vertical, fontName: [attributes.name], fontSize: [attributes.size], removeIfNotFit: false).size.height
+        height = TextSize.calculate(for: [postElements[indexPath.item].content], height: 9999, width: width - 30, positioning: .vertical, fontName: [attributes.name], fontSize: [attributes.size], removeIfNotFit: false).size.height
         return CGSize(width: width - 20, height: height + 18)
     }
 }

@@ -1,10 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="13240" systemVersion="17A362a" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <entity name="SavedFeedElement" representedClassName="SavedFeedElement" syncable="YES" codeGenerationType="class">
-        <attribute name="content" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="type" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="savedPost" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="SavedPost" inverseName="savedFeedElements" inverseEntity="SavedPost" syncable="YES"/>
-    </entity>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="13240" systemVersion="17B25c" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="SavedPost" representedClassName="SavedPost" syncable="YES" codeGenerationType="class">
         <attribute name="authorName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="category" optional="YES" attributeType="String" syncable="YES"/>
@@ -15,10 +10,15 @@
         <attribute name="thumbnailImageUrlString" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="urlString" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="savedFeedElements" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="SavedFeedElement" inverseName="savedPost" inverseEntity="SavedFeedElement" syncable="YES"/>
+        <relationship name="savedPostElements" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="SavedPostElement" inverseName="savedPost" inverseEntity="SavedPostElement" syncable="YES"/>
+    </entity>
+    <entity name="SavedPostElement" representedClassName="SavedPostElement" syncable="YES" codeGenerationType="class">
+        <attribute name="content" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="type" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="savedPost" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="SavedPost" inverseName="savedPostElements" inverseEntity="SavedPost" syncable="YES"/>
     </entity>
     <elements>
-        <element name="SavedFeedElement" positionX="-281" positionY="-3537" width="128" height="90"/>
+        <element name="SavedPostElement" positionX="160" positionY="192" width="128" height="90"/>
         <element name="SavedPost" positionX="-524" positionY="-3609" width="128" height="195"/>
     </elements>
 </model>

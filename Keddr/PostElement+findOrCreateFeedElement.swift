@@ -7,10 +7,10 @@
 //
 
 import CoreData
-extension FeedElement {
+extension PostElement {
     
-    func findOrCreateSavedFeedElement(with context: NSManagedObjectContext, position: Int) -> SavedFeedElement {
-        let request: NSFetchRequest<SavedFeedElement> = SavedFeedElement.fetchRequest()
+    func findOrCreateSavedPostElement(with context: NSManagedObjectContext, position: Int) -> SavedPostElement {
+        let request: NSFetchRequest<SavedPostElement> = SavedPostElement.fetchRequest()
         request.predicate = NSPredicate(format: "content = %@", self.content)
         do{
             let result = try context.fetch(request)
@@ -21,7 +21,7 @@ extension FeedElement {
         } catch {
             print(error)
         }
-        let feedElement = SavedFeedElement(context: context)
+        let feedElement = SavedPostElement(context: context)
         feedElement.type = self.type.rawValue
         feedElement.content = self.content
         return feedElement

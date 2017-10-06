@@ -10,9 +10,16 @@ import UIKit
 
 struct MenuItem {
     let text: String
-    let image: UIImage
+    let iconType: MenuIconType
 }
-
+enum MenuIconType: String {
+    case tape
+    case blogs
+    case saved
+    case settings
+    case profile
+    case signOut
+}
 
 
 

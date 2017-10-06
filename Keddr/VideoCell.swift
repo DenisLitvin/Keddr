@@ -9,7 +9,7 @@
 import UIKit
 import WebKit
 
-class VideoCell: FeedCell {
+class VideoCell: PostDetailsCell {
     
     let view: WKWebView = {
         let view = WKWebView()
@@ -23,7 +23,7 @@ class VideoCell: FeedCell {
         addSubview(view)
         view.anchor(top: topAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, topConstant: 3, leftConstant: 5, bottomConstant: 3, rightConstant: 5, widthConstant: 0, heightConstant: 0)
     }
-    override func setupContent(with: FeedElement) {
+    override func setupContent(with: PostElement) {
         super.setupContent(with: with)
         let url = URL(string: with.content)
         view.load(URLRequest(url: url!))

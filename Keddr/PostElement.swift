@@ -16,7 +16,7 @@ enum ElementType: String{
     case video
     case table
 }
-class FeedElement{
+class PostElement{
     
     var type: ElementType
     var content: String
@@ -25,7 +25,7 @@ class FeedElement{
         self.type = type
         self.content = content
     }
-    convenience init?(savedFeedElement: SavedFeedElement) {
+    convenience init?(savedFeedElement: SavedPostElement) {
         guard let content = savedFeedElement.content,
             let type = savedFeedElement.type else { return nil}
         self.init(type: ElementType(rawValue: type)!, content: content)

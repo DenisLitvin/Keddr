@@ -8,51 +8,42 @@
 
 import UIKit
 
-class MenuView: CSImageView {
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+class MenuView: UIView {
+    
+    init() {
+        super.init(frame: .zero)
         collection.register(MenuCell.self, forCellWithReuseIdentifier: "cellId")
-        image = #imageLiteral(resourceName: "asus")
-        isUserInteractionEnabled = true
-        contentMode = .scaleAspectFill
         setupViews()
     }
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    convenience init() {
-        self.init(frame: .zero)
-    }
     
     var navcon: UINavigationController?
     var mainVC: MainVC?
     var profileVC: ProfileVC?
-    var currentVC: SlideOutViewController?
+    var settingsVC: SettingsVC?
+    var currentVC: UIViewController?
     
-    let menuItems = [MenuItem(text: "Мой Профиль", image: #imageLiteral(resourceName: "user")), MenuItem(text: "Лента", image: #imageLiteral(resourceName: "lenta")), MenuItem(text: "Блоги", image: #imageLiteral(resourceName: "blogs")), MenuItem(text: "Сохраненное", image: #imageLiteral(resourceName: "saved")), MenuItem(text: "О Проекте", image: #imageLiteral(resourceName: "about")), MenuItem(text: "Настройки", image: #imageLiteral(resourceName: "settings")), MenuItem(text: "Выход", image: #imageLiteral(resourceName: "exit"))]
+    let menuItems = [MenuItem(text: "Мой Профиль", iconType: MenuIconType.profile), MenuItem(text: "Лента", iconType: MenuIconType.tape), MenuItem(text: "Блоги", iconType: MenuIconType.blogs), MenuItem(text: "Сохраненное", iconType: MenuIconType.saved), MenuItem(text: "Настройки", iconType: MenuIconType.settings), MenuItem(text: "Выход", iconType: MenuIconType.signOut)]
     
-    let backgroundView: UIVisualEffectView = {
-        let effect = UIBlurEffect(style: UIBlurEffectStyle.dark)
-        let view = UIVisualEffectView(effect: effect)
-        return view
-    }()
-    lazy var collection: UICollectionView = { [unowned self] _ in
+    lazy var collection: UICollectionView = { [unowned self] in
         let layout = UICollectionViewFlowLayout()
         layout.minimumLineSpacing = 0
         layout.minimumInteritemSpacing = 0
         let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collection.backgroundColor = .clear
+        collection.backgroundColor = Color.ultraLightGray
         collection.alwaysBounceVertical = true
         collection.delegate = self
         collection.dataSource = self
+        collection.contentInset = UIEdgeInsets(top: 70, left: 0, bottom: -70, right: 0)
+        collection.selectItem(at: IndexPath(item: 1, section: 0), animated: false, scrollPosition: UICollectionViewScrollPosition.left)
         return collection
-    }(())
+        }()
     func setupViews() {
-        insertSubview(backgroundView, at: 0)
         addSubview(collection)
         
-        backgroundView.fillSuperview()
-        collection.anchor(top: topAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, topConstant: 60, leftConstant: 10, bottomConstant: 10, rightConstant: 10, widthConstant: 0, heightConstant: 0)
+        collection.fillSuperview()
     }
 }
 //MARK: - UICollectionViewDelegate
@@ -70,7 +61,6 @@ extension MenuView: UICollectionViewDelegate {
             }
             profileVC?.profileUrlString = "https://keddr.com/profile/"
             currentVC = profileVC
-            navcon?.setViewControllers([profileVC!], animated: false)
         case 1:
             //posts
             if mainVC == nil{
@@ -79,7 +69,6 @@ extension MenuView: UICollectionViewDelegate {
             mainVC?.invalidateLayoutAndData()
             mainVC?.fetchPosts()
             currentVC = mainVC
-            navcon?.setViewControllers([mainVC!], animated: false)
         case 2:
             //blogs
             if mainVC == nil{
@@ -88,7 +77,6 @@ extension MenuView: UICollectionViewDelegate {
             mainVC?.invalidateLayoutAndData()
             mainVC?.fetchBlogPosts()
             currentVC = mainVC
-            navcon?.setViewControllers([mainVC!], animated: false)
         case 3:
             //saved posts
             mainVC?.invalidateLayoutAndData()
@@ -97,21 +85,24 @@ extension MenuView: UICollectionViewDelegate {
             }
             mainVC?.fetchSavedPosts()
             currentVC = mainVC
-            navcon?.setViewControllers([mainVC!], animated: false)
         case 4:
-            //about page
-            ()
-        case 5:
             //settings
-            ()
-        case 6:
+            if settingsVC == nil{
+                settingsVC = SettingsVC(style: .grouped)
+            }
+            currentVC = settingsVC
+        case 5:
             AuthClient.logOut()
             let loginVC = LoginVC()
             currentVC?.present(loginVC, animated: true)
         default:
             break
         }
-        currentVC?.menuButtonTapped()
+        navcon?.setViewControllers([currentVC!], animated: false)
+        currentVC?.title = menuItems[indexPath.item].text
+        if let currentVC = currentVC as? SlideOutViewControlling {
+            currentVC.menuButtonTapped()
+        }
     }
 }
 //MARK: - UICollectionViewDataSource
@@ -130,7 +121,7 @@ extension MenuView: UICollectionViewDataSource {
 }
 extension MenuView: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: self.bounds.width - 20, height: 50)
+        return CGSize(width: self.bounds.width, height: 50)
     }
 }
 

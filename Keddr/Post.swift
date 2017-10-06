@@ -49,7 +49,7 @@ class Post {
         }
         guard let urlString = url?.absoluteString, urlString.contains("keddr") else { return nil }
         self.categories = [String]()
-        for category in xml.css("div[class^='categories']"){
+        for category in xml.css("div.categories a"){
             let category = category.text!.trimmingCharacters(in: .whitespacesAndNewlines)
             self.categories?.append(category.uppercased())
         }

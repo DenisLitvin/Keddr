@@ -8,7 +8,7 @@
 
 import UIKit
 
-class FeedHeader: UICollectionReusableView {
+class PostDetailsHeader: UICollectionReusableView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -44,6 +44,7 @@ class FeedHeader: UICollectionReusableView {
     lazy var thumbnailView: CSImageView = { [unowned self] in
         let view = CSImageView()
         view.contentMode = .scaleAspectFill
+        view.clipsToBounds = true
 //        view.backgroundColor = .red
         return view
     }()

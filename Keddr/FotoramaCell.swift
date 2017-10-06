@@ -8,9 +8,9 @@
 
 import UIKit
 
-class FotoramaCell: FeedCell {
+class FotoramaCell: PostDetailsCell {
     
-    var images: [FeedElement] = []
+    var images: [PostElement] = []
     
     lazy var collection: UICollectionView = { [unowned self] in
         let layout = UICollectionViewFlowLayout()
@@ -34,11 +34,11 @@ class FotoramaCell: FeedCell {
 //        layer.locations = [0.9, 1]
 //        self.layer.mask = layer
     }
-    override func setupContent(with: FeedElement) {
+    override func setupContent(with: PostElement) {
         super.setupContent(with: with)
         images = []
         for image in with.content.components(separatedBy: ","){
-            let element = FeedElement(type: .image, content: image)
+            let element = PostElement(type: .image, content: image)
             images.append(element)
         }
         self.collection.reloadData()

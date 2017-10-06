@@ -10,34 +10,34 @@ import UIKit
 
 class CSActivityIndicator {
     
-    static private let blurView: UIVisualEffectView = {
-        let effect = UIBlurEffect(style: .dark)
-        let view = UIVisualEffectView(effect: effect)
-        view.clipsToBounds = true
-        view.layer.cornerRadius = 20
+    static private let blurView: CSActivityView = {
+        let view = CSActivityView()
+        createAnimation(in: view.vibrancyView.contentView.layer, layerSize: CGSize(width: 100, height: 100), animationSize: CGSize(width: 50, height: 50), color: Color.keddrYellow)
         return view
     }()
-    static private let vibrancyView: UIVisualEffectView = {
-        let vibrancyEffect = UIVibrancyEffect(blurEffect: blurView.effect as! UIBlurEffect)
-        let vibrancyView = UIVisualEffectView(effect: vibrancyEffect)
-        createAnimation(in: vibrancyView.contentView.layer, layerSize: CGSize(width: 100, height: 100), animationSize: CGSize(width: 50, height: 50), color: Color.keddrYellow)
-        return vibrancyView
-    }()
     static func startAnimating(in view: UIView){
-        if !view.subviews.contains(blurView){
-            view.addSubview(self.blurView)
-            blurView.anchorCenterSuperview()
-            blurView.contentView.addSubview(vibrancyView)
-            vibrancyView.fillSuperview()
-            blurView.heightAnchor.constraint(equalToConstant: 100).isActive = true
-            blurView.widthAnchor.constraint(equalToConstant: 100).isActive = true
+        DispatchQueue.main.async {
+            if !view.subviews.contains(blurView){
+                view.addSubview(self.blurView)
+                blurView.anchorCenterSuperview()
+                blurView.heightAnchor.constraint(equalToConstant: 100).isActive = true
+                blurView.widthAnchor.constraint(equalToConstant: 100).isActive = true
+            }
+            UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseOut, animations: {
+                blurView.transform = .identity
+                blurView.alpha = 1
+            })
         }
     }
     static func stopAnimating(){
-        blurView.contentView.subviews.forEach { (view) in
-            view.removeFromSuperview()
+        DispatchQueue.main.async {
+            UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseOut, animations: {
+                blurView.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
+                blurView.alpha = 0
+            }, completion: { _ in
+                blurView.removeFromSuperview()
+            })
         }
-        blurView.removeFromSuperview()
     }
     static private func createAnimationShape(with size: CGSize, color: UIColor) -> CAShapeLayer{
         let shapeLayer: CAShapeLayer = CAShapeLayer()

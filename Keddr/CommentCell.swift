@@ -50,6 +50,7 @@ class CommentCell: BaseCell {
     }()
     let avatarView: CSImageView = {
         let view = CSImageView()
+     
         view.contentMode = .scaleAspectFit
         view.clipsToBounds = true
         view.layer.cornerRadius = 25
@@ -68,7 +69,7 @@ class CommentCell: BaseCell {
         view.font = Font.author.create()
         return view
     }()
-    lazy var replyButton: UIButton = {
+    lazy var replyButton: UIButton = { [unowned self] in
         let view = UIButton(type: .system)
         view.setTitle("Ответить", for: .normal)
         view.setTitleColor(Color.darkGray, for: .normal)
@@ -76,14 +77,14 @@ class CommentCell: BaseCell {
         view.addTarget(self, action: #selector(replyButtonTapped), for: .touchUpInside)
         return view
     }()
-    lazy var likeButton: LikeButton = {
+    lazy var likeButton: LikeButton = { [unowned self] in
         let view = LikeButton()
         view.setImage(#imageLiteral(resourceName: "thumbUp"), for: .normal)
         view.imageView?.contentMode = .scaleAspectFit
         view.addTarget(self, action: #selector(likeButtonTapped), for: .touchUpInside)
         return view
     }()
-    lazy var dislikeButton: DislikeButton = {
+    lazy var dislikeButton: DislikeButton = { [unowned self] in
         let view = DislikeButton()
         view.setImage(#imageLiteral(resourceName: "thumbDown"), for: .normal)
         view.imageEdgeInsets = UIEdgeInsets(top: 5, left: 0, bottom: -5, right: 0)
@@ -107,14 +108,15 @@ class CommentCell: BaseCell {
         avatarView.loadImageUsingUrlString(authorAvatarUrlString)
         updateText(date: date, authorName: authorName, description: description)
         votesLabel.text = votes
+        likeButton.isOn = false
+        dislikeButton.isOn = false
         //like button appearence
-        if let isLiked = comment?.isLiked {
-            if isLiked{
-                likeButton.isOn = true
-            } else {
-                dislikeButton.isOn = true
-            }
-        }
+//        if let isLiked = comment?.isLiked {
+//            if isLiked{
+//                likeButton.isOn = true
+//            } else {
+//            }
+//        }
         //draw circles
         dotArrayView.numberOfDots = nestlevel
     }
@@ -153,10 +155,10 @@ class CommentCell: BaseCell {
         avatarView.anchor(top: bubbleView.topAnchor, left: nil, bottom: nil, right: bubbleView.leftAnchor, topConstant: 0, leftConstant: 0, bottomConstant: 0, rightConstant: 5, widthConstant: 50, heightConstant: 50)
         votesImageView.anchor(top: avatarView.bottomAnchor, left: nil, bottom: nil, right: avatarView.centerXAnchor, topConstant: 20, leftConstant: 0, bottomConstant: 0, rightConstant: -4, widthConstant: 30, heightConstant: 20)
         votesLabel.anchor(top: nil, left: avatarView.centerXAnchor, bottom: votesImageView.bottomAnchor, right: bubbleView.leftAnchor, topConstant: 0, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 14)
-        replyButton.anchor(top: nil, left: bubbleView.leftAnchor, bottom: bubbleView.bottomAnchor, right: nil, topConstant: 0, leftConstant: 15, bottomConstant: 4, rightConstant: 0, widthConstant: 80, heightConstant: 30)
-        stackView.anchor(top: nil, left: replyButton.rightAnchor, bottom: bubbleView.bottomAnchor, right: bubbleView.rightAnchor, topConstant: 0, leftConstant: 0, bottomConstant: 12, rightConstant: 5, widthConstant: 0, heightConstant: 16)
-        likeButton.anchor(top: likeContainerView.topAnchor, left: likeContainerView.centerXAnchor, bottom: likeContainerView.bottomAnchor, right: nil, topConstant: 0, leftConstant: -8, bottomConstant: 0, rightConstant: 0, widthConstant: 33, heightConstant: 0)
-        dislikeButton.anchor(top: dislikeContainerView.topAnchor, left: dislikeContainerView.centerXAnchor, bottom: dislikeContainerView.bottomAnchor, right: nil, topConstant: 0, leftConstant: -8, bottomConstant: 0, rightConstant: 0, widthConstant: 33, heightConstant: 0)
+        replyButton.anchor(top: nil, left: bubbleView.leftAnchor, bottom: bubbleView.bottomAnchor, right: nil, topConstant: 0, leftConstant: 15, bottomConstant: 4, rightConstant: 0, widthConstant: 100, heightConstant: 30)
+        stackView.anchor(top: nil, left: replyButton.rightAnchor, bottom: bubbleView.bottomAnchor, right: bubbleView.rightAnchor, topConstant: 0, leftConstant: 0, bottomConstant: 12, rightConstant: 10, widthConstant: 0, heightConstant: 16)
+        likeButton.anchor(top: likeContainerView.topAnchor, left: likeContainerView.centerXAnchor, bottom: likeContainerView.bottomAnchor, right: nil, topConstant: 0, leftConstant: -15, bottomConstant: 0, rightConstant: 0, widthConstant: 33, heightConstant: 0)
+        dislikeButton.anchor(top: dislikeContainerView.topAnchor, left: dislikeContainerView.centerXAnchor, bottom: dislikeContainerView.bottomAnchor, right: nil, topConstant: 0, leftConstant: -15, bottomConstant: 0, rightConstant: 0, widthConstant: 33, heightConstant: 0)
         }
     @objc func replyButtonTapped(){
         guard let comment = comment else { return }

@@ -9,13 +9,13 @@
 import CoreData
 
 extension Post {
-    func createSavedPost(with context: NSManagedObjectContext, feedElements: [FeedElement]) {
+    func createSavedPost(with context: NSManagedObjectContext, feedElements: [PostElement]) {
         guard let postUrl = self.url, let thumbnailImageUrl = self.thumbnailImageUrlString else { return }
-        var feed = [SavedFeedElement]()
-        for (position, feedElement) in feedElements.enumerated() {
-            let element = feedElement.findOrCreateSavedFeedElement(with: context, position: position)
-            if feedElement.type == .image || feedElement.type == .fotorama {
-                let imageUrls = feedElement.content.components(separatedBy: ",")
+        var feed = [SavedPostElement]()
+        for (position, postElement) in feedElements.enumerated() {
+            let element = postElement.findOrCreateSavedPostElement(with: context, position: position)
+            if postElement.type == .image || postElement.type == .fotorama {
+                let imageUrls = postElement.content.components(separatedBy: ",")
                 for imageUrl in imageUrls {
                     SavedImage.saveImage(with: imageUrl, postUrl: postUrl)
                 }
@@ -32,7 +32,7 @@ extension Post {
         savedPost.commentCount = self.commentCount
         savedPost.authorName = self.authorName
         savedPost.date = self.date
-        savedPost.savedFeedElements = NSOrderedSet(array: feed)
+        savedPost.savedPostElements = NSOrderedSet(array: feed)
         savedPost.postAuthorUrlString = self.postAuthorUrlString
     }
 }

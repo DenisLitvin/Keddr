@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ProfileVC: SlideOutViewController {
+class ProfileVC: SlideOutCollectionViewController {
     
     var profileUrlString: String? {
         didSet{
@@ -16,7 +16,7 @@ class ProfileVC: SlideOutViewController {
             Api.fetchProfileInfo(with: profileUrlString!) { (posts, profile, error) in
                 CSActivityIndicator.stopAnimating()
                 if let error = error {
-                    print(error.userDescription)
+                    CSAlertView.showAlert(with: error.userDescription, in: self.view)
                 } else if let posts = posts, let profile = profile{
                     self.posts = posts
                     self.profile = profile
@@ -30,7 +30,6 @@ class ProfileVC: SlideOutViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupCollectionView()
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "menu", style: .plain, target: self, action: #selector(menuButtonTapped))
     }
     
     func setupCollectionView(){

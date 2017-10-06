@@ -24,7 +24,7 @@ class DotsView: UIView {
     }
     override func draw(_ rect: CGRect) {
         for dot in 0..<numberOfDots {
-            let dotPath = UIBezierPath(roundedRect: CGRect(x: 13 * dot, y: 0, width: 10, height: 10), cornerRadius: 5)
+            let dotPath = UIBezierPath(roundedRect: CGRect(x: 13 * dot, y: 0, width: 6, height: 6), cornerRadius: 3)
             Color.lightGray.set()
             dotPath.fill()
         }

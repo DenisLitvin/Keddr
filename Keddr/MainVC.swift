@@ -11,7 +11,7 @@ import Kanna
 import CoreData
 import KeychainAccess
 
-class MainVC: SlideOutViewController {
+class MainVC: SlideOutCollectionViewController {
     
     fileprivate let cellId = "cellId"
     var posts: [Post] = [] {
@@ -31,14 +31,14 @@ class MainVC: SlideOutViewController {
     unowned var container = appDelegate.persistentContainer
     
     override func viewDidLoad() {
-        super.viewDidLoad()        
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Menu", style: .plain, target: self, action: #selector(menuButtonTapped))
+        super.viewDidLoad()
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Statistics", style: .plain, target: self, action: #selector(statisticsButtonTapped))
         collectionView?.register(PostCell.self, forCellWithReuseIdentifier: cellId)
         fetchPosts()
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+
         if !UserDefaults.standard.isLoginScreenShown(){
             let loginVC = LoginVC()
             self.present(loginVC, animated: false)
@@ -60,14 +60,18 @@ class MainVC: SlideOutViewController {
         if currentOffset! > maxOffset,
         pageStatistics.loadingPageNumber == pageStatistics.numberOfPagesLoaded,
         autoFetching{
-            fetchPosts()
+            if title == "Блоги"{
+                fetchBlogPosts()
+            } else if title == "Лента"{
+                fetchPosts()
+            }
         }
     }
     //MARK: - Fetching posts
     func fetchPosts(){
         autoFetching = true
         pageStatistics.loadingPageNumber += 1
-        CSActivityIndicator.startAnimating(in: self.view)
+        if pageStatistics.loadingPageNumber == 1 { CSActivityIndicator.startAnimating(in: self.view) }
         Api.fetchPosts(for: pageStatistics.loadingPageNumber, complition: { (posts) in
             CSActivityIndicator.stopAnimating()
             for post in posts{
@@ -80,7 +84,7 @@ class MainVC: SlideOutViewController {
     func fetchBlogPosts(){
         autoFetching = true
         pageStatistics.loadingPageNumber += 1
-        CSActivityIndicator.startAnimating(in: self.view)
+        if pageStatistics.loadingPageNumber == 1 { CSActivityIndicator.startAnimating(in: self.view) }
         Api.fetchBlogPosts(for: pageStatistics.loadingPageNumber, complition: { (posts) in
             CSActivityIndicator.stopAnimating()
             for post in posts{
@@ -121,7 +125,7 @@ class MainVC: SlideOutViewController {
                 SavedImage.deleteImages(for: url)
                 try? context.save()
             } else if savedPost == nil {
-                Api.fetchFeed(url: url) { (elements) in
+                Api.fetchPostElements(url: url) { (elements) in
                     post.createSavedPost(with: context, feedElements: elements)
                     try? context.save()
                 }
@@ -158,11 +162,12 @@ class MainVC: SlideOutViewController {
             if let postCount = try? context.count(for: SavedPost.fetchRequest()) {
                 print("\(postCount) Posts")
             }
-            if let feedCount = try? context.count(for: SavedFeedElement.fetchRequest()) {
+            if let feedCount = try? context.count(for: SavedPostElement.fetchRequest()) {
                 print("\(feedCount) FeedElements")
             }
         }
         print(keychain.allItems())
+        CSAlertView.showAlert(with: "Кнопка \"Statistics\" была нажата", in: self.view)
         changelayout()
     }
 }

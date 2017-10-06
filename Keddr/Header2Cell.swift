@@ -8,7 +8,7 @@
 
 import UIKit
 
-class Header2Cell: FeedCell {
+class Header2Cell: PostDetailsCell {
     
     let view: UITextView = {
         let view = UITextView()
@@ -24,7 +24,7 @@ class Header2Cell: FeedCell {
         addSubview(view)
         view.fillSuperview()
     }
-    override func setupContent(with: FeedElement) {
+    override func setupContent(with: PostElement) {
         super.setupContent(with: with)
         view.text = with.content
     }

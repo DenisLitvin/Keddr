@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ImageCell: FeedCell {
+class ImageCell: PostDetailsCell {
     
     let view: CSImageView = {
         let view = CSImageView()
@@ -22,7 +22,7 @@ class ImageCell: FeedCell {
         addSubview(view)
         view.anchor(top: topAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, topConstant: 3, leftConstant: 5, bottomConstant: 3, rightConstant: 5, widthConstant: 0, heightConstant: 0)
     }
-    override func setupContent(with: FeedElement) {
+    override func setupContent(with: PostElement) {
         super.setupContent(with: with)
         view.loadImageUsingUrlString(with.content, directoryPathUrl: (post?.url)!)
     }

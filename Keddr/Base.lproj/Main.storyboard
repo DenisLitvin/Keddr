@@ -1,11 +1,128 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13189.4" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13165.3"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
-    <scenes/>
+    <customFonts key="customFonts">
+        <array key="AvenirNext.ttc">
+            <string>AvenirNext-Bold</string>
+            <string>AvenirNext-Medium</string>
+            <string>AvenirNext-Regular</string>
+        </array>
+    </customFonts>
+    <scenes>
+        <!--AboutVC-->
+        <scene sceneID="XU9-Pi-zcz">
+            <objects>
+                <viewController storyboardIdentifier="AboutVC" id="Dbk-bx-FxW" customClass="AboutVC" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="dV0-Hs-0My"/>
+                        <viewControllerLayoutGuide type="bottom" id="qzZ-FG-ada"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="d0d-eE-1Ii">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="1700"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fsO-uU-eIc">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="1700"/>
+                                <subviews>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="TlD-Q3-sLG">
+                                        <rect key="frame" x="16" y="150" width="343" height="235"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <string key="text">Кеддр - ресурс, посвященный информационным технологиям, гик убежище, пристанище гаджетоманов. Видео – это наше всё! Мы постараемся максимально интересно рассказывать о новостях, гаджетах, софтвер и хардвер.</string>
+                                        <color key="textColor" red="0.14901960780000001" green="0.14901960780000001" blue="0.14901960780000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="20"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="SBL-9G-q14">
+                                        <rect key="frame" x="16" y="450.5" width="343" height="1027"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <string key="text">Если вы любите гаджеты так, как любим их мы, вы обязательно станете частью нашего позитивно-креативного geek-комьюнити!
+
+Создавая Keddr, мы не хотели получить еще один it-ресурс, на котором 90% информации был бы перевод статей с известных мировых ресурсов. Нами двигала идея создать что-то уникальное, свежее. Когда-то нашим основным слоганом была фраза “Креативно про IT”, этот принцип мы хотим вместить в каждый наш материал.
+
+На сегодняшний день, кеддр руководствуется абсолютно четко сформированным видением. Создан и развивается основной костяк еженедельных рубрик. Сформирована команда авторов и волонтеров.
+
+Основным направлением для Кеддра мы видим видеообзоры. Отцы сайта два друга – технический король Семен Кременюк и контентный владыка Александр Ляпота. Они же – создатели проекта, авторы и редакторы текстового и графического наполнения, ведущие и видео операторы, сценаристы и режиссеры, мужья жен и отцы детей… и просто хорошие парни.</string>
+                                        <color key="textColor" red="0.14901960780000001" green="0.14901960780000001" blue="0.14901960780000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="20"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="О Проекте:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.80000000000000004" adjustsLetterSpacingToFitWidth="YES" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Myy-Xk-eSU">
+                                        <rect key="frame" x="16" y="81" width="242" height="46"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="46" id="1ss-Ly-hnT"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="AvenirNext-Bold" family="Avenir Next" pointSize="35"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&quot;Мы против унылых и сухих обзоров.&quot;" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fZK-P8-dvc">
+                                        <rect key="frame" x="16" y="393" width="343" height="60.5"/>
+                                        <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="22"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="about_family" translatesAutoresizingMaskIntoConstraints="NO" id="gLl-gK-CJz">
+                                        <rect key="frame" x="16" y="1486" width="343" height="206"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="gLl-gK-CJz" secondAttribute="height" multiplier="7:13" constant="232.07692307692309" id="2Qb-SK-cjV"/>
+                                        </constraints>
+                                    </imageView>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="keddr_icon_2" translatesAutoresizingMaskIntoConstraints="NO" id="8Lg-wX-sQh">
+                                        <rect key="frame" x="247" y="26" width="120" height="101"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="120" id="vAY-6V-Gfl"/>
+                                        </constraints>
+                                    </imageView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="gLl-gK-CJz" firstAttribute="top" secondItem="SBL-9G-q14" secondAttribute="bottom" constant="8" id="0hs-gx-yGo"/>
+                                    <constraint firstItem="Myy-Xk-eSU" firstAttribute="trailing" secondItem="TlD-Q3-sLG" secondAttribute="trailing" constant="-101" id="1VH-68-GS5"/>
+                                    <constraint firstAttribute="bottom" secondItem="gLl-gK-CJz" secondAttribute="bottom" constant="8" id="3CQ-ND-urh"/>
+                                    <constraint firstItem="TlD-Q3-sLG" firstAttribute="top" secondItem="Myy-Xk-eSU" secondAttribute="bottom" constant="23" id="4CQ-L1-TRK"/>
+                                    <constraint firstAttribute="trailing" secondItem="gLl-gK-CJz" secondAttribute="trailing" constant="16" id="89o-Pa-MTA"/>
+                                    <constraint firstAttribute="trailing" secondItem="8Lg-wX-sQh" secondAttribute="trailing" constant="8" id="9kN-Ng-ljW"/>
+                                    <constraint firstItem="Myy-Xk-eSU" firstAttribute="leading" secondItem="TlD-Q3-sLG" secondAttribute="leading" id="EUq-T8-yXR"/>
+                                    <constraint firstItem="TlD-Q3-sLG" firstAttribute="leading" secondItem="fZK-P8-dvc" secondAttribute="leading" id="Fdp-rK-6oh"/>
+                                    <constraint firstItem="fZK-P8-dvc" firstAttribute="leading" secondItem="SBL-9G-q14" secondAttribute="leading" id="LVi-bi-Wsk"/>
+                                    <constraint firstItem="SBL-9G-q14" firstAttribute="top" secondItem="fZK-P8-dvc" secondAttribute="bottom" constant="-3" id="PEh-HM-V1a"/>
+                                    <constraint firstItem="fZK-P8-dvc" firstAttribute="top" secondItem="TlD-Q3-sLG" secondAttribute="bottom" constant="8" id="Vax-Lv-WMi"/>
+                                    <constraint firstItem="gLl-gK-CJz" firstAttribute="leading" secondItem="fsO-uU-eIc" secondAttribute="leading" constant="16" id="aML-IG-wuL"/>
+                                    <constraint firstItem="Myy-Xk-eSU" firstAttribute="top" secondItem="fsO-uU-eIc" secondAttribute="top" constant="81" id="cV4-U6-YEQ"/>
+                                    <constraint firstItem="TlD-Q3-sLG" firstAttribute="trailing" secondItem="fZK-P8-dvc" secondAttribute="trailing" id="cgZ-Ga-ZfK"/>
+                                    <constraint firstItem="Myy-Xk-eSU" firstAttribute="centerX" secondItem="fsO-uU-eIc" secondAttribute="centerX" constant="-50.5" id="e5L-32-l7E"/>
+                                    <constraint firstAttribute="trailing" secondItem="Myy-Xk-eSU" secondAttribute="trailing" constant="117" id="jct-9W-J5c"/>
+                                    <constraint firstItem="8Lg-wX-sQh" firstAttribute="top" secondItem="fsO-uU-eIc" secondAttribute="top" constant="26" id="npa-xr-ZlC"/>
+                                    <constraint firstItem="Myy-Xk-eSU" firstAttribute="leading" secondItem="fsO-uU-eIc" secondAttribute="leading" constant="16" id="wzl-UX-KTZ"/>
+                                    <constraint firstItem="fZK-P8-dvc" firstAttribute="trailing" secondItem="SBL-9G-q14" secondAttribute="trailing" id="xvP-gV-xzU"/>
+                                    <constraint firstItem="Myy-Xk-eSU" firstAttribute="bottom" secondItem="8Lg-wX-sQh" secondAttribute="bottom" id="zrY-nV-YQr"/>
+                                </constraints>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="fsO-uU-eIc" secondAttribute="trailing" id="Gfe-2z-ugf"/>
+                            <constraint firstItem="fsO-uU-eIc" firstAttribute="top" secondItem="d0d-eE-1Ii" secondAttribute="top" id="eh8-TG-QsT"/>
+                            <constraint firstItem="fsO-uU-eIc" firstAttribute="bottom" secondItem="qzZ-FG-ada" secondAttribute="top" id="lKF-P0-enW"/>
+                            <constraint firstItem="fsO-uU-eIc" firstAttribute="leading" secondItem="d0d-eE-1Ii" secondAttribute="leading" id="o5K-Gq-j3b"/>
+                        </constraints>
+                    </view>
+                    <size key="freeformSize" width="375" height="1700"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="TWX-w8-EgI" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-394.39999999999998" y="-0.89955022488755632"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="about_family" width="1378" height="637"/>
+        <image name="keddr_icon_2" width="480" height="480"/>
+    </resources>
 </document>

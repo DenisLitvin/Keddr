@@ -16,13 +16,13 @@ class CSTextField: UITextField {
         path.addLine(to: CGPoint())
     }
     override func placeholderRect(forBounds bounds: CGRect) -> CGRect {
-        return CGRect(x: 5, y: 0, width: bounds.width - 5, height: bounds.height)
+        return CGRect(x: 8, y: 0, width: bounds.width - 5, height: bounds.height)
     }
     override func textRect(forBounds bounds: CGRect) -> CGRect {
-        return CGRect(x: 5, y: 0, width: bounds.width - 5, height: bounds.height)
+        return CGRect(x: 8, y: 0, width: bounds.width - 5, height: bounds.height)
     }
     override func editingRect(forBounds bounds: CGRect) -> CGRect {
-        return CGRect(x: 5, y: 0, width: bounds.width - 5, height: bounds.height)
+        return CGRect(x: 8, y: 0, width: bounds.width - 5, height: bounds.height)
     }
 }
 

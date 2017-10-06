@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ParagraphCell: FeedCell {
+class ParagraphCell: PostDetailsCell {
     
     let view: UITextView = {
         let view = UITextView()
@@ -23,7 +23,7 @@ class ParagraphCell: FeedCell {
         addSubview(view)
         view.fillSuperview()
     }
-    override func setupContent(with element: FeedElement){
+    override func setupContent(with element: PostElement){
         super.setupContent(with: element)
         view.text = element.content
         

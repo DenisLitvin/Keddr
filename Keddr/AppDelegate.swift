@@ -29,11 +29,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let navcon = UINavigationController(rootViewController: mainVC)
         window?.rootViewController = navcon
         menuView.mainVC = mainVC
+        menuView.currentVC = mainVC
         menuView.navcon = navcon
         
-        navcon.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: Color.darkGray]
+        navcon.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: Color.darkGray, NSAttributedStringKey.font : Font.menu.create()]
         UIApplication.shared.statusBarStyle = .default
-        UINavigationBar.appearance().tintColor = Color.keddrYellow
+        UINavigationBar.appearance().tintColor = Color.darkGray
 
         window?.insertSubview(menuView, at: 0)
         menuView.fillSuperview()

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TableCell: FeedCell {
+class TableCell: PostDetailsCell {
     let view: UITextView = {
         let view = UITextView()
         view.isScrollEnabled = false
@@ -21,7 +21,7 @@ class TableCell: FeedCell {
         addSubview(view)
         view.fillSuperview()
     }
-    override func setupContent(with: FeedElement) {
+    override func setupContent(with: PostElement) {
         super.setupContent(with: with)
         view.text = with.content
     }

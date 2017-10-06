@@ -33,33 +33,29 @@ class LoginVC: UIViewController{
     }()
     lazy var loginField: CSTextField = { [unowned self] in
         let view = CSTextField()
-        view.backgroundColor = .white
+        view.backgroundColor = Color.ultraLightGray
         view.placeholder = "Имя пользователя"
         view.font = Font.date.create()
         view.clipsToBounds = true
         view.layer.opacity = 1
-        view.layer.borderWidth = 1
-        view.layer.borderColor = Color.lightGray.cgColor
-        view.layer.cornerRadius = 5
+        view.layer.cornerRadius = 10
         view.keyboardType = UIKeyboardType.emailAddress
         view.delegate = self
         return view
     }()
     lazy var passwordField: CSTextField = { [unowned self] in
         let view = CSTextField()
-        view.backgroundColor = .white
+        view.backgroundColor = Color.ultraLightGray
         view.placeholder = "Пароль"
         view.font = Font.date.create()
         view.clipsToBounds = true
         view.layer.opacity = 1
-        view.layer.borderWidth = 1
-        view.layer.borderColor = Color.lightGray.cgColor
-        view.layer.cornerRadius = 5
+        view.layer.cornerRadius = 10
         view.isSecureTextEntry = true
         view.delegate = self
         return view
     }()
-    lazy var signInButton: UIButton = {
+    lazy var signInButton: UIButton = { [unowned self] in
         let view = UIButton(type: .system)
         view.setTitle("Войти", for: .normal)
         view.setTitleColor(.white, for: .normal)
@@ -71,18 +67,19 @@ class LoginVC: UIViewController{
         view.addTarget(self, action: #selector(signInButtonTapped), for: .touchUpInside)
         return view
     }()
-    lazy var backButton: UIButton = {
+    lazy var signInLaterButton: UIButton = { [unowned self] in
         let view = UIButton(type: .system)
-        view.setTitle("Позже", for: .normal)
+        view.setTitle("Войти позже", for: .normal)
+        view.titleLabel?.font = Font.date.create()
         view.setTitleColor(Color.keddrYellow, for: .normal)
-        view.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
+        view.addTarget(self, action: #selector(signInLaterButtonTapped), for: .touchUpInside)
         return view
     }()
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
         setupNotifications()
-        self.view.backgroundColor = Color.keddrBlack
+        self.view.backgroundColor = .white
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -102,7 +99,7 @@ class LoginVC: UIViewController{
         bottomContainerview.addSubview(loginField)
         bottomContainerview.addSubview(passwordField)
         bottomContainerview.addSubview(signInButton)
-        self.view.addSubview(backButton)
+        self.view.addSubview(signInLaterButton)
         
         regularHeightConstraints.append(contentsOf: logoView.anchorWithReturnAnchors(top: self.view.centerYAnchor, left: self.view.centerXAnchor, bottom: nil, right: nil, topConstant: -(self.view.frame.height * 2 / 5) + 50, leftConstant: -50, bottomConstant: 0, rightConstant: 0, widthConstant: 100, heightConstant: 100))
         
@@ -122,7 +119,7 @@ class LoginVC: UIViewController{
         loginField.anchor(top: bottomContainerview.centerYAnchor, left: bottomContainerview.centerXAnchor, bottom: nil, right: nil, topConstant: -75, leftConstant: -115, bottomConstant: 0, rightConstant: 0, widthConstant: 230, heightConstant: 30)
         passwordField.anchor(top: loginField.bottomAnchor, left: bottomContainerview.centerXAnchor, bottom: nil, right: nil, topConstant: 30, leftConstant: -115, bottomConstant: 0, rightConstant: 0, widthConstant: 230, heightConstant: 30)
         signInButton.anchor(top: passwordField.bottomAnchor, left: bottomContainerview.centerXAnchor, bottom: nil, right: nil, topConstant: 30, leftConstant: -50, bottomConstant: 0, rightConstant: 0, widthConstant: 100, heightConstant: 30)
-        backButton.anchor(top: topLayoutGuide.topAnchor, left: self.view.leftAnchor, bottom: nil, right: nil, topConstant: 20, leftConstant: 20, bottomConstant: 0, rightConstant: 0, widthConstant: 60, heightConstant: 30)
+        signInLaterButton.anchor(top: nil, left: loginField.leftAnchor, bottom: loginField.topAnchor, right: nil, topConstant: 0, leftConstant: 0, bottomConstant: 20, rightConstant: 0, widthConstant: 120, heightConstant: 30)
     }
     fileprivate func setupNotifications() {
         NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardNotifications), name: Notification.Name.UIKeyboardWillShow, object: nil)
@@ -161,16 +158,18 @@ class LoginVC: UIViewController{
             self.view.layoutIfNeeded()
         })
     }
-    @objc func backButtonTapped(){
+    @objc func signInLaterButtonTapped(){
         dismiss(animated: true)
     }
     @objc func signInButtonTapped(){
         guard let login = loginField.text,
             let password = passwordField.text else { return }
         let user = User(login: login, password: password)
+        CSActivityIndicator.startAnimating(in: self.view)
         AuthClient.signIn(with: user) { (error) in
+            CSActivityIndicator.stopAnimating()
             if let error = error{
-                print(error.userDescription)
+                CSAlertView.showAlert(with: error.userDescription, in: self.view)
             } else {
                 let keychain = Keychain(service: "com.keddr.credentials")
                 print("signed in with:", keychain["uid"]!, keychain["login"]!, keychain["password"]!)

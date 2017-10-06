@@ -6,7 +6,7 @@
 //  Copyright © 2017 DenisLitvin. All rights reserved.
 //
 
-import UIKit
+import Foundation
 import Kanna
 
 extension Api {
@@ -31,9 +31,11 @@ extension Api {
                     if let titleNode = postNode.at_css("div > h2 > a"), let text = titleNode.text {
                         post.title = text.trimmingCharacters(in: .whitespacesAndNewlines)
                     }
+                    guard post.title != nil else { continue }
                     if let descriptionNode = postNode.at_css("div > p"), let text = descriptionNode.text {
                         post.description = text.trimmingCharacters(in: .whitespacesAndNewlines)
                     }
+                    guard post.description != nil else { continue }
                     if let dateNode = postNode.at_css("div > span"), let text = dateNode.text?.trimmingCharacters(in: .whitespacesAndNewlines) {
                         let dateString = text.components(separatedBy: " ")[0]
                         let dateFormatter = DateFormatter()
