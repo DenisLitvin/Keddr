@@ -72,7 +72,7 @@ class MainVC: SlideOutCollectionViewController {
         autoFetching = true
         pageStatistics.loadingPageNumber += 1
         if pageStatistics.loadingPageNumber == 1 { CSActivityIndicator.startAnimating(in: self.view) }
-        Api.fetchPosts(for: pageStatistics.loadingPageNumber, complition: { (posts) in
+        ApiManager.fetchPosts(for: pageStatistics.loadingPageNumber, complition: { (posts) in
             CSActivityIndicator.stopAnimating()
             for post in posts{
                 self.setupCaclulations(for: post, layout: self.collectionView!.collectionViewLayout)
@@ -85,7 +85,7 @@ class MainVC: SlideOutCollectionViewController {
         autoFetching = true
         pageStatistics.loadingPageNumber += 1
         if pageStatistics.loadingPageNumber == 1 { CSActivityIndicator.startAnimating(in: self.view) }
-        Api.fetchBlogPosts(for: pageStatistics.loadingPageNumber, complition: { (posts) in
+        ApiManager.fetchBlogPosts(for: pageStatistics.loadingPageNumber, complition: { (posts) in
             CSActivityIndicator.stopAnimating()
             for post in posts{
                 self.setupCaclulations(for: post, layout: self.collectionView!.collectionViewLayout)
@@ -125,7 +125,7 @@ class MainVC: SlideOutCollectionViewController {
                 SavedImage.deleteImages(for: url)
                 try? context.save()
             } else if savedPost == nil {
-                Api.fetchPostElements(url: url) { (elements) in
+                ApiManager.fetchPostElements(url: url) { (elements) in
                     post.createSavedPost(with: context, feedElements: elements)
                     try? context.save()
                 }

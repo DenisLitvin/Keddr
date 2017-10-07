@@ -9,7 +9,7 @@
 import Foundation
 import Kanna
 
-extension Api {
+extension ApiManager {
     
     static func fetchBlogPosts(for page: Int, complition: @escaping([Post]) -> () ) {
         guard let url = URL(string: "https://keddr.com/category/blogs/page/\(page)/") else { return }

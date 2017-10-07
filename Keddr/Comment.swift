@@ -11,7 +11,7 @@ import Kanna
 
 fileprivate var commentNestLevels = [String:Int]()
 
-class Comment {
+class Comment: NSObject {
     
     var content: String?
     var authorName: String?
@@ -22,8 +22,10 @@ class Comment {
     var parentId: String?
     var commentVotes: String?
     var postId: String?
-    var isLiked: Bool?
     
+    override init() {
+        super.init()
+    }
     init?(xml: XMLElement) {
         guard let commentId = xml["id"]?.replacingOccurrences(of: "comment-", with: ""),
             let parentId = xml["parent-id"] else { return nil}

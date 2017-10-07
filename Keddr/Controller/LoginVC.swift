@@ -116,6 +116,7 @@ class LoginVC: UIViewController{
         
         let bottomContainerViewConstraints = bottomContainerview.anchorWithReturnAnchors(top: nil, left: self.view.leftAnchor, bottom: self.view.bottomAnchor, right: self.view.rightAnchor, topConstant: 0, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 200)
         bottomContainerviewBottomConstraint = bottomContainerViewConstraints[1]
+        
         loginField.anchor(top: bottomContainerview.centerYAnchor, left: bottomContainerview.centerXAnchor, bottom: nil, right: nil, topConstant: -75, leftConstant: -115, bottomConstant: 0, rightConstant: 0, widthConstant: 230, heightConstant: 30)
         passwordField.anchor(top: loginField.bottomAnchor, left: bottomContainerview.centerXAnchor, bottom: nil, right: nil, topConstant: 30, leftConstant: -115, bottomConstant: 0, rightConstant: 0, widthConstant: 230, heightConstant: 30)
         signInButton.anchor(top: passwordField.bottomAnchor, left: bottomContainerview.centerXAnchor, bottom: nil, right: nil, topConstant: 30, leftConstant: -50, bottomConstant: 0, rightConstant: 0, widthConstant: 100, heightConstant: 30)
@@ -127,15 +128,22 @@ class LoginVC: UIViewController{
     }
     @objc func handleKeyboardNotifications(_ notification: Notification){
         guard let info = notification.userInfo else { return }
-        if let rect = info[UIKeyboardFrameEndUserInfoKey] as? CGRect{
-            changeConstraintsForHandlingKeyboard(with: rect)
-            animateBottomContainer(with: self.view.bounds.height - rect.origin.y)
+        if let endRect = info[UIKeyboardFrameEndUserInfoKey] as? CGRect,
+            let beginRect = info[UIKeyboardFrameBeginUserInfoKey] as? CGRect {
+            handleChangingConstraintsForKeyboard(with: endRect, didShow: endRect.origin.y - beginRect.origin.y > 100)
+            UIView.animate(withDuration: 0.25, delay: 0, options: .curveEaseOut, animations: {
+                self.view.layoutIfNeeded()
+            })
         }
     }
-    func changeConstraintsForHandlingKeyboard(with rect: CGRect){
+    func handleChangingConstraintsForKeyboard(with rect: CGRect, didShow: Bool){
+        if didShow {
+            self.bottomContainerviewBottomConstraint?.constant = 0
+        } else {
+            self.bottomContainerviewBottomConstraint?.constant = -rect.height
+        }
         if traitCollection.verticalSizeClass == .compact || traitCollection.horizontalSizeClass == .compact {
-            if rect.origin.y
-                == self.view.bounds.height {
+            if didShow {
                 changeConstraints(for: traitCollection)
             } else {
                 NSLayoutConstraint.deactivate(regularHeightConstraints)
@@ -151,12 +159,6 @@ class LoginVC: UIViewController{
             NSLayoutConstraint.activate(regularHeightConstraints)
             NSLayoutConstraint.deactivate(compactHeightConstraints)
         }
-    }
-    func animateBottomContainer(with constant: CGFloat){
-        UIView.animate(withDuration: 0.25, delay: 0, options: .curveEaseOut, animations: {
-            self.bottomContainerviewBottomConstraint?.constant = -constant
-            self.view.layoutIfNeeded()
-        })
     }
     @objc func signInLaterButtonTapped(){
         dismiss(animated: true)

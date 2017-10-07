@@ -47,13 +47,15 @@ class AuthClient {
             }
             if let response = response as? HTTPURLResponse,
                 let responseCookie = response.allHeaderFields["Set-Cookie"] as? String, responseCookie.contains("wordpress_sec"){
-                keychain[UserCredentials.login.rawValue] = user.login
-                keychain[UserCredentials.password.rawValue] = user.password
+                if keychain[UserCredentials.login.rawValue] == nil || keychain[UserCredentials.password.rawValue] == nil{
+                    keychain[UserCredentials.login.rawValue] = user.login
+                    keychain[UserCredentials.password.rawValue] = user.password
+                }
                 if keychain[UserCredentials.uid.rawValue] != nil{
                     complition(nil)
                     return
                 }
-                Api.fetchUserId(complition: { (uid) in
+                ApiManager.fetchUserId(complition: { (uid) in
                     guard let uid = uid else {
                         complition(ApiErrorConstructor.genericError)
                         return
@@ -67,17 +69,21 @@ class AuthClient {
             }
             }.resume()
     }
-    static func reply(for comment: Comment, complition: @escaping(_ error: ApiError?) -> () ){
+    static func reply(with comment: Comment, complition: @escaping(_ error: ApiError?) -> () ){
         checkAndValidateUser { (error) in
-            if let error = error { complition(error); return }
+            if let error = error {
+                complition(error)
+                return
+            }
             guard let url = URL(string: "https://keddr.com/wp-comments-post.php"),
                 let uid = keychain[UserCredentials.uid.rawValue],
-                let parentId = comment.commentId,
-                let postId = comment.postId else {
+                let parentId = comment.parentId,
+                let postId = comment.postId,
+                let content = comment.content else {
                     complition(ApiErrorConstructor.genericError)
                     return
             }
-            let httpBodyString = "user_id=\(uid)&comment_post_ID=\(postId)&comment=d&url=&comment_parent=\(parentId)&subscribe_all_comments=false&subscribe_my_comment=false&social_icon="
+            let httpBodyString = "user_id=\(uid)&comment_post_ID=\(postId)&comment=\(content)&url=&comment_parent=\(parentId)&subscribe_all_comments=false&subscribe_my_comment=false&social_icon="
             var request = baseUrlRequest
             request.url = url
             request.httpBody = httpBodyString.data(using: .utf8)
@@ -114,9 +120,6 @@ class AuthClient {
         }
     }
     static func baseInteractionTask(with request: URLRequest, complition: @escaping(_ error: ApiError?) -> () ){
-        let config = URLSessionConfiguration.default
-        config.httpCookieStorage = 
-        let session = URLSession(configuration: config)
         URLSession.shared.dataTask(with: request) { (data, response, error) in
             if error != nil {
                 complition(ApiErrorConstructor.genericError)
@@ -142,13 +145,13 @@ class AuthClient {
                     return
                 }
                 complition(nil)
+                return
             })
         } else { complition(ApiErrorConstructor.authorizeError) }
     }
-    static func logOut(){
+    static func signOut(){
         do{
             try keychain.removeAll()
-            UserDefaults.standard.setIsLoginScreenShown(value: false)
         } catch { print("Failed logging out") }
     }
 }

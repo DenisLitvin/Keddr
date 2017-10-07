@@ -17,8 +17,14 @@ extension Post {
         do{
             let result = try context.fetch(request)
             if result.count > 0 {
-                precondition(result.count == 1, "SavedPost - Database inconsistency")
-                return result.first
+                let firstPost = result.first
+                //delete the rest if more than 1
+                result.forEach({ (post) in
+                    if post != firstPost {
+                        context.delete(post)
+                    }
+                })
+                return firstPost
             }
         } catch {
             print("Failed to find Saved Post")

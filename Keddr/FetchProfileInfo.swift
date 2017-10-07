@@ -9,7 +9,7 @@
 import Foundation
 import Kanna
 
-extension Api {
+extension ApiManager {
     static func fetchProfileInfo(with urlString: String, complition: @escaping ([Post]?, Profile?, ApiError?) -> () ){
         guard let url = URL(string: urlString) else {
             complition(nil, nil, ApiErrorConstructor.genericError)

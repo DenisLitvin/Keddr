@@ -92,14 +92,16 @@ extension MenuView: UICollectionViewDelegate {
             }
             currentVC = settingsVC
         case 5:
-            AuthClient.logOut()
+            AuthClient.signOut()
             let loginVC = LoginVC()
             currentVC?.present(loginVC, animated: true)
         default:
             break
         }
         navcon?.setViewControllers([currentVC!], animated: false)
-        currentVC?.title = menuItems[indexPath.item].text
+        if indexPath.item != 5 {
+            currentVC?.title = menuItems[indexPath.item].text
+        }
         if let currentVC = currentVC as? SlideOutViewControlling {
             currentVC.menuButtonTapped()
         }

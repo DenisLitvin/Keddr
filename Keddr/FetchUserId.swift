@@ -9,7 +9,7 @@
 import Foundation
 import Kanna
 
-extension Api {
+extension ApiManager {
     static func fetchUserId(complition: @escaping (String?) -> ()){
         URLSession.shared.dataTask(with: URL(string: "https://keddr.com/profile/")!) { (data, response, error) in
             if error != nil{

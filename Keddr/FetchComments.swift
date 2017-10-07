@@ -9,7 +9,7 @@
 import Foundation
 import Kanna
 
-extension Api {
+extension ApiManager {
     
     static func fetchComments(for post: Post, complition: @escaping([Comment], String?)->()) {
         URLSession.shared.dataTask(with: post.url!, completionHandler: { (data, response, error) in

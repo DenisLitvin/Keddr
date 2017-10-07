@@ -9,7 +9,7 @@
 import Foundation
 import Kanna
 
-extension Api{
+extension ApiManager{
     static func fetchPostElements(url: URL, complition: @escaping ([PostElement])->() ){
         var feed = [PostElement]()
         DispatchQueue.global().async {

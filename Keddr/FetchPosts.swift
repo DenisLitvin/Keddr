@@ -10,7 +10,7 @@ import Foundation
 import Kanna
 
 
-class Api: NSObject{
+class ApiManager{
     
     static func fetchPosts(for page: Int, complition: @escaping ([Post]) -> () ) {
         var resultPosts = [Post]()

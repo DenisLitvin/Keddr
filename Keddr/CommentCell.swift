@@ -110,13 +110,6 @@ class CommentCell: BaseCell {
         votesLabel.text = votes
         likeButton.isOn = false
         dislikeButton.isOn = false
-        //like button appearence
-//        if let isLiked = comment?.isLiked {
-//            if isLiked{
-//                likeButton.isOn = true
-//            } else {
-//            }
-//        }
         //draw circles
         dotArrayView.numberOfDots = nestlevel
     }

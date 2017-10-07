@@ -39,7 +39,7 @@ class DetailVC: UICollectionViewController {
             CSActivityIndicator.stopAnimating()
             return
         }
-        Api.fetchPostElements(url: post.url!) { (feed) in
+        ApiManager.fetchPostElements(url: post.url!) { (feed) in
             self.postElements = feed
             self.collectionView?.reloadData()
             CSActivityIndicator.stopAnimating()
