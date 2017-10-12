@@ -8,22 +8,36 @@
 
 import UIKit
 
-class ImageCell: PostDetailsCell {
+protocol ImageCellDelegate: class {
+    func handleImageViewTap(with image: UIImage)
+}
+
+class ImageCell: PostDetailsBaseCell {
     
-    let view: CSImageView = {
+    weak var delegate: ImageCellDelegate?
+    
+    lazy var imageView: CSImageView = { [unowned self] in
         let view = CSImageView()
         view.clipsToBounds = true
         view.contentMode = .scaleAspectFill
         view.layer.cornerRadius = 7
+        view.isUserInteractionEnabled = true
+        let gr = UITapGestureRecognizer(target: self, action: #selector(imageViewTapped))
+        view.addGestureRecognizer(gr)
         return view
     }()
     override func setupViews() {
         super.setupViews()
-        addSubview(view)
-        view.anchor(top: topAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, topConstant: 3, leftConstant: 5, bottomConstant: 3, rightConstant: 5, widthConstant: 0, heightConstant: 0)
+        addSubview(imageView)
+        
+        imageView.anchor(top: topAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, topConstant: 3, leftConstant: 5, bottomConstant: 3, rightConstant: 5, widthConstant: 0, heightConstant: 0)
     }
     override func setupContent(with: PostElement) {
         super.setupContent(with: with)
-        view.loadImageUsingUrlString(with.content, directoryPathUrl: (post?.url)!)
+        imageView.loadImageUsingUrlString(with.content, directoryPathUrl: (post?.url)!)
+    }
+    @objc func imageViewTapped(){
+        guard let image = imageView.image else { return }
+        delegate?.handleImageViewTap(with: image)
     }
 }

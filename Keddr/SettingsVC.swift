@@ -12,20 +12,28 @@ class SettingsVC: SlideOutTableViewController {
     
     var sections: [SettingsSection] = []
     
+    var shouldExpandSliderCell = false {
+        didSet{
+            self.tableView.reloadData()
+        }
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
         setupItemsAndSections()
     }
     func setupViews(){
+        self.tableView.register(SwitcherSettingsCell.self, forCellReuseIdentifier: SettingsItemType.button.rawValue)
         self.tableView.register(SliderSettingsCell.self, forCellReuseIdentifier: SettingsItemType.slider.rawValue)
         self.tableView.register(BaseSettingsCell.self, forCellReuseIdentifier: SettingsItemType.text.rawValue)
     }
     func setupItemsAndSections(){
-        let firstSection = SettingsSection(title: "Размер Шрифта", items: [SettingsItem(type: .slider)])
-        let secondSection = SettingsSection(title: "Прочее", items: [SettingsItem(type: .text, content: "О Проекте")])
-        sections = [firstSection, secondSection]
+        let firstSection = SettingsSection(title: "Размер шрифта", items: [SettingsItem(type: .slider)])
+        let secondSection = SettingsSection(title: "Анимация", items: [SettingsItem(type: .button, content: "Убрать анимацию ленты постов")])
+        let thirdSection = SettingsSection(title: "Прочее", items: [SettingsItem(type: .text, content: "О Проекте")])
+        sections = [firstSection, secondSection, thirdSection]
     }
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
         return sections.count
     }
@@ -35,20 +43,22 @@ class SettingsVC: SlideOutTableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let item = sections[indexPath.section].items[indexPath.item]
         let cell = tableView.dequeueReusableCell(withIdentifier: item.type.rawValue, for: indexPath) as! BaseSettingsCell
+        cell.delegate = self
         cell.content = item.content
         return cell
     }
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return sections[section].title
     }
+    
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let height: CGFloat
+        var heightForRow: CGFloat
         if sections[indexPath.section].items[indexPath.item].type == .slider {
-            height = 80
+            heightForRow = shouldExpandSliderCell ? 120 : 80
         } else {
-            height = 40
+            heightForRow = 40
         }
-        return height
+        return heightForRow
     }
     
     

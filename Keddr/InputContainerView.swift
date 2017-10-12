@@ -10,7 +10,8 @@ import UIKit
 
 class InputContainerView: UIView {
     
-    var delegate: CommentsVC?
+    weak var delegate: CommentsVC?
+    
     var parentComment: Comment?{
         didSet{
             updateReplyToCommentLabel()

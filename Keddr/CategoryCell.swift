@@ -23,6 +23,7 @@ class CategoryCell: BaseCell {
     override func setupViews() {
         super.setupViews()
         addSubview(textView)
+        
         textView.fillSuperview()
     }
 }

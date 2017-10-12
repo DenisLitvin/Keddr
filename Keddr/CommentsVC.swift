@@ -34,6 +34,7 @@ class CommentsVC: UICollectionViewController {
         ApiManager.fetchComments(for: post) { (comments, postId) in
             CSActivityIndicator.stopAnimating()
             let bubbleViewWidth = self.view.bounds.width - 65
+            self.bubbleViewSizes.removeAll()
             for comment in comments{
                 guard let content = comment.content,
                 let timeStamp = comment.timeStamp,
@@ -86,12 +87,18 @@ class CommentsVC: UICollectionViewController {
     }
     func handleSendButton(with comment: Comment){
         comment.postId = postId
+        CSActivityIndicator.startAnimating(in: self.view)
         AuthClient.reply(with: comment) { (error) in
+            CSActivityIndicator.stopAnimating()
             if let error = error {
                 CSAlertView.showAlert(with: error.userDescription, in: self.view)
             } else {
-                self.fetchComments()
-                print("Successfuly commented with:", comment)
+                DispatchQueue.main.async {
+                    self.fetchComments()
+                    self.inputContainerView.inputTextField.text.removeAll()
+                    self.inputContainerView.cancelReplyingButtonTapped()
+                    print("Successfuly commented with:", comment)
+                }
             }
         }
     }

@@ -8,9 +8,11 @@
 
 import UIKit
 
-class DetailVC: UICollectionViewController {
+class PostDetailsVC: UICollectionViewController {
     
     unowned var context = appDelegate.persistentContainer.viewContext
+    
+    weak var delegate: MainVC?
     
     var postElements: [PostElement] = []
     
@@ -22,12 +24,20 @@ class DetailVC: UICollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupCollectionView()
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(savePostBarButtonTapped))
+    }
+    @objc func savePostBarButtonTapped(){
+        delegate?.handleSaveButton(with: post!, save: true)
+        delegate?.collectionView?.reloadData()
+        CSAlertView.showAlert(with: "Сохранено", in: self.view)
     }
     func updateUI(){
         guard let post = post else { return }
         CSActivityIndicator.startAnimating(in: self.view)
         if let savedPost = post.findSavedPost(with: context),
-            let sortedFeed = savedPost.savedPostElements {
+            let sortedFeed = savedPost.savedPostElements,
+            sortedFeed.count > 0 {
+            
             var postElement = [PostElement]()
             sortedFeed.forEach {
                 if let feedElement = PostElement(savedFeedElement: $0 as! SavedPostElement ){
@@ -40,15 +50,10 @@ class DetailVC: UICollectionViewController {
             return
         }
         ApiManager.fetchPostElements(url: post.url!) { (feed) in
+            CSActivityIndicator.stopAnimating()
             self.postElements = feed
             self.collectionView?.reloadData()
-            CSActivityIndicator.stopAnimating()
         }
-    }
-    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
-//        let offset = collectionView?.contentOffset.y
-//        let delta = min((offset! / (self.view.bounds.width * 9 / 16)), 1)
-//        navigationController?.navigationBar.backgroundColor = UIColor(white: 1, alpha: delta)
     }
     func setupCollectionView(){
         collectionView?.register(PostDetailsHeader.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "headerId")
@@ -56,17 +61,30 @@ class DetailVC: UICollectionViewController {
         collectionView?.register(VideoCell.self, forCellWithReuseIdentifier: ElementType.video.rawValue)
         collectionView?.register(Header2Cell.self, forCellWithReuseIdentifier: ElementType.h2.rawValue)
         collectionView?.register(ImageCell.self, forCellWithReuseIdentifier: ElementType.image.rawValue)
-        collectionView?.register(FotoramaCell.self, forCellWithReuseIdentifier: ElementType.fotorama.rawValue)
+        collectionView?.register(PhotoramaCell.self, forCellWithReuseIdentifier: ElementType.fotorama.rawValue)
         collectionView?.register(TableCell.self, forCellWithReuseIdentifier: ElementType.table.rawValue)
         collectionView?.backgroundColor = .white
         let layout = collectionViewLayout as! UICollectionViewFlowLayout
         layout.minimumLineSpacing = 0
         layout.minimumInteritemSpacing = 0
+        collectionView?.contentInset = UIEdgeInsets(top: -8, left: 0, bottom: 0, right: 0)
+    }
+    func handleAuthorNameLabelTapped(){
+        let profileVC = ProfileVC(collectionViewLayout: StretchyHeaderLayout())
+        profileVC.profileUrlString = post?.postAuthorUrlString
+        profileVC.navigationItem.leftBarButtonItems = []
+        self.navigationController?.pushViewController(profileVC, animated: true)
     }
     //MARK: - CollectionViewDelegate & CollectionViewDataSource
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let content = postElements[indexPath.item]
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: content.type.rawValue, for: indexPath) as! PostDetailsCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: content.type.rawValue, for: indexPath) as! PostDetailsBaseCell
+        if let cell = cell as? ImageCell {
+            cell.delegate = self
+        }
+        if let cell = cell as? PhotoramaCell {
+            cell.delegate = self
+        }
         cell.post = post
         cell.content = content
         return cell
@@ -77,6 +95,7 @@ class DetailVC: UICollectionViewController {
     // Header
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "headerId", for: indexPath) as! PostDetailsHeader
+        view.delegate = self
         view.content = post
         return view
     }
@@ -84,8 +103,16 @@ class DetailVC: UICollectionViewController {
         return CGSize(width: self.view.bounds.width, height: (self.view.bounds.width * 9 / 16) + 28)
     }
 }
+//MARK: - ImageCellDelegate
+extension PostDetailsVC: ImageCellDelegate{
+    func handleImageViewTap(with image: UIImage){
+        let pictureDetailsVC = PictureDetailsVC()
+        pictureDetailsVC.image = image
+        navigationController?.pushViewController(pictureDetailsVC, animated: true)
+    }
+}
 //MARK: - CollectionViewDelegateFlowLayout
-extension DetailVC: UICollectionViewDelegateFlowLayout {
+extension PostDetailsVC: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let element = postElements[indexPath.item]
         var attributes: (name: String, size: CGFloat)

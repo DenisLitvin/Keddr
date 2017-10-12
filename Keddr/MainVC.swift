@@ -20,10 +20,9 @@ class MainVC: SlideOutCollectionViewController {
             self.collectionViewLayout.invalidateLayout()
         }
     }
-    var pageStatistics = PageStatistics()
+    var contentController = ContentController()
     var textSizes: [(title: CGSize, description: CGSize)] = []
     var itemHeights: [CGFloat] = []
-    var autoFetching = true
     
     let keychain = Keychain(service: "com.keddr.credentials")
     
@@ -32,22 +31,22 @@ class MainVC: SlideOutCollectionViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Statistics", style: .plain, target: self, action: #selector(statisticsButtonTapped))
         collectionView?.register(PostCell.self, forCellWithReuseIdentifier: cellId)
         fetchPosts()
+
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
+        if UserDefaults.standard.isSimplifiedLayout(), collectionView?.collectionViewLayout is UltraVisualLayout{
+            changelayout(to: OverlapLayout())
+        } else if !UserDefaults.standard.isSimplifiedLayout(), collectionView?.collectionViewLayout is OverlapLayout{
+            changelayout(to: UltraVisualLayout())
+        }
         if !UserDefaults.standard.isLoginScreenShown(){
             let loginVC = LoginVC()
             self.present(loginVC, animated: false)
         }
-
-        //            for cell in (collectionView?.visibleCells) as! [PostCell]{
-        //                let index = collectionView?.indexPath(for: cell)?.item
-        //                cell.animateViews(num: Double(index!))
-        //            }
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -58,8 +57,8 @@ class MainVC: SlideOutCollectionViewController {
         let maxOffset = (collectionView?.contentSize.height)! - view.bounds.height - 800
         let currentOffset = collectionView?.contentOffset.y
         if currentOffset! > maxOffset,
-        pageStatistics.loadingPageNumber == pageStatistics.numberOfPagesLoaded,
-        autoFetching{
+        contentController.loadingPageNumber == contentController.numberOfPagesLoaded,
+        contentController.autoFetching{
             if title == "Блоги"{
                 fetchBlogPosts()
             } else if title == "Лента"{
@@ -69,33 +68,39 @@ class MainVC: SlideOutCollectionViewController {
     }
     //MARK: - Fetching posts
     func fetchPosts(){
-        autoFetching = true
-        pageStatistics.loadingPageNumber += 1
-        if pageStatistics.loadingPageNumber == 1 { CSActivityIndicator.startAnimating(in: self.view) }
-        ApiManager.fetchPosts(for: pageStatistics.loadingPageNumber, complition: { (posts) in
+        contentController.autoFetching = true
+        contentController.requestedPosts = true
+        contentController.loadingPageNumber += 1
+        if contentController.loadingPageNumber == 1 { CSActivityIndicator.startAnimating(in: self.view) }
+        ApiManager.fetchPosts(for: contentController.loadingPageNumber, complition: { (posts) in
             CSActivityIndicator.stopAnimating()
-            for post in posts{
-                self.setupCaclulations(for: post, layout: self.collectionView!.collectionViewLayout)
+            if self.contentController.requestedPosts{
+                for post in posts{
+                    self.setupCaclulations(for: post, layout: self.collectionView!.collectionViewLayout)
+                }
+                self.posts.append(contentsOf: posts)
+                self.contentController.numberOfPagesLoaded += 1
             }
-            self.posts.append(contentsOf: posts)
-            self.pageStatistics.numberOfPagesLoaded += 1
         })
     }
     func fetchBlogPosts(){
-        autoFetching = true
-        pageStatistics.loadingPageNumber += 1
-        if pageStatistics.loadingPageNumber == 1 { CSActivityIndicator.startAnimating(in: self.view) }
-        ApiManager.fetchBlogPosts(for: pageStatistics.loadingPageNumber, complition: { (posts) in
+        contentController.autoFetching = true
+        contentController.requestedPosts = false
+        contentController.loadingPageNumber += 1
+        if contentController.loadingPageNumber == 1 { CSActivityIndicator.startAnimating(in: self.view) }
+        ApiManager.fetchBlogPosts(for: contentController.loadingPageNumber, complition: { (posts) in
             CSActivityIndicator.stopAnimating()
-            for post in posts{
-                self.setupCaclulations(for: post, layout: self.collectionView!.collectionViewLayout)
+            if !self.contentController.requestedPosts{
+                for post in posts{
+                    self.setupCaclulations(for: post, layout: self.collectionView!.collectionViewLayout)
+                }
+                self.posts.append(contentsOf: posts)
+                self.contentController.numberOfPagesLoaded += 1
             }
-            self.posts.append(contentsOf: posts)
-            self.pageStatistics.numberOfPagesLoaded += 1
         })
     }
     func fetchSavedPosts(){
-        autoFetching = false
+        contentController.autoFetching = false
         CSActivityIndicator.startAnimating(in: self.view)
         let request: NSFetchRequest<SavedPost> = SavedPost.fetchRequest()
         request.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
@@ -132,43 +137,23 @@ class MainVC: SlideOutCollectionViewController {
             }
         }
     }
-    func changelayout() {
-        var layout = UICollectionViewLayout()
-        if self.collectionView?.collectionViewLayout is OverlapLayout {
-            layout = UltraVisualLayout()
+    func changelayout(to layout: UICollectionViewLayout) {
+        var newLayout = UICollectionViewLayout()
+        if layout is UltraVisualLayout{
+            newLayout = UltraVisualLayout()
             collectionView?.decelerationRate = UIScrollViewDecelerationRateFast
             collectionView?.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: -300, right: 0)
             for post in posts{
-                setupCaclulations(for: post, layout: layout)
+                setupCaclulations(for: post, layout: newLayout)
             }
-        } else if self.collectionView?.collectionViewLayout is UltraVisualLayout {
-            layout = OverlapLayout()
+        } else if layout is OverlapLayout {
+            newLayout = OverlapLayout()
             collectionView?.decelerationRate = UIScrollViewDecelerationRateNormal
             collectionView?.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         }
         collectionView?.reloadData()
-        collectionViewLayout.invalidateLayout()
-        collectionView?.setCollectionViewLayout(layout, animated: true)
-    }
-    //MARK: - Persistence
-    @objc func statisticsButtonTapped() {
-        let context = container.viewContext
-        context.perform {
-            if Thread.isMainThread {
-                print("on main thread")
-            } else {
-                print("off main thread")
-            }
-            if let postCount = try? context.count(for: SavedPost.fetchRequest()) {
-                print("\(postCount) Posts")
-            }
-            if let feedCount = try? context.count(for: SavedPostElement.fetchRequest()) {
-                print("\(feedCount) FeedElements")
-            }
-        }
-        print(keychain.allItems())
-        CSAlertView.showAlert(with: "Кнопка \"Statistics\" была нажата", in: self.view)
-        changelayout()
+        collectionView?.collectionViewLayout.invalidateLayout()
+        collectionView?.setCollectionViewLayout(newLayout, animated: false)
     }
 }
 extension MainVC {
@@ -177,20 +162,21 @@ extension MainVC {
         return posts.count
     }
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! PostCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! PostCell 
         let post = posts[indexPath.item]
         let size = textSizes[indexPath.item]
         cell.mainVC = self
         cell.titleHeightConstraint?.constant = size.title.height + 20
-        cell.descriptionHeightConstraint?.constant = size.description.height + 19
+        cell.descriptionHeightConstraint?.constant = size.description.height + 20
         cell.post = post
         return cell
     }
     //MARK: - UICollectionViewDelegate
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let post = posts[indexPath.item]
-        let detailVC = DetailVC(collectionViewLayout: StretchyHeaderLayout())
+        let detailVC = PostDetailsVC(collectionViewLayout: StretchyHeaderLayout())
         detailVC.post = post
+        detailVC.delegate = self
         navigationController?.pushViewController(detailVC, animated: true)
     }
 }
@@ -203,7 +189,7 @@ extension MainVC: UICollectionViewDelegateFlowLayout{
 //MARK: - Helpers
 extension MainVC {
     func invalidateLayoutAndData(){
-        pageStatistics.clear()
+        contentController.clear()
         posts = []
         textSizes = []
         itemHeights = []
@@ -220,17 +206,17 @@ extension MainVC {
         let itemHeight = textSize.0.height + textSize.1.height + (self.view.bounds.width * 9 / 16) + 43
         self.itemHeights.append(itemHeight)
         if let layout = layout as? UltraVisualLayout {
-            layout.addItemheight(height: itemHeight)
+            layout.addItemHeight(height: itemHeight)
         }
     }
     func textSizeForPost(_ post: Post) -> (CGSize, CGSize){
         if let title = post.title, let description = post.description {
-            let screenWidth = self.view.bounds.width
-            let screenHeight = self.view.bounds.height
+            let screenWidth = self.view.frame.width
+            let screenHeight = self.view.frame.height
             let height: CGFloat = screenHeight - (screenWidth * 9 / 16) - 93 - 30
-            let width: CGFloat = screenWidth - 25
+            let width: CGFloat = screenWidth - 20
             let titleSize = TextSize.calculate(for: [title], height: height, width: width, positioning: .vertical, fontName: [Font.title.name], fontSize: [Font.title.size], removeIfNotFit: false).size
-            let descriptionSize = TextSize.calculate(for: [description], height: height, width: width, positioning: .vertical, fontName: [Font.description.name], fontSize: [Font.description.size], removeIfNotFit: false).size
+            let descriptionSize = TextSize.calculate(for: [description], height: height - titleSize.height - 20, width: width, positioning: .vertical, fontName: [Font.description.name], fontSize: [Font.description.size], removeIfNotFit: false).size
             return (CGSize(width: width, height: titleSize.height), CGSize(width: width, height: descriptionSize.height))
         }
         return (.zero, .zero)

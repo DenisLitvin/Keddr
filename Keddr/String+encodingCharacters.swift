@@ -1,5 +1,5 @@
 //
-//  String+encodingCharacters.swift
+//  String+percentEncoded.swift
 //  Keddr
 //
 //  Created by macbook on 12.09.2017.
@@ -8,7 +8,7 @@
 
 import UIKit
 extension String {
-    func encodedCharacters() -> String{
+    func percentEncoded() -> String{
         return self.addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlQueryAllowed)!
     }
 }

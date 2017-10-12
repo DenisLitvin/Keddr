@@ -10,6 +10,8 @@ import UIKit
 
 class PostDetailsHeader: UICollectionReusableView {
     
+    weak var delegate: PostDetailsVC?
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupViews()
@@ -19,8 +21,14 @@ class PostDetailsHeader: UICollectionReusableView {
     }
     var content: Post? {
         didSet{
-            guard let content = content else { return }
-            setupContent(with: content)
+            guard let content = content,
+            let postAuthorUrlString = content.postAuthorUrlString else { return }
+            self.setupContent(with: content)
+            ApiManager.fetchProfileInfo(with: postAuthorUrlString) { (_, profile, error) in
+                if error == nil{
+                    self.authorAvatarView.loadImageUsingUrlString((profile?.thumbnailImageUrlString)!)
+                }
+            }
         }
     }
     func setupContent(with: Post){
@@ -38,38 +46,41 @@ class PostDetailsHeader: UICollectionReusableView {
         view.backgroundColor = .white
         view.clipsToBounds = true
         view.layer.cornerRadius = 20
+        
         return view
     }()
     var thumbnailViewHeightAnchor: NSLayoutConstraint?
-    lazy var thumbnailView: CSImageView = { [unowned self] in
+    let thumbnailView: CSImageView = {
         let view = CSImageView()
         view.contentMode = .scaleAspectFill
         view.clipsToBounds = true
-//        view.backgroundColor = .red
         return view
     }()
     let authorAvatarView: CSImageView = {
         let view = CSImageView()
-        view.image = #imageLiteral(resourceName: "asus")
-//        view.backgroundColor = .yellow
+        view.image = #imageLiteral(resourceName: "avatar_placeholder")
         view.layer.cornerRadius =  20
         view.layer.masksToBounds = true
         view.contentMode = .scaleAspectFill
         return view
     }()
-    let authorNameLabel: UILabel = {
+    lazy var authorNameLabel: UILabel = { [unowned self] in
         let view = UILabel()
-//        view.backgroundColor = .green
-        view.font = UIFont(name: Font.author.name, size: Font.author.size)
+        view.isUserInteractionEnabled = true
+        view.font = Font.author.create()
         view.textColor = Color.darkGray
+        let gr = UITapGestureRecognizer(target: self, action: #selector(authorNameLabelTapped))
+        view.addGestureRecognizer(gr)
         return view
     }()
+    @objc func authorNameLabelTapped(){
+        delegate?.handleAuthorNameLabelTapped()
+    }
     let dateLabel: UILabel = {
         let view = UILabel()
-        view.textAlignment = .center
+        view.textAlignment = .right
         view.textColor = Color.lightGray
-        view.font = UIFont(name: Font.date.name, size: Font.date.size)
-//        view.backgroundColor = .cyan
+        view.font = Font.date.create()
         return view
     }()
     let categorySlider: CategorySlider = {
@@ -85,13 +96,14 @@ class PostDetailsHeader: UICollectionReusableView {
         containerView.addSubview(dateLabel)
         containerView.addSubview(categorySlider)
 
-        thumbnailViewHeightAnchor = thumbnailView.anchorWithReturnAnchors(top: layoutMarginsGuide.topAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, topConstant: 0, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: self.bounds.width * 9 / 16)[3]
+        thumbnailViewHeightAnchor = thumbnailView.anchorWithReturnAnchors(top: layoutMarginsGuide.topAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, topConstant: 0, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: self.bounds.width * 9 / 16 )[3]
         containerView.anchor(top: thumbnailView.bottomAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, topConstant: -32, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 60)
         authorAvatarView.anchor(top: containerView.topAnchor, left: leftAnchor, bottom: nil, right: nil, topConstant: 10, leftConstant: 10, bottomConstant: 0, rightConstant: 0, widthConstant: 40, heightConstant: 40)
          authorNameLabel.anchor(top: authorAvatarView.topAnchor, left: authorAvatarView.rightAnchor, bottom: nil, right: dateLabel.rightAnchor, topConstant: 0, leftConstant: 10, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 17)
-        dateLabel.anchor(top: authorAvatarView.topAnchor, left: nil, bottom: nil, right: rightAnchor, topConstant: 0, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 100, heightConstant: 17)
+        dateLabel.anchor(top: authorAvatarView.topAnchor, left: nil, bottom: nil, right: rightAnchor, topConstant: 0, leftConstant: 0, bottomConstant: 0, rightConstant: 5, widthConstant: 100, heightConstant: 17)
         categorySlider.anchor(top: dateLabel.bottomAnchor, left: authorAvatarView.rightAnchor, bottom: nil, right: rightAnchor, topConstant: 3, leftConstant: 10, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 20)
     }
+    
     var previousDelta: CGFloat = 0
     override func apply(_ layoutAttributes: UICollectionViewLayoutAttributes) {
         super.apply(layoutAttributes)

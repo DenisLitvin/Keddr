@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ParagraphCell: PostDetailsCell {
+class ParagraphCell: PostDetailsBaseCell {
     
     let view: UITextView = {
         let view = UITextView()

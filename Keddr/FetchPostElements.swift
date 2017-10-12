@@ -22,16 +22,19 @@ extension ApiManager{
                         if node.parent?.className != "blogcontent" || node.className == "leftblogcontent" || node.className == "mistape_caption"{
                             continue
                         }
+//                        if let authorImageNode = node.at_css("div > div.authordetails > img"), let image = authorImageNode["src"]{
+//                            authorImageUrlString = image
+//                        }
                         //feed
                         if let image = node.at_css("img")?["src"], node.tagName == "p"{
                             if let image = node.at_css("a")?["href"], image.hasSuffix("jpg"){
                                 for node in node.css("a"){
                                     let image = node["href"]!
-                                    feed.append(PostElement(type: .image, content: image.encodedCharacters()))
+                                    feed.append(PostElement(type: .image, content: image.percentEncoded()))
                                 }
                                 continue
                             }
-                            feed.append(PostElement(type: .image, content: image.encodedCharacters()))
+                            feed.append(PostElement(type: .image, content: image.percentEncoded()))
                         }
                         if node.tagName == "ul"{
                             var characteristicsField = ""
@@ -47,13 +50,13 @@ extension ApiManager{
                             feed.append(PostElement(type: .h2, content: text))
                         }
                         if let video = node.at_css("iframe")?["src"], node.tagName == "p"{
-                            feed.append(PostElement(type: .video, content: video.encodedCharacters()))
+                            feed.append(PostElement(type: .video, content: video.percentEncoded()))
                         }
                         if node.tagName == "div", node.className == "fotorama"{
                             var fotorama = ""
                             for image in node.css("a"){
                                 if let image = image["href"]{
-                                    fotorama += "\(image.encodedCharacters()),"
+                                    fotorama += "\(image.percentEncoded()),"
                                 }
                             }
                             let fotoramaTrimmed = fotorama.characters.dropLast()

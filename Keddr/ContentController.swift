@@ -8,8 +8,10 @@
 
 import Foundation
 
-struct PageStatistics {
+struct ContentController {
     
+    var autoFetching: Bool = true
+    var requestedPosts: Bool = true
     var loadingPageNumber = 0
     var numberOfPagesLoaded = 0
     

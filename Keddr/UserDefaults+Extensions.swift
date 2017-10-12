@@ -13,6 +13,7 @@ extension UserDefaults {
     enum UserDefaultsKeys: String {
         case isLoginScreenShown
         case textSize
+        case isSimplifiedLayout
     }
     //login
     func setIsLoginScreenShown(value: Bool) {
@@ -31,4 +32,15 @@ extension UserDefaults {
     func getUserTextSizeMultiplier() -> Float {
         return float(forKey: UserDefaultsKeys.textSize.rawValue)
     }
+    //layout
+    func isSimplifiedLayout() -> Bool{
+        return bool(forKey: UserDefaultsKeys.isSimplifiedLayout.rawValue)
+    }
+    func setLayoutToBeSimplified(_ bool: Bool) {
+        set(bool, forKey: UserDefaultsKeys.isSimplifiedLayout.rawValue)
+    }
 }
+
+
+
+

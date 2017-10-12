@@ -9,7 +9,7 @@
 import UIKit
 import WebKit
 
-class VideoCell: PostDetailsCell {
+class VideoCell: PostDetailsBaseCell {
     
     let view: WKWebView = {
         let view = WKWebView()

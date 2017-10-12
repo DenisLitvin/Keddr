@@ -21,8 +21,8 @@ class CSAlertView {
                 alertView.textLabel.text = text
                 view.addSubview(self.alertView)
                 alertView.anchorCenterSuperview()
-                alertView.heightAnchor.constraint(equalToConstant: 100).isActive = true
-                alertView.widthAnchor.constraint(equalToConstant: 100).isActive = true
+                alertView.heightAnchor.constraint(equalToConstant: 120).isActive = true
+                alertView.widthAnchor.constraint(equalToConstant: 120).isActive = true
                 
                 UIView.animate(withDuration: 0.08, delay: 0, options: .curveEaseOut, animations: {
                     alertView.transform = .identity

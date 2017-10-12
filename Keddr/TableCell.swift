@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TableCell: PostDetailsCell {
+class TableCell: PostDetailsBaseCell {
     let view: UITextView = {
         let view = UITextView()
         view.isScrollEnabled = false

@@ -44,7 +44,7 @@ class Post {
         self.postAuthorUrlString = postAuthorUrlString
     }
     init?(xml: XMLElement){
-        if let urlNode = xml.at_css("div > h2 > a"), let urlString = urlNode["href"], let url = URL(string: urlString.encodedCharacters()) {
+        if let urlNode = xml.at_css("div > h2 > a"), let urlString = urlNode["href"], let url = URL(string: urlString.percentEncoded()) {
             self.url = url
         }
         guard let urlString = url?.absoluteString, urlString.contains("keddr") else { return nil }
@@ -65,9 +65,9 @@ class Post {
         }
         if let thumbnailNode = xml.at_css("div > div.thumbnailarea > a > img"){
             if let url = thumbnailNode["data-original"]{
-                self.thumbnailImageUrlString = url.encodedCharacters()
+                self.thumbnailImageUrlString = url.percentEncoded()
             }else if let url = thumbnailNode["src"]{
-                self.thumbnailImageUrlString = url.encodedCharacters()
+                self.thumbnailImageUrlString = url.percentEncoded()
             }
         }
         if let titleNode = xml.at_css("div > h2 > a"), let title = titleNode.text{

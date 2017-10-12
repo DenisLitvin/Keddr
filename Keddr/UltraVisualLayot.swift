@@ -1,5 +1,5 @@
 //
-//  CustomLayot.swift
+//  UltraVisualLayout.swift
 //  Keddr
 //
 //  Created by macbook on 27.07.17.
@@ -17,7 +17,7 @@ class UltraVisualLayout: UICollectionViewLayout{
             return (collectionView?.bounds.width)! / 4
         }
     }
-    func addItemheight(height: CGFloat){
+    func addItemHeight(height: CGFloat){
         itemHeights.append(height)
         let dragOffset = height + (dragOffsets.last ?? 0)
         dragOffsets.append(dragOffset)

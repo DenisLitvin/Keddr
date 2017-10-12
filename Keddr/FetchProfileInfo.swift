@@ -15,11 +15,11 @@ extension ApiManager {
             complition(nil, nil, ApiErrorConstructor.genericError)
             return
         }
-        AuthClient.checkAndValidateUser { (error) in
-            if let error = error {
-                complition(nil, nil, error)
-                return
-            }
+//        AuthClient.checkAndValidateUser { (error) in
+//            if let error = error {
+//                complition(nil, nil, error)
+//                return
+//            }
             URLSession.shared.dataTask(with: url) { (data, response, error) in
                 if error != nil {
                     complition(nil, nil, ApiErrorConstructor.genericError)
@@ -34,9 +34,9 @@ extension ApiManager {
                         let post = Post()
                         if let thumbnailNode = postNode.at_css("div > div.thumbnailarea.alignleft > a"),
                             let url = thumbnailNode["href"]{
-                            post.url = URL(string: url.encodedCharacters())
+                            post.url = URL(string: url.percentEncoded())
                             if let imageNode = thumbnailNode.at_css("img"), let imageUrlString = imageNode["src"]{
-                                post.thumbnailImageUrlString = imageUrlString.encodedCharacters()
+                                post.thumbnailImageUrlString = imageUrlString.percentEncoded()
                             }
                         }
                         if let titleNode = postNode.at_css("div > div.fullcontent > h2 > a"){
@@ -52,6 +52,15 @@ extension ApiManager {
                             dateFormatter.dateFormat = "dd/MM/yyyy"
                             post.date = dateFormatter.date(from: dateString)
                         }
+                        if let imageNode = postNode.at_css("div.thumbnailarea.alignleft > a > img"){
+                            post.thumbnailImageUrlString = imageNode["src"]
+                        }
+                        if let authorNode = postNode.at_css("div.fullcontent > span > a"), let authorName = authorNode.text {
+                            post.authorName = authorName
+                            post.postAuthorUrlString = authorNode["href"]
+                        }
+                        post.commentCount = "0"
+                        post.categories = []
                         posts.append(post)
                     }
                     DispatchQueue.main.async {
@@ -60,7 +69,7 @@ extension ApiManager {
                 }
                 }.resume()
         }
-    }
+//    }
 }
 
 

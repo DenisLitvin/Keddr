@@ -25,9 +25,9 @@ class CSImageView: UIImageView {
             }
             if let directoryPathUrl = directoryPathUrl {
                 do{
-                    let path = try FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false).appendingPathComponent(directoryPathUrl.lastPathComponent).appendingPathComponent(url.lastPathComponent)
-                    if FileManager.default.fileExists(atPath: path.path){
-                        let image = UIImage(contentsOfFile: path.path)
+                    let url = try FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false).appendingPathComponent(directoryPathUrl.lastPathComponent).appendingPathComponent(url.lastPathComponent)
+                    if FileManager.default.fileExists(atPath: url.path){
+                        let image = UIImage(contentsOfFile: url.path)
                         self.image = image
                         return
                     }

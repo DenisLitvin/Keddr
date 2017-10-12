@@ -63,7 +63,15 @@ extension ProfileVC {
         }
         return UICollectionReusableView()
     }
+    //MARK: - UICollectionViewDelegate
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let postDetailsVC = PostDetailsVC(collectionViewLayout: StretchyHeaderLayout())
+        postDetailsVC.post = posts[indexPath.item]
+        postDetailsVC.navigationItem.leftBarButtonItems = []
+        self.navigationController?.pushViewController(postDetailsVC, animated: true)
+    }
 }
+
 //MARK: - UICollectionViewDelegateFlowLayout
 extension ProfileVC: UICollectionViewDelegateFlowLayout {
     

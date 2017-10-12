@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PostDetailsCell: BaseCell {
+class PostDetailsBaseCell: BaseCell {
     
     var post: Post?
     

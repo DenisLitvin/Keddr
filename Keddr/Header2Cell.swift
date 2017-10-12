@@ -8,7 +8,7 @@
 
 import UIKit
 
-class Header2Cell: PostDetailsCell {
+class Header2Cell: PostDetailsBaseCell {
     
     let view: UITextView = {
         let view = UITextView()

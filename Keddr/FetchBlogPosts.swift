@@ -22,10 +22,10 @@ extension ApiManager {
                 var posts = [Post]()
                 for postNode in html.css("div.articlecontainer.nonfeatured.maincontent.full > div.post-box.cat_branded_type_one > div"){
                     let post = Post()
-                    if let thumbnailNode = postNode.at_css("div > div.thumbnailarea > a"), let urlString = thumbnailNode["href"], let url = URL(string: urlString.encodedCharacters()){
+                    if let thumbnailNode = postNode.at_css("div > div.thumbnailarea > a"), let urlString = thumbnailNode["href"], let url = URL(string: urlString.percentEncoded()){
                         post.url = url
                         if let imageNode = thumbnailNode.at_css("img"), let thumbnailImageUrlString = imageNode["src"]{
-                            post.thumbnailImageUrlString = thumbnailImageUrlString.encodedCharacters()
+                            post.thumbnailImageUrlString = thumbnailImageUrlString.percentEncoded()
                         }
                     }
                     if let titleNode = postNode.at_css("div > h2 > a"), let text = titleNode.text {

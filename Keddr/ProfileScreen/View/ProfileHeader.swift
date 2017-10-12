@@ -28,9 +28,10 @@ class ProfileHeader: UICollectionReusableView {
     let thumbnailBackgroundView: CSImageView = {
         let view = CSImageView()
         view.contentMode = .scaleAspectFill
+        view.clipsToBounds = true
         return view
     }()
-    let thumbnailView: CSImageView = {
+    let authorAvatarView: CSImageView = {
         let view = CSImageView()
         view.contentMode = .scaleAspectFill
         view.clipsToBounds = true
@@ -92,7 +93,7 @@ class ProfileHeader: UICollectionReusableView {
         let statisticsLabelText = "Статистика: \n" + (onSiteTime + "\n" + commentCount + "\n" + postCount)
         statisticsLabel.text = statisticsLabelText
         thumbnailBackgroundView.loadImageUsingUrlString(thumbnailBackgroundUrlString)
-        thumbnailView.loadImageUsingUrlString(thumbnailUrlString)
+        authorAvatarView.loadImageUsingUrlString(thumbnailUrlString)
         calculateLabelHeightConstraint(with: profile.description, constraint: authorDescriptionLabelHeightConstraint)
         calculateLabelHeightConstraint(with: devicesLabelText, constraint: devicesLabelHeightConstraint)
         calculateLabelHeightConstraint(with: statisticsLabelText, constraint: statisticsLabelHeightConstraint)
@@ -105,7 +106,7 @@ class ProfileHeader: UICollectionReusableView {
     }
     func setupViews(){
         addSubview(thumbnailBackgroundView)
-        addSubview(thumbnailView)
+        addSubview(authorAvatarView)
         addSubview(authorNameLabel)
         addSubview(authorDescriptionLabel)
         addSubview(devicesLabel)
@@ -113,7 +114,7 @@ class ProfileHeader: UICollectionReusableView {
         addSubview(postsSectionHeaderLabel)
         
         thumbnailViewHeightAnchor = thumbnailBackgroundView.anchorWithReturnAnchors(top: topAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, topConstant: 0, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: (self.bounds.width * 9 / 16))[3]
-        thumbnailView.anchor(top: thumbnailBackgroundView.centerYAnchor, left: thumbnailBackgroundView.centerXAnchor, bottom: nil, right: nil, topConstant: -42, leftConstant: -42, bottomConstant: 0, rightConstant: 0, widthConstant: 80, heightConstant: 80)
+        authorAvatarView.anchor(top: thumbnailBackgroundView.centerYAnchor, left: thumbnailBackgroundView.centerXAnchor, bottom: nil, right: nil, topConstant: -42, leftConstant: -42, bottomConstant: 0, rightConstant: 0, widthConstant: 80, heightConstant: 80)
         authorNameLabel.anchor(top: thumbnailBackgroundView.bottomAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, topConstant: -20, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 45)
         authorDescriptionLabelHeightConstraint = authorDescriptionLabel.anchorWithReturnAnchors(top: authorNameLabel.bottomAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, topConstant: 0, leftConstant: 10, bottomConstant: 0, rightConstant: 5, widthConstant: 0, heightConstant: 1)[3]
         devicesLabelHeightConstraint = devicesLabel.anchorWithReturnAnchors(top: authorDescriptionLabel.bottomAnchor, left: authorDescriptionLabel.leftAnchor, bottom: nil, right: authorDescriptionLabel.rightAnchor, topConstant: 0, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 1)[3]

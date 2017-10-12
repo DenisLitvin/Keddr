@@ -8,9 +8,10 @@
 
 import UIKit
 
-class FotoramaCell: PostDetailsCell {
+class PhotoramaCell: PostDetailsBaseCell {
     
     var images: [PostElement] = []
+    weak var delegate: ImageCellDelegate?
     
     lazy var collection: UICollectionView = { [unowned self] in
         let layout = UICollectionViewFlowLayout()
@@ -26,38 +27,37 @@ class FotoramaCell: PostDetailsCell {
         addSubview(collection)
         collection.fillSuperview()
         collection.register(ImageCell.self, forCellWithReuseIdentifier: "cellId")
-//        let layer = CAGradientLayer()
-//        layer.startPoint = CGPoint(x: 0.0, y: 1.0)
-//        layer.endPoint = CGPoint(x: 1.0, y: 1.0)
-//        layer.frame = CGRect(x: 0, y: 0, width: self.bounds.width, height: self.bounds.width * 9 / 16)
-//        layer.colors = [UIColor.black.cgColor, UIColor.clear.cgColor]
-//        layer.locations = [0.9, 1]
-//        self.layer.mask = layer
     }
     override func setupContent(with: PostElement) {
         super.setupContent(with: with)
-        images = []
-        for image in with.content.components(separatedBy: ","){
-            let element = PostElement(type: .image, content: image)
-            images.append(element)
+        DispatchQueue.global().async {
+            self.images = []
+            for image in with.content.components(separatedBy: ","){
+                let element = PostElement(type: .image, content: image)
+                self.images.append(element)
+            }
+            DispatchQueue.main.async {
+                self.collection.reloadData()
+                self.collection.scrollToItem(at: IndexPath(item: 0, section: 0), at: .left, animated: false)
+            }
         }
-        self.collection.reloadData()
     }
 }
 //MARK: - UICollectionViewDataSource
-extension FotoramaCell: UICollectionViewDataSource {
+extension PhotoramaCell: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return images.count
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellId", for: indexPath) as! ImageCell
+        cell.delegate = delegate
         cell.post = post
         cell.content = images[indexPath.item]
         return cell
     }
 }
 //Mark: - UICollectionViewDelegateFlowLayout
-extension FotoramaCell: UICollectionViewDelegateFlowLayout {
+extension PhotoramaCell: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: self.frame.height * 1.4, height: self.frame.height)
     }

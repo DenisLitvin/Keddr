@@ -22,12 +22,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.makeKeyAndVisible()
         
-        let layout = OverlapLayout()
+        let isSimplified = UserDefaults.standard.isSimplifiedLayout()
+        
+        let layout = isSimplified ? OverlapLayout() : UltraVisualLayout()
         let mainVC = MainVC(collectionViewLayout: layout)
         mainVC.collectionView?.backgroundColor = .white
+        mainVC.collectionView?.decelerationRate = isSimplified ? UIScrollViewDecelerationRateNormal : UIScrollViewDecelerationRateFast
+        mainVC.collectionView?.contentInset = isSimplified ? UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0) :  UIEdgeInsets(top: 0, left: 0, bottom: -300, right: 0)
         mainVC.title = "Лента"
         let navcon = UINavigationController(rootViewController: mainVC)
         window?.rootViewController = navcon
+        
         menuView.mainVC = mainVC
         menuView.currentVC = mainVC
         menuView.navcon = navcon

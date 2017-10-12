@@ -38,6 +38,7 @@ class PostCell: BaseCell {
         view.layer.cornerRadius = 20
         view.isScrollEnabled = false
         view.isUserInteractionEnabled = false
+        view.backgroundColor = .white
         view.textContainer.lineBreakMode = .byWordWrapping
         view.font = Font.title.create()
         return view
@@ -49,32 +50,28 @@ class PostCell: BaseCell {
         view.layer.cornerRadius = 20
         view.isScrollEnabled = false
         view.isUserInteractionEnabled = false
+        view.backgroundColor = .white
         view.textContainer.lineBreakMode = .byWordWrapping
         return view
     }()
     let dateLabel: UILabel = {
         let view = UILabel()
+        view.backgroundColor = .white
         view.textColor = Color.lightGray
         view.font = Font.date.create()
         return view
     }()
     let authorNameLabel: UILabel = {
         let view = UILabel()
-        //        view.text = "Александр Ляпота"
+        view.backgroundColor = .white
         view.font = Font.author.create()
         view.textColor = Color.darkGray
         return view
     }()
-    let authorAvatarView: UIImageView = {
-        let view = UIImageView()
-        view.image = #imageLiteral(resourceName: "asus")
-        view.layer.cornerRadius =  18
-        view.layer.masksToBounds = true
-        view.contentMode = .scaleAspectFill
-        return view
-    }()
+    
     lazy var commentBubble: UIButton = { [unowned self] in
         let button = UIButton(type: .system)
+        button.backgroundColor = .white
         button.tintColor = Color.lightGray
         button.setImage(#imageLiteral(resourceName: "ChatBubble"), for: .normal)
         button.setTitleColor(Color.lightGray, for: .normal)
@@ -102,14 +99,7 @@ class PostCell: BaseCell {
         button.addTarget(self, action: #selector(PostCell.saveButtonTapped), for: .touchUpInside)
         return button
     }()
-    @objc func saveButtonTapped(_ sender: CircleButton){
-        guard let post = post else { return }
-        if sender.isOn {
-            mainVC?.handleSaveButton(with: post, save: true)
-        } else {
-            mainVC?.handleSaveButton(with: post, save: false)
-        }
-    }
+    
     var post: Post?{
         didSet{
             setupContent(with: post!)
@@ -129,20 +119,24 @@ class PostCell: BaseCell {
             authorNameLabel.text = post.authorName
             commentBubble.setTitle(commentCount, for: .normal)
             categoryView.text = categories.first
-            let authorNameWidth = authorNameLabel.sizeThatFits(CGSize(width: 300, height: 30)).width
+            
+            DispatchQueue.global().async {
+                let savedPost = post.findSavedPost(with: appDelegate.persistentContainer.viewContext)
+                DispatchQueue.main.async {
+                    if savedPost != nil {
+                        self.circleButton.isOn = true
+                    } else {
+                        self.circleButton.isOn = false
+                    }
+                }
+            }
+            let authorNameWidth = self.authorNameLabel.sizeThatFits(CGSize(width: 300, height: 30)).width
             let widthToSubtract = post.authorName == "" ? 60 : authorNameWidth
             let width = TextSize.calculate(for: [categories.first!], height: 21, width: self.bounds.width - 136 - widthToSubtract, positioning: .horizontal, fontName: [Font.category.name], fontSize: [Font.category.size + 2], removeIfNotFit: true).size.width
-            categoryViewWidthAnchor?.constant = width == 0 ? 0 : width + 14
+            self.categoryViewWidthAnchor?.constant = width == 0 ? 0 : width + 14
             
-            let savedPost = post.findSavedPost(with: appDelegate.persistentContainer.viewContext)
-            if savedPost != nil {
-                circleButton.isOn = true
-            } else {
-                circleButton.isOn = false
-            }
         }
     }
-    
     override func setupViews(){
         addSubview(topContainerView)
         topContainerView.addSubview(thumbnailView)
@@ -151,26 +145,30 @@ class PostCell: BaseCell {
         
         bottomContainerView.addSubview(titleLabel)
         bottomContainerView.addSubview(descriptionLabel)
-        bottomContainerView.addSubview(authorAvatarView)
-        bottomContainerView.addSubview(categoryView)
         bottomContainerView.addSubview(authorNameLabel)
         bottomContainerView.addSubview(dateLabel)
         bottomContainerView.addSubview(commentBubble)
+        bottomContainerView.addSubview(categoryView)
     
         circleButton.anchor(top: topAnchor, left: nil, bottom: nil, right: rightAnchor, topConstant: 10, leftConstant: 0, bottomConstant: 0, rightConstant: 10, widthConstant: 34, heightConstant: 34)
-        authorAvatarView.anchor(top: descriptionLabel.bottomAnchor, left: bottomContainerView.leftAnchor, bottom: nil, right: nil, topConstant: 0, leftConstant: 8, bottomConstant: 0, rightConstant: 0, widthConstant: 38, heightConstant: 38)
         descriptionHeightConstraint = descriptionLabel.anchorWithReturnAnchors(top: titleLabel.bottomAnchor, left: titleLabel.leftAnchor, bottom: nil, right: titleLabel.rightAnchor, topConstant: -15, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 1)[3]
         titleHeightConstraint = titleLabel.anchorWithReturnAnchors(top: bottomContainerView.topAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, topConstant: 3, leftConstant: 10, bottomConstant: 0, rightConstant: 5, widthConstant: 0, heightConstant: 1)[3]
-        dateLabel.anchor(top: authorAvatarView.centerYAnchor, left: authorAvatarView.rightAnchor, bottom: nil, right: rightAnchor, topConstant: 0, leftConstant: 8, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 18)
+        dateLabel.anchor(top: authorNameLabel.bottomAnchor, left: authorNameLabel.leftAnchor, bottom: nil, right: rightAnchor, topConstant: 0, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 18)
         topContainerView.anchor(top: topAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, topConstant: 0, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: bounds.width * 9 / 16)
         thumbnailView.fillSuperview()
         bottomContainerView.anchor(top: topContainerView.bottomAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, topConstant: -32, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 0)
         bottomContainerView.heightAnchor.constraint(equalTo: self.heightAnchor, constant: -80).isActive = true
         categoryViewWidthAnchor = categoryView.anchorWithReturnAnchors(top: nil, left: nil, bottom: commentBubble.centerYAnchor, right: commentBubble.leftAnchor, topConstant: 0, leftConstant: 8, bottomConstant: -11, rightConstant: 10, widthConstant: 10, heightConstant: 22)[2]
         commentBubble.anchor(top: nil, left: nil, bottom: dateLabel.bottomAnchor, right: rightAnchor, topConstant: 0, leftConstant: 0, bottomConstant: 0, rightConstant: 11, widthConstant: 45, heightConstant: 30)
-        authorNameLabel.anchor(top: nil, left: authorAvatarView.rightAnchor, bottom: authorAvatarView.centerYAnchor, right: categoryView.leftAnchor, topConstant: 0, leftConstant: 8, bottomConstant: 0, rightConstant: 5, widthConstant: 0, heightConstant: 0)
+        authorNameLabel.anchor(top: descriptionLabel.bottomAnchor, left: descriptionLabel.leftAnchor, bottom: nil, right: categoryView.leftAnchor, topConstant: -4, leftConstant: 5, bottomConstant: 0, rightConstant: 5, widthConstant: 0, heightConstant: 0)
     }
-    func animateViews(num: Double){
+    @objc func saveButtonTapped(_ sender: CircleButton){
+        guard let post = post else { return }
+        if sender.isOn {
+            mainVC?.handleSaveButton(with: post, save: true)
+        } else {
+            mainVC?.handleSaveButton(with: post, save: false)
+        }
     }
     @objc func commentBubbleTapped(){
         let layout = UICollectionViewFlowLayout()

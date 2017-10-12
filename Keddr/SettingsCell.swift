@@ -9,6 +9,9 @@
 import UIKit
 
 class BaseSettingsCell: UITableViewCell {
+    
+    weak var delegate: SettingsVC?
+
     var content: String? {
         didSet{
             setupContent()
@@ -26,7 +29,6 @@ class BaseSettingsCell: UITableViewCell {
         let view = UILabel()
         view.font = Font.description.create()
         view.textColor = Color.darkGray
-//        view.backgroundColor = .red
         return view
     }()
     
@@ -46,6 +48,7 @@ class SliderSettingsCell: BaseSettingsCell{
         let slider = UISlider()
         slider.minimumValue = -0.3
         slider.maximumValue = 0.8
+        slider.value = UserDefaults.standard.getUserTextSizeMultiplier()
         slider.thumbTintColor = Color.darkGray
         slider.minimumTrackTintColor = Color.keddrYellow
         slider.addTarget(self, action: #selector(handleSliderValueDidChange), for: .touchDragInside)
@@ -63,26 +66,56 @@ class SliderSettingsCell: BaseSettingsCell{
         view.text = "A"
         return view
     }()
-   
+    let warningLabel: UILabel = {
+        let label = UILabel()
+        label.textAlignment = .center
+        label.font = Font.date.create()
+        label.textColor = Color.darkGray
+        label.text = "Необходимо перезагрузить приложение!"
+        return label
+    }()
     override func setupViews() {
         //setup self
         selectionStyle = .none
-        sliderView.value = UserDefaults.standard.getUserTextSizeMultiplier()
         //setup views
         addSubview(sliderView)
         addSubview(leftChar)
         addSubview(rightChar)
+        addSubview(warningLabel)
         
         sliderView.anchor(top: nil, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, topConstant: 0, leftConstant: 30, bottomConstant: 15, rightConstant: 30, widthConstant: 0, heightConstant: 30)
         leftChar.anchor(top: nil, left: sliderView.leftAnchor, bottom: sliderView.topAnchor, right: nil, topConstant: 0, leftConstant: 10, bottomConstant: 5, rightConstant: 0, widthConstant: 20, heightConstant: 15)
         rightChar.anchor(top: nil, left: nil, bottom: sliderView.topAnchor, right: sliderView.rightAnchor, topConstant: 0, leftConstant: 0, bottomConstant: 5, rightConstant: 10, widthConstant: 20, heightConstant: 21)
+        warningLabel.anchor(top: topAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, topConstant: 0, leftConstant: 0, bottomConstant: 80, rightConstant: 0, widthConstant: 0, heightConstant: 0)
     }
     @objc func handleSliderValueDidChange(_ slider: UISlider){
         UserDefaults.standard.setUserTextSizeMultiplier(size: slider.value)
+        delegate?.shouldExpandSliderCell = true
     }
 }
 
-
+class SwitcherSettingsCell: BaseSettingsCell{
+    
+    lazy var switcherButton: UISwitch = { [unowned self] in
+        let switcher = UISwitch()
+        switcher.isOn = UserDefaults.standard.isSimplifiedLayout()
+        switcher.addTarget(self, action: #selector(switcherButtonTapped), for: .touchUpInside)
+        return switcher
+    }()
+    
+    override func setupViews() {
+        super.setupViews()
+        //setup self
+        selectionStyle = .none
+        //setup views
+        addSubview(switcherButton)
+        
+        switcherButton.anchor(top: centerYAnchor, left: nil, bottom: nil, right: rightAnchor, topConstant: -switcherButton.frame.height / 2, leftConstant: 0, bottomConstant: 0, rightConstant: 10, widthConstant: 0, heightConstant: 0)
+    }
+    @objc func switcherButtonTapped(){
+        UserDefaults.standard.setLayoutToBeSimplified(switcherButton.isOn)
+    }
+}
 
 
 
