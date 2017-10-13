@@ -54,7 +54,7 @@ class MainVC: SlideOutCollectionViewController {
     }
     
     override func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        let maxOffset = (collectionView?.contentSize.height)! - view.bounds.height - 800
+        let maxOffset = (collectionView?.contentSize.height)! - view.bounds.height - 100
         let currentOffset = collectionView?.contentOffset.y
         if currentOffset! > maxOffset,
         contentController.loadingPageNumber == contentController.numberOfPagesLoaded,
@@ -71,7 +71,7 @@ class MainVC: SlideOutCollectionViewController {
         contentController.autoFetching = true
         contentController.requestedPosts = true
         contentController.loadingPageNumber += 1
-        if contentController.loadingPageNumber == 1 { CSActivityIndicator.startAnimating(in: self.view) }
+        CSActivityIndicator.startAnimating(in: self.view)
         ApiManager.fetchPosts(for: contentController.loadingPageNumber, complition: { (posts) in
             CSActivityIndicator.stopAnimating()
             if self.contentController.requestedPosts{
@@ -87,7 +87,7 @@ class MainVC: SlideOutCollectionViewController {
         contentController.autoFetching = true
         contentController.requestedPosts = false
         contentController.loadingPageNumber += 1
-        if contentController.loadingPageNumber == 1 { CSActivityIndicator.startAnimating(in: self.view) }
+        CSActivityIndicator.startAnimating(in: self.view)
         ApiManager.fetchBlogPosts(for: contentController.loadingPageNumber, complition: { (posts) in
             CSActivityIndicator.stopAnimating()
             if !self.contentController.requestedPosts{
@@ -138,22 +138,19 @@ class MainVC: SlideOutCollectionViewController {
         }
     }
     func changelayout(to layout: UICollectionViewLayout) {
-        var newLayout = UICollectionViewLayout()
-        if layout is UltraVisualLayout{
-            newLayout = UltraVisualLayout()
+        if let layout = layout as? UltraVisualLayout{
             collectionView?.decelerationRate = UIScrollViewDecelerationRateFast
             collectionView?.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: -300, right: 0)
             for post in posts{
-                setupCaclulations(for: post, layout: newLayout)
+                setupCaclulations(for: post, layout: layout)
             }
         } else if layout is OverlapLayout {
-            newLayout = OverlapLayout()
             collectionView?.decelerationRate = UIScrollViewDecelerationRateNormal
             collectionView?.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         }
         collectionView?.reloadData()
         collectionView?.collectionViewLayout.invalidateLayout()
-        collectionView?.setCollectionViewLayout(newLayout, animated: false)
+        collectionView?.setCollectionViewLayout(layout, animated: false)
     }
 }
 extension MainVC {

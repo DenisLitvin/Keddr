@@ -29,8 +29,9 @@ class InputContainerView: UIView {
     }()
     lazy var sendButton: UIButton = { [unowned self] in
         let button = UIButton(type: UIButtonType.system)
-        button.setTitle("Send", for: .normal)
-        button.titleLabel?.font = Font.title.create()
+        button.setImage(#imageLiteral(resourceName: "send"), for: .normal)
+        button.imageView?.contentMode = .scaleAspectFit
+        button.imageEdgeInsets = UIEdgeInsets(top: 2, left: 3, bottom: 6, right: 3)
         button.tintColor = Color.darkGray
         button.addTarget(self, action: #selector(sendButtonTapped), for: .touchUpInside)
         return button
@@ -41,7 +42,7 @@ class InputContainerView: UIView {
         let label = UILabel()
         label.textAlignment = .center
         label.font = Font.date.create()
-        label.textColor = Color.ultraLightGray
+        label.textColor = .white
         label.backgroundColor = Color.darkGray
         label.clipsToBounds = true
         label.layer.cornerRadius = 15
@@ -49,8 +50,11 @@ class InputContainerView: UIView {
     }()
     lazy var cancelReplyingButton: UIButton = { [unowned self] in
         let button = UIButton(type: .system)
-        button.tintColor = Color.ultraLightGray
+        button.tintColor = .white
         button.backgroundColor = Color.darkGray
+        button.setImage(#imageLiteral(resourceName: "mark"), for: .normal)
+        button.imageView?.contentMode = .scaleAspectFit
+        button.imageEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         button.clipsToBounds = true
         button.layer.cornerRadius = 15
         button.addTarget(self, action: #selector(cancelReplyingButtonTapped), for: .touchUpInside)

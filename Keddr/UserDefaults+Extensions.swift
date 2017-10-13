@@ -38,6 +38,7 @@ extension UserDefaults {
     }
     func setLayoutToBeSimplified(_ bool: Bool) {
         set(bool, forKey: UserDefaultsKeys.isSimplifiedLayout.rawValue)
+        synchronize()
     }
 }
 
