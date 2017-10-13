@@ -69,7 +69,7 @@ class UltraVisualLayout: UICollectionViewLayout{
         get{
             var contentHeight: CGFloat = 0
             if let offset = dragOffsets.last{
-                contentHeight = offset + 400
+                contentHeight = offset + 100
             }
             return CGSize(width: width, height: contentHeight)
         }

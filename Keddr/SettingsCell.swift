@@ -26,10 +26,11 @@ class BaseSettingsCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     let titleLabel: UILabel = {
-        let view = UILabel()
-        view.font = Font.description.create()
-        view.textColor = Color.darkGray
-        return view
+        let label = UILabel()
+        label.numberOfLines = 0
+        label.font = Font.description.create()
+        label.textColor = Color.darkGray
+        return label
     }()
     
     func setupViews(){
@@ -113,7 +114,7 @@ class SwitcherSettingsCell: BaseSettingsCell{
         switcherButton.anchor(top: centerYAnchor, left: nil, bottom: nil, right: rightAnchor, topConstant: -switcherButton.frame.height / 2, leftConstant: 0, bottomConstant: 0, rightConstant: 10, widthConstant: 0, heightConstant: 0)
     }
     @objc func switcherButtonTapped(){
-        UserDefaults.standard.setLayoutToBeSimplified(switcherButton.isOn)
+        delegate?.handleSwitcherButton(for: self, isOn: switcherButton.isOn)
     }
 }
 

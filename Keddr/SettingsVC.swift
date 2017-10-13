@@ -29,9 +29,13 @@ class SettingsVC: SlideOutTableViewController {
     }
     func setupItemsAndSections(){
         let firstSection = SettingsSection(title: "Размер шрифта", items: [SettingsItem(type: .slider)])
-        let secondSection = SettingsSection(title: "Анимация", items: [SettingsItem(type: .button, content: "Убрать анимацию ленты постов")])
+        let secondSection = SettingsSection(title: "Анимация", items: [SettingsItem(type: .button, content: "Убрать анимацию ленты постов \n(анимация только на ios 11)")])
         let thirdSection = SettingsSection(title: "Прочее", items: [SettingsItem(type: .text, content: "О Проекте")])
         sections = [firstSection, secondSection, thirdSection]
+    }
+    //handling events
+    func handleSwitcherButton(for cell: UITableViewCell, isOn: Bool){
+        UserDefaults.standard.setLayoutToBeSimplified(isOn)
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -53,8 +57,12 @@ class SettingsVC: SlideOutTableViewController {
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         var heightForRow: CGFloat
-        if sections[indexPath.section].items[indexPath.item].type == .slider {
+        let item = sections[indexPath.section].items[indexPath.item]
+        if item.type == .slider {
             heightForRow = shouldExpandSliderCell ? 120 : 80
+        }
+        else if item.type == .button {
+            heightForRow = 80
         } else {
             heightForRow = 40
         }

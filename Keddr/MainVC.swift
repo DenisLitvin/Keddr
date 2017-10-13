@@ -54,7 +54,7 @@ class MainVC: SlideOutCollectionViewController {
     }
     
     override func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        let maxOffset = (collectionView?.contentSize.height)! - view.bounds.height - 100
+        let maxOffset = (collectionView?.contentSize.height)! - view.bounds.height - 180
         let currentOffset = collectionView?.contentOffset.y
         if currentOffset! > maxOffset,
         contentController.loadingPageNumber == contentController.numberOfPagesLoaded,
@@ -140,13 +140,11 @@ class MainVC: SlideOutCollectionViewController {
     func changelayout(to layout: UICollectionViewLayout) {
         if let layout = layout as? UltraVisualLayout{
             collectionView?.decelerationRate = UIScrollViewDecelerationRateFast
-            collectionView?.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: -300, right: 0)
             for post in posts{
                 setupCaclulations(for: post, layout: layout)
             }
         } else if layout is OverlapLayout {
             collectionView?.decelerationRate = UIScrollViewDecelerationRateNormal
-            collectionView?.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         }
         collectionView?.reloadData()
         collectionView?.collectionViewLayout.invalidateLayout()

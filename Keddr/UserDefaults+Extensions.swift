@@ -14,6 +14,7 @@ extension UserDefaults {
         case isLoginScreenShown
         case textSize
         case isSimplifiedLayout
+        case isSignedIn
     }
     //login
     func setIsLoginScreenShown(value: Bool) {
@@ -38,6 +39,14 @@ extension UserDefaults {
     }
     func setLayoutToBeSimplified(_ bool: Bool) {
         set(bool, forKey: UserDefaultsKeys.isSimplifiedLayout.rawValue)
+        synchronize()
+    }
+    //isSignedIn
+    func isSignedIn() -> Bool {
+        return bool(forKey: UserDefaultsKeys.isSignedIn.rawValue)
+    }
+    func setUserIsSignedIn(_ bool: Bool) {
+        set(bool, forKey: UserDefaultsKeys.isSignedIn.rawValue)
         synchronize()
     }
 }

@@ -9,7 +9,7 @@
 import UIKit
 
 struct MenuItem {
-    let text: String
+    var text: String
     let iconType: MenuIconType
 }
 enum MenuIconType: String {

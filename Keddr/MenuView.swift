@@ -8,12 +8,19 @@
 
 import UIKit
 
+extension NSNotification.Name{
+    static let UserStatusDidChange = NSNotification.Name("userStatusDidChange")
+}
 class MenuView: UIView {
     
     init() {
         super.init(frame: .zero)
         collection.register(MenuCell.self, forCellWithReuseIdentifier: "cellId")
         setupViews()
+//        NotificationCenter.default.addObserver(self, selector: #selector(userIsSignedIn), name: NSNotification.Name.UserStatusDidChange, object: nil)
+//        if UserDefaults.standard.isSignedIn(){
+//            menuItems[5].text = "Выйти"
+//        }
     }
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -25,7 +32,7 @@ class MenuView: UIView {
     var settingsVC: SettingsVC?
     var currentVC: UIViewController?
     
-    let menuItems = [MenuItem(text: "Мой Профиль", iconType: MenuIconType.profile), MenuItem(text: "Лента", iconType: MenuIconType.tape), MenuItem(text: "Блоги", iconType: MenuIconType.blogs), MenuItem(text: "Сохраненное", iconType: MenuIconType.saved), MenuItem(text: "Настройки", iconType: MenuIconType.settings), MenuItem(text: "Выход", iconType: MenuIconType.signOut)]
+    var menuItems = [MenuItem(text: "Мой Профиль", iconType: MenuIconType.profile), MenuItem(text: "Лента", iconType: MenuIconType.tape), MenuItem(text: "Блоги", iconType: MenuIconType.blogs), MenuItem(text: "Сохраненное", iconType: MenuIconType.saved), MenuItem(text: "Настройки", iconType: MenuIconType.settings), MenuItem(text: "Вход/Выход", iconType: MenuIconType.signOut)]
     
     lazy var collection: UICollectionView = { [unowned self] in
         let layout = UICollectionViewFlowLayout()
@@ -45,6 +52,12 @@ class MenuView: UIView {
         
         collection.fillSuperview()
     }
+//    @objc func userIsSignedIn(_ notification: Notification) {
+//        guard let isSignedIn = notification.userInfo?["isSignedIn"] as? Bool else { return }
+//        menuItems[5].text = isSignedIn ? "Выход" : "Вход"
+//        collection.reloadData()
+//        collection.collectionViewLayout.invalidateLayout()
+//    }
 }
 //MARK: - UICollectionViewDelegate
 extension MenuView: UICollectionViewDelegate {
@@ -93,6 +106,8 @@ extension MenuView: UICollectionViewDelegate {
             currentVC = settingsVC
         case 5:
             AuthClient.signOut()
+//            let userInfo = ["isSignedIn" : false ]
+//            NotificationCenter.default.post(name: .UserStatusDidChange, object: nil, userInfo: userInfo)
             let loginVC = LoginVC()
             currentVC?.present(loginVC, animated: true)
         default:

@@ -23,12 +23,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.makeKeyAndVisible()
         
         let isSimplified = UserDefaults.standard.isSimplifiedLayout()
+
+        if #available(iOS 10, *){
+            if !isSimplified {
+                UserDefaults.standard.setLayoutToBeSimplified(true)
+            }
+        }
+        
         
         let layout = isSimplified ? OverlapLayout() : UltraVisualLayout()
         let mainVC = MainVC(collectionViewLayout: layout)
         mainVC.collectionView?.backgroundColor = .white
         mainVC.collectionView?.decelerationRate = isSimplified ? UIScrollViewDecelerationRateNormal : UIScrollViewDecelerationRateFast
-        mainVC.collectionView?.contentInset = isSimplified ? UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0) :  UIEdgeInsets(top: 0, left: 0, bottom: -300, right: 0)
         mainVC.title = "Лента"
         let navcon = UINavigationController(rootViewController: mainVC)
         window?.rootViewController = navcon

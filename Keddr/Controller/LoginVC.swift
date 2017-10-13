@@ -173,8 +173,10 @@ class LoginVC: UIViewController{
             if let error = error{
                 CSAlertView.showAlert(with: error.userDescription, in: self.view)
             } else {
-                let keychain = Keychain(service: "com.keddr.credentials")
-                print("signed in with:", keychain["uid"]!, keychain["login"]!, keychain["password"]!)
+//                let userInfo = ["isSignedIn" : true ]
+//                NotificationCenter.default.post(name: .UserStatusDidChange, object: nil, userInfo: userInfo)
+//                let keychain = Keychain(service: "com.keddr.credentials")
+//                print("signed in with:", keychain["uid"]!, keychain["login"]!, keychain["password"]!)
                 self.dismiss(animated: true)
             }
         }
