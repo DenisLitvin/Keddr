@@ -132,7 +132,7 @@ class PostCell: BaseCell {
             }
             let authorNameWidth = self.authorNameLabel.sizeThatFits(CGSize(width: 300, height: 30)).width
             let widthToSubtract = post.authorName == "" ? 60 : authorNameWidth
-            let width = TextSize.calculate(for: [categories.first!], height: 21, width: self.bounds.width - 136 - widthToSubtract, positioning: .horizontal, fontName: [Font.category.name], fontSize: [Font.category.size + 2], removeIfNotFit: true).size.width
+            let width = TextSize.calculate(for: [categories.first ?? ""], height: 21, width: self.bounds.width - 136 - widthToSubtract, positioning: .horizontal, fontName: [Font.category.name], fontSize: [Font.category.size + 2], removeIfNotFit: true).size.width
             self.categoryViewWidthAnchor?.constant = width == 0 ? 0 : width + 14
             
         }

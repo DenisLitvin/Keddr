@@ -8,6 +8,7 @@
 
 import UIKit
 import KeychainAccess
+import Pinner
 
 class LoginVC: UIViewController{
     
@@ -87,7 +88,7 @@ class LoginVC: UIViewController{
     }
     
     override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
-        changeConstraints(for: newCollection)
+        adjustConstraints(for: newCollection)
     }
     var regularHeightConstraints: [NSLayoutConstraint] = []
     var compactHeightConstraints: [NSLayoutConstraint] = []
@@ -100,27 +101,68 @@ class LoginVC: UIViewController{
         bottomContainerview.addSubview(passwordField)
         bottomContainerview.addSubview(signInButton)
         self.view.addSubview(signInLaterButton)
-        
-        regularHeightConstraints.append(contentsOf: logoView.anchorWithReturnAnchors(top: self.view.centerYAnchor, left: self.view.centerXAnchor, bottom: nil, right: nil, topConstant: -(self.view.frame.height * 2 / 5) + 50, leftConstant: -50, bottomConstant: 0, rightConstant: 0, widthConstant: 100, heightConstant: 100))
-        
-        compactHeightConstraints.append(logoView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: -20))
-        compactHeightConstraints.append(logoView.leftAnchor.constraint(equalTo: self.view.leftAnchor))
-        compactHeightConstraints.append(logoView.rightAnchor.constraint(equalTo: self.view.centerXAnchor))
-        compactHeightConstraints.append(logoView.heightAnchor.constraint(equalToConstant: 100))
-        
-        regularHeightConstraints.append(contentsOf: titleView.anchorWithReturnAnchors(top: logoView.bottomAnchor, left: loginField.leftAnchor, bottom: nil, right: loginField.rightAnchor, topConstant: 20, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 40))
-        
-        compactHeightConstraints.append(titleView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 40))
-        compactHeightConstraints.append(titleView.leftAnchor.constraint(equalTo: self.view.centerXAnchor))
-        compactHeightConstraints.append(titleView.rightAnchor.constraint(equalTo: self.view.rightAnchor))
-        
-        let bottomContainerViewConstraints = bottomContainerview.anchorWithReturnAnchors(top: nil, left: self.view.leftAnchor, bottom: self.view.bottomAnchor, right: self.view.rightAnchor, topConstant: 0, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 200)
-        bottomContainerviewBottomConstraint = bottomContainerViewConstraints[1]
-        
-        loginField.anchor(top: bottomContainerview.centerYAnchor, left: bottomContainerview.centerXAnchor, bottom: nil, right: nil, topConstant: -75, leftConstant: -115, bottomConstant: 0, rightConstant: 0, widthConstant: 230, heightConstant: 30)
-        passwordField.anchor(top: loginField.bottomAnchor, left: bottomContainerview.centerXAnchor, bottom: nil, right: nil, topConstant: 30, leftConstant: -115, bottomConstant: 0, rightConstant: 0, widthConstant: 230, heightConstant: 30)
-        signInButton.anchor(top: passwordField.bottomAnchor, left: bottomContainerview.centerXAnchor, bottom: nil, right: nil, topConstant: 30, leftConstant: -50, bottomConstant: 0, rightConstant: 0, widthConstant: 100, heightConstant: 30)
-        signInLaterButton.anchor(top: nil, left: loginField.leftAnchor, bottom: loginField.topAnchor, right: nil, topConstant: 0, leftConstant: 0, bottomConstant: 20, rightConstant: 0, widthConstant: 120, heightConstant: 30)
+    
+        logoView.makeConstraints(for: .top, .left, .right, .height) { (make) in
+            make.pin(to: self.view.topAnchor, const: -20)
+            make.pin(to: self.view.leftAnchor)
+            make.pin(to: self.view.centerXAnchor)
+            make.equal(100)
+            
+            self.compactHeightConstraints.append(contentsOf: make.returnAll())
+            NSLayoutConstraint.deactivate(make.returnAll())
+        }
+        logoView.makeConstraints(for: .top, .left, .width, .height) { (make) in
+            make.pin(to: self.view.centerYAnchor, const: -(self.view.frame.height * 2 / 5) + 50)
+            make.pin(to: self.view.centerXAnchor, const: -50)
+            make.equal(100)
+            make.equal(100)
+        }
+        titleView.makeConstraints(for: .top, .left, .right) { (make) in
+            make.pin(to: self.view.topAnchor, const: 40)
+            make.pin(to: self.view.centerXAnchor)
+            make.pin(to: self.view.rightAnchor)
+
+            self.compactHeightConstraints.append(contentsOf: make.returnAll())
+            NSLayoutConstraint.deactivate(make.returnAll())
+        }
+        titleView.makeConstraints(for: .top, .left, .right, .height) { (make) in
+            make.pin(to: self.logoView.bottomAnchor, const: 20)
+            make.pin(to: self.loginField.leftAnchor)
+            make.pin(to: self.loginField.rightAnchor)
+            make.equal(40)
+            
+            self.regularHeightConstraints.append(contentsOf: make.returnAll())
+        }
+        bottomContainerview.makeConstraints(for: .left, .bottom, .right, .height) { (make) in
+            make.pin(to: self.view.leftAnchor)
+            self.bottomContainerviewBottomConstraint = make.pinAndReturn(to: self.view.bottomAnchor)
+            make.pin(to: self.view.rightAnchor)
+            make.equal(200)
+        }
+        loginField.makeConstraints(for: .top, .centerX, .width, .height) { (make) in
+            make.pin(to: self.bottomContainerview.centerYAnchor, const: -75)
+            make.pin(to: self.bottomContainerview.centerXAnchor)
+            make.equal(230)
+            make.equal(30)
+        }
+        passwordField.makeConstraints(for: .top, .centerX, .width, .height) { (make) in
+            make.pin(to: self.loginField.bottomAnchor, const: 30)
+            make.pin(to: self.bottomContainerview.centerXAnchor)
+            make.equal(230)
+            make.equal(30)
+        }
+        signInButton.makeConstraints(for: .top, .centerX, .width, .height) { (make) in
+            make.pin(to: self.passwordField.bottomAnchor, const: 30)
+            make.pin(to: self.bottomContainerview.centerXAnchor)
+            make.equal(100)
+            make.equal(30)
+        }
+        signInLaterButton.makeConstraints(for: .left, .bottom, .width, .height) { (make) in
+            make.pin(to: self.loginField.leftAnchor)
+            make.pin(to: self.loginField.topAnchor, const: -20)
+            make.equal(120)
+            make.equal(30)
+        }
     }
     fileprivate func setupNotifications() {
         NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardNotifications), name: Notification.Name.UIKeyboardWillShow, object: nil)
@@ -130,13 +172,13 @@ class LoginVC: UIViewController{
         guard let info = notification.userInfo else { return }
         if let endRect = info[UIKeyboardFrameEndUserInfoKey] as? CGRect,
             let beginRect = info[UIKeyboardFrameBeginUserInfoKey] as? CGRect {
-            handleChangingConstraintsForKeyboard(with: endRect, didShow: endRect.origin.y - beginRect.origin.y > 100)
+            changeConstraintsForKeyboard(with: endRect, didShow: endRect.origin.y - beginRect.origin.y > 100)
             UIView.animate(withDuration: 0.25, delay: 0, options: .curveEaseOut, animations: {
                 self.view.layoutIfNeeded()
             })
         }
     }
-    func handleChangingConstraintsForKeyboard(with rect: CGRect, didShow: Bool){
+    func changeConstraintsForKeyboard(with rect: CGRect, didShow: Bool){
         if didShow {
             self.bottomContainerviewBottomConstraint?.constant = 0
         } else {
@@ -144,14 +186,14 @@ class LoginVC: UIViewController{
         }
         if traitCollection.verticalSizeClass == .compact || traitCollection.horizontalSizeClass == .compact {
             if didShow {
-                changeConstraints(for: traitCollection)
+                adjustConstraints(for: traitCollection)
             } else {
                 NSLayoutConstraint.deactivate(regularHeightConstraints)
                 NSLayoutConstraint.activate(compactHeightConstraints)
             }
         }
     }
-    private func changeConstraints(for collection: UITraitCollection){
+    private func adjustConstraints(for collection: UITraitCollection){
         if collection.verticalSizeClass == .compact{
             NSLayoutConstraint.deactivate(regularHeightConstraints)
             NSLayoutConstraint.activate(compactHeightConstraints)

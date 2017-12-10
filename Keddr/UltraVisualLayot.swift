@@ -86,19 +86,18 @@ class UltraVisualLayout: UICollectionViewLayout{
             let attributes = UICollectionViewLayoutAttributes(forCellWith: indexPath)
             attributes.zIndex = item
             var height = standartHeight
-            let nextItemPercentageOff = nextItemPercentageOffset
 
             if indexPath.item == featuredItemIndex{
-                let yOffset = standartHeight * nextItemPercentageOff
+                let yOffset = standartHeight * nextItemPercentageOffset
                 y = yContentOffset - yOffset + standartHeight
                 height = itemHeights[indexPath.item]
                 
             } else if (indexPath.item == featuredItemIndex + 1), indexPath.item < numberOfItems {
                 let maxY = y + standartHeight
-                height = standartHeight + max((itemHeights[indexPath.item] - standartHeight) * nextItemPercentageOff, 0)
-                y = maxY - (standartHeight + max((itemHeights[indexPath.item - 1] - standartHeight) * nextItemPercentageOff, 0))
+                height = standartHeight + max((itemHeights[indexPath.item] - standartHeight) * nextItemPercentageOffset, 0)
+                y = maxY - (standartHeight + max((itemHeights[indexPath.item - 1] - standartHeight) * nextItemPercentageOffset, 0))
             } else if indexPath.item == featuredItemIndex - 1, indexPath.item >= 0{
-                y = yContentOffset - (standartHeight * nextItemPercentageOff)
+                y = yContentOffset - (standartHeight * nextItemPercentageOffset)
             }
             frame = CGRect(x: 0, y: y, width: width, height: height)
             attributes.frame = frame

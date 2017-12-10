@@ -24,10 +24,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let isSimplified = UserDefaults.standard.isSimplifiedLayout()
 
-        if #available(iOS 10, *){
-            if !isSimplified {
-                UserDefaults.standard.setLayoutToBeSimplified(true)
-            }
+        if #available(iOS 11, *){
+            
+        } else if !isSimplified {
+            UserDefaults.standard.setLayoutToBeSimplified(true)
         }
         
         

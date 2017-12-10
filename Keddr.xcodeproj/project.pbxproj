@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3EB80C7E1FD14495008B2ADA /* UIViewController+CODEINJECTION.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB80C7D1FD14495008B2ADA /* UIViewController+CODEINJECTION.swift */; };
 		5C058305E385C555D82D18A3 /* Pods_Keddr.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09C60ADFA7E88358D3EF6ED0 /* Pods_Keddr.framework */; };
 		FA049A501F5AA1220078841E /* StreatchyHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA049A4E1F5AA04B0078841E /* StreatchyHeader.swift */; };
 		FA0FD7EF1F716A560097A421 /* AuthClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0FD7EE1F716A560097A421 /* AuthClient.swift */; };
@@ -98,6 +99,7 @@
 
 /* Begin PBXFileReference section */
 		09C60ADFA7E88358D3EF6ED0 /* Pods_Keddr.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Keddr.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3EB80C7D1FD14495008B2ADA /* UIViewController+CODEINJECTION.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+CODEINJECTION.swift"; sourceTree = "<group>"; };
 		D889D8C716D677987AA722F5 /* Pods-Keddr.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Keddr.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Keddr/Pods-Keddr.debug.xcconfig"; sourceTree = "<group>"; };
 		F43D8F50AFBD258B6CEF7A8B /* Pods-Keddr.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Keddr.release.xcconfig"; path = "Pods/Target Support Files/Pods-Keddr/Pods-Keddr.release.xcconfig"; sourceTree = "<group>"; };
 		FA049A4E1F5AA04B0078841E /* StreatchyHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreatchyHeader.swift; sourceTree = "<group>"; };
@@ -111,6 +113,8 @@
 		FA20D5101F84BBAA00E90794 /* CSDrawnIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSDrawnIconView.swift; sourceTree = "<group>"; };
 		FA20D5121F84F1D200E90794 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FA23B13A1F691F1400B345E6 /* OverlapLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverlapLayout.swift; sourceTree = "<group>"; };
+		FA25EC921FA64EC900A13344 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		FA25EC931FA64ECA00A13344 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Main.strings; sourceTree = "<group>"; };
 		FA2723331F27301E00458288 /* FetchPostElements.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FetchPostElements.swift; sourceTree = "<group>"; };
 		FA284FFA1F7281FE0068F02B /* ApiError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiError.swift; sourceTree = "<group>"; };
 		FA284FFC1F7285B20068F02B /* Int+isSuccessHttpCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+isSuccessHttpCode.swift"; sourceTree = "<group>"; };
@@ -127,6 +131,8 @@
 		FA2C55F21F233AB600430C1F /* MainVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainVC.swift; sourceTree = "<group>"; };
 		FA2C55F51F233E8E00430C1F /* FetchPosts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FetchPosts.swift; sourceTree = "<group>"; };
 		FA2C55F71F23668D00430C1F /* Post.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
+		FA3209F01FA0DBF400735437 /* Keddrv2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Keddrv2.xcdatamodel; sourceTree = "<group>"; };
+		FA3209F11FA0DC3300735437 /* Keddrv3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Keddrv3.xcdatamodel; sourceTree = "<group>"; };
 		FA34D8301F6C0D38000364F3 /* CategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCell.swift; sourceTree = "<group>"; };
 		FA4A9A691F83948700849DA9 /* SettingsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsVC.swift; sourceTree = "<group>"; };
 		FA4A9A6E1F8395F800849DA9 /* SettingsSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsSection.swift; sourceTree = "<group>"; };
@@ -637,6 +643,7 @@
 		FAF192311F67ECB800548384 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				3EB80C7D1FD14495008B2ADA /* UIViewController+CODEINJECTION.swift */,
 				FA1D3FCC1F3333BD003385F0 /* UIView+LayoutHelpers.swift */,
 				FA1619F01F294C5A00FDEB48 /* UIView+drawShadow.swift */,
 				FAF192381F67EF6700548384 /* String+encodingCharacters.swift */,
@@ -746,7 +753,6 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				en,
 				Base,
 			);
 			mainGroup = FA2C55CD1F2338E100430C1F;
@@ -811,11 +817,13 @@
 				"${SRCROOT}/Pods/Target Support Files/Pods-Keddr/Pods-Keddr-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Kanna/Kanna.framework",
 				"${BUILT_PRODUCTS_DIR}/KeychainAccess/KeychainAccess.framework",
+				"${BUILT_PRODUCTS_DIR}/Pinner/Pinner.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kanna.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KeychainAccess.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Pinner.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -909,6 +917,7 @@
 				FAB552671F59442400618892 /* PostDetailsHeader.swift in Sources */,
 				FAD5BBD61F729232007944E5 /* CSTextField.swift in Sources */,
 				FAF192351F67EEA500548384 /* SizeCalculation.swift in Sources */,
+				3EB80C7E1FD14495008B2ADA /* UIViewController+CODEINJECTION.swift in Sources */,
 				FAB67F181F237FA0003184ED /* PostCell.swift in Sources */,
 				FA96FB061F87D16100DA42EF /* InputContainerView.swift in Sources */,
 				FA29A04C1F57E53C001779D3 /* TableCell.swift in Sources */,
@@ -926,6 +935,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				FA2C55DE1F2338E100430C1F /* Base */,
+				FA25EC931FA64ECA00A13344 /* ru */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -934,6 +944,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				FA2C55E61F2338E100430C1F /* Base */,
+				FA25EC921FA64EC900A13344 /* ru */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -1060,7 +1071,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer: Denis Litvin (M98CN568R9)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 899H4EHHS7;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = Keddr/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1082,7 +1093,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Денис Литвин (899H4EHHS7)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 899H4EHHS7;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = Keddr/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1123,6 +1134,8 @@
 		FA2C55E01F2338E100430C1F /* Keddr.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				FA3209F11FA0DC3300735437 /* Keddrv3.xcdatamodel */,
+				FA3209F01FA0DBF400735437 /* Keddrv2.xcdatamodel */,
 				FA2C55E11F2338E100430C1F /* Keddr.xcdatamodel */,
 			);
 			currentVersion = FA2C55E11F2338E100430C1F /* Keddr.xcdatamodel */;

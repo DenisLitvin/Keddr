@@ -7,87 +7,100 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		08700CBB713B443AFA394EFD6B74E402 /* libxmlHTMLNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6198CB7F2A9D02E3503408AE0BD72489 /* libxmlHTMLNode.swift */; };
-		2865BBF3FABB87848A943A06E1FCEC0F /* Pods-Keddr-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 23052803C3D2C32534ECF6F04A61CF38 /* Pods-Keddr-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		322F32F75AC8A04064F70A089800AF88 /* Kanna-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 7DAF0396F5C7CF819088EF6DAD90A7E4 /* Kanna-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		3DB400D8B8AADDF43E1439E3441E814B /* Kanna-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BDFA1DF4D9B9A24846DB9789478F622 /* Kanna-dummy.m */; };
-		436871564BF1C99AA86206B69CDB40DD /* Kanna.h in Headers */ = {isa = PBXBuildFile; fileRef = B0C65907E70C25333649FC9B9A6E50BD /* Kanna.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		634F01C0D06986FD15F647234ADA7CBC /* Kanna.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB1062056B4AAE9C8DC405D758FBC0B /* Kanna.swift */; };
+		08700CBB713B443AFA394EFD6B74E402 /* libxmlHTMLNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294D1130F9224F198C26F2373B3A8C32 /* libxmlHTMLNode.swift */; };
+		2034C0B40E7E0B7BAB9C3F4EF2035B55 /* UIView+LayoutHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30990E251FE8900BA981FAB10154906F /* UIView+LayoutHelpers.swift */; };
+		322F32F75AC8A04064F70A089800AF88 /* Kanna-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = CBD3A306CEEAB737E6445C8E771F5F3A /* Kanna-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3CD347130ECEDC2F5A92EC6B0184C32F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6604A7D69453B4569E4E4827FB9155A9 /* Foundation.framework */; };
+		3DB400D8B8AADDF43E1439E3441E814B /* Kanna-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A3BB736815643EFF1B1A8AF90E2F8C8 /* Kanna-dummy.m */; };
+		436871564BF1C99AA86206B69CDB40DD /* Kanna.h in Headers */ = {isa = PBXBuildFile; fileRef = E5066C449FD0A66C4BB021D343B61792 /* Kanna.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4BFC7DA6BC04133C497056576E245A8E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6604A7D69453B4569E4E4827FB9155A9 /* Foundation.framework */; };
+		634F01C0D06986FD15F647234ADA7CBC /* Kanna.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42ADE7580E93621491E589BDDEE81BF4 /* Kanna.swift */; };
 		6ADDB372030582054CAE4F5CF6431613 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6604A7D69453B4569E4E4827FB9155A9 /* Foundation.framework */; };
-		781A4D12CC4A83EA4705C6029254B012 /* libxmlHTMLDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49EF6B45043EE51805C290190E8313CE /* libxmlHTMLDocument.swift */; };
-		A7A4E120CF81DA056EC0A114065CED93 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6604A7D69453B4569E4E4827FB9155A9 /* Foundation.framework */; };
-		A967960EE4C1C1AF8A3FC3555BABDC58 /* Keychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7F758EFE3228BF31042676558C697F /* Keychain.swift */; };
-		AF863C36D259D89189A0BDF54912C76E /* CSS.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1CC42BA7B3D44FB99D3D15EE9BEB302 /* CSS.swift */; };
-		BDA750A5542A5D826A35B1BE6A69574A /* KeychainAccess-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = E8C4849872060F5691A6F7A0B09D6578 /* KeychainAccess-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		781A4D12CC4A83EA4705C6029254B012 /* libxmlHTMLDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB131B6166F83D33FFC9DA883E26BEE6 /* libxmlHTMLDocument.swift */; };
+		92585A569FB05620DC738FF9CE2DF99D /* CSMConstraintMaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CA3E667DA98D2BF487C9AA49E1D4C85 /* CSMConstraintMaker.swift */; };
+		A967960EE4C1C1AF8A3FC3555BABDC58 /* Keychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CD6D7338353AD4AFC2E883F8A213011 /* Keychain.swift */; };
+		AF863C36D259D89189A0BDF54912C76E /* CSS.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA51B339334D4EB120FEFA68B7E1219 /* CSS.swift */; };
+		BC770FCE57809DB0526C712A6FCC55D4 /* Pinner-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 3637B7A7CE16D4254452C323C1DD104B /* Pinner-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		BDA750A5542A5D826A35B1BE6A69574A /* KeychainAccess-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 1A1D4AF9BB68DA9A24F2ADEF377416C2 /* KeychainAccess-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C456AEBA7FACA838B8EF6CE4F7029C3C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6604A7D69453B4569E4E4827FB9155A9 /* Foundation.framework */; };
-		CCD3D7311EE93F31B94C5FCA5FA03FFF /* Pods-Keddr-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = CEA84F2453F17DF5E2CFCAB46C6BBF78 /* Pods-Keddr-dummy.m */; };
-		D823270043210DD356225D7700FAF3E4 /* KeychainAccess-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 90A2FEC9CB272880DFD6785237B88921 /* KeychainAccess-dummy.m */; };
-		FD87F8764674EFAAF3AABCA2552E5127 /* libxmlParserOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F313ADFF62CC3EBF8662B1BFE42E01 /* libxmlParserOption.swift */; };
+		C72E2403839E7B99326759BA5D49DA87 /* Pods-Keddr-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 23052803C3D2C32534ECF6F04A61CF38 /* Pods-Keddr-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D823270043210DD356225D7700FAF3E4 /* KeychainAccess-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = A8F810FE6D0EBA6A6CB4E98DF775B7BE /* KeychainAccess-dummy.m */; };
+		DF478860A4C512B5DCB100D194CADF05 /* Pinner-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 3023D675E4E98844211381F48002DCDE /* Pinner-dummy.m */; };
+		FD87F8764674EFAAF3AABCA2552E5127 /* libxmlParserOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = F991E226596FEA173F34BBB6453F186B /* libxmlParserOption.swift */; };
+		FF2AA6F5BF9B1281921340554E55B416 /* Pods-Keddr-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = CEA84F2453F17DF5E2CFCAB46C6BBF78 /* Pods-Keddr-dummy.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		DB68A41C82B2D1490E9E54A3BFC69637 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 4D10E4FF5A483B852B47CCA0B994E340;
-			remoteInfo = Kanna;
-		};
-		F36FD6DBE41043B9B303F4FC1BBECB92 /* PBXContainerItemProxy */ = {
+		3C808C8CBF778E222A2867B3414EA46F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 8905DB6521F8FDC34752B69DEE3FDEB7;
 			remoteInfo = KeychainAccess;
 		};
+		939B78EE2E17F00B9938A4B0DCAEB492 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4D10E4FF5A483B852B47CCA0B994E340;
+			remoteInfo = Kanna;
+		};
+		E323ACD9D7D0F4FB624F09ECAE74621F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1D99CED0553FB35D1CFEED9680B6F2F0;
+			remoteInfo = Pinner;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		18882D8A705EDC42987261F451E896A1 /* KeychainAccess-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "KeychainAccess-prefix.pch"; sourceTree = "<group>"; };
+		01CB152AF55493F8CDAAE02EAF2F0211 /* KeychainAccess.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = KeychainAccess.xcconfig; sourceTree = "<group>"; };
+		0433DEFDB326827F03A1DDDF10E7B008 /* Kanna.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Kanna.xcconfig; sourceTree = "<group>"; };
+		1A1D4AF9BB68DA9A24F2ADEF377416C2 /* KeychainAccess-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "KeychainAccess-umbrella.h"; sourceTree = "<group>"; };
+		1CD6D7338353AD4AFC2E883F8A213011 /* Keychain.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Keychain.swift; path = Lib/KeychainAccess/Keychain.swift; sourceTree = "<group>"; };
 		23052803C3D2C32534ECF6F04A61CF38 /* Pods-Keddr-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-Keddr-umbrella.h"; sourceTree = "<group>"; };
-		2BDFA1DF4D9B9A24846DB9789478F622 /* Kanna-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Kanna-dummy.m"; sourceTree = "<group>"; };
+		2389087F3E09797F34ABC7909FE31A65 /* KeychainAccess.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = KeychainAccess.modulemap; sourceTree = "<group>"; };
+		249B88F8DABDE5BF25729A13FF415D8C /* KeychainAccess-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "KeychainAccess-prefix.pch"; sourceTree = "<group>"; };
+		294D1130F9224F198C26F2373B3A8C32 /* libxmlHTMLNode.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = libxmlHTMLNode.swift; path = Sources/Kanna/libxmlHTMLNode.swift; sourceTree = "<group>"; };
 		2FDAC6867A08B40188B9ED0954DABBF1 /* Pods-Keddr.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Keddr.debug.xcconfig"; sourceTree = "<group>"; };
+		3023D675E4E98844211381F48002DCDE /* Pinner-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pinner-dummy.m"; sourceTree = "<group>"; };
+		30990E251FE8900BA981FAB10154906F /* UIView+LayoutHelpers.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "UIView+LayoutHelpers.swift"; path = "Pinner/Classes/UIView+LayoutHelpers.swift"; sourceTree = "<group>"; };
 		323254E7DF8329E2381317000097276E /* Pods-Keddr.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Keddr.release.xcconfig"; sourceTree = "<group>"; };
+		337119DD9DB2C6B75EF065AC178209CD /* KeychainAccess.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = KeychainAccess.framework; path = KeychainAccess.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		33CDEB72A62DDF9925262994F0753E18 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3637B7A7CE16D4254452C323C1DD104B /* Pinner-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pinner-umbrella.h"; sourceTree = "<group>"; };
 		38292CF37F0EC1DE0A4704DE51969A8B /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		3D24015729109D28AB4226728446E64E /* Kanna-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Kanna-prefix.pch"; sourceTree = "<group>"; };
+		3A117745D3B509DFC85D10148444B8DE /* Pinner.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pinner.framework; path = Pinner.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		42ADE7580E93621491E589BDDEE81BF4 /* Kanna.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Kanna.swift; path = Sources/Kanna/Kanna.swift; sourceTree = "<group>"; };
 		4419E0E53BF7C8AC1B21C65A7D4423CF /* Pods-Keddr-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Keddr-frameworks.sh"; sourceTree = "<group>"; };
-		49EF6B45043EE51805C290190E8313CE /* libxmlHTMLDocument.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = libxmlHTMLDocument.swift; path = Sources/Kanna/libxmlHTMLDocument.swift; sourceTree = "<group>"; };
-		5D4F1214016F9B70218516CBFD4663D1 /* Kanna.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Kanna.xcconfig; sourceTree = "<group>"; };
-		6198CB7F2A9D02E3503408AE0BD72489 /* libxmlHTMLNode.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = libxmlHTMLNode.swift; path = Sources/Kanna/libxmlHTMLNode.swift; sourceTree = "<group>"; };
+		4B98437613545AA38333D48C26A25DB5 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6604A7D69453B4569E4E4827FB9155A9 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		6A3BB736815643EFF1B1A8AF90E2F8C8 /* Kanna-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Kanna-dummy.m"; sourceTree = "<group>"; };
 		6BBDB1E0F98B393AE2A2491D0FE14029 /* Pods-Keddr-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-Keddr-acknowledgements.markdown"; sourceTree = "<group>"; };
-		7790BAE3DD458230F690871E86E6B3D8 /* KeychainAccess.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = KeychainAccess.modulemap; sourceTree = "<group>"; };
-		7DAF0396F5C7CF819088EF6DAD90A7E4 /* Kanna-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Kanna-umbrella.h"; sourceTree = "<group>"; };
+		6D44A1941D8961F238680B8923E04CCF /* Pods_Keddr.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_Keddr.framework; path = "Pods-Keddr.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		79CA852870A57AD013E741603B5820A0 /* Kanna-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Kanna-prefix.pch"; sourceTree = "<group>"; };
 		82128785B84B83F6D8C3B710EB919FC4 /* Pods-Keddr-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Keddr-acknowledgements.plist"; sourceTree = "<group>"; };
-		8A7F758EFE3228BF31042676558C697F /* Keychain.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Keychain.swift; path = Lib/KeychainAccess/Keychain.swift; sourceTree = "<group>"; };
-		8DE3ACE9604666BCB01195F69339FF85 /* Kanna.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = Kanna.modulemap; sourceTree = "<group>"; };
-		90A2FEC9CB272880DFD6785237B88921 /* KeychainAccess-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "KeychainAccess-dummy.m"; sourceTree = "<group>"; };
-		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		A2961C5377545973BAC664C4C651E4D7 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		A3032F5A339C752BEEFE08D454ECA0B3 /* Pods_Keddr.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Keddr.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		AD88CF8637C0CE0FE64963E70167EEBE /* Kanna.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Kanna.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8CA3E667DA98D2BF487C9AA49E1D4C85 /* CSMConstraintMaker.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CSMConstraintMaker.swift; path = Pinner/Classes/CSMConstraintMaker.swift; sourceTree = "<group>"; };
+		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		A8F810FE6D0EBA6A6CB4E98DF775B7BE /* KeychainAccess-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "KeychainAccess-dummy.m"; sourceTree = "<group>"; };
 		ADE197BFA819294880EE6A4A9BE0C777 /* Pods-Keddr-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Keddr-resources.sh"; sourceTree = "<group>"; };
-		AE0578B838E312C0EB0ABDF7CFB99176 /* Pods-Keddr.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-Keddr.modulemap"; sourceTree = "<group>"; };
-		B0C65907E70C25333649FC9B9A6E50BD /* Kanna.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = Kanna.h; path = Sources/Kanna/Kanna.h; sourceTree = "<group>"; };
-		B1CC42BA7B3D44FB99D3D15EE9BEB302 /* CSS.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CSS.swift; path = Sources/Kanna/CSS.swift; sourceTree = "<group>"; };
-		B4F313ADFF62CC3EBF8662B1BFE42E01 /* libxmlParserOption.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = libxmlParserOption.swift; path = Sources/Kanna/libxmlParserOption.swift; sourceTree = "<group>"; };
-		B87F6037EB4D03F8412B46CA7169D685 /* KeychainAccess.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = KeychainAccess.xcconfig; sourceTree = "<group>"; };
-		CE071393650286BC932D6756B9259495 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AE0578B838E312C0EB0ABDF7CFB99176 /* Pods-Keddr.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = "Pods-Keddr.modulemap"; sourceTree = "<group>"; };
+		AEA51B339334D4EB120FEFA68B7E1219 /* CSS.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CSS.swift; path = Sources/Kanna/CSS.swift; sourceTree = "<group>"; };
+		BB13C085ABB110E14FC45745084E164B /* Kanna.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Kanna.framework; path = Kanna.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C5D8BF15630CEFDC858ABE517B0FA7A4 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CBD3A306CEEAB737E6445C8E771F5F3A /* Kanna-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Kanna-umbrella.h"; sourceTree = "<group>"; };
+		CCABB9FE9F5DE0FE2E64EAADEC460E4F /* Pinner.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Pinner.xcconfig; sourceTree = "<group>"; };
 		CEA84F2453F17DF5E2CFCAB46C6BBF78 /* Pods-Keddr-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Keddr-dummy.m"; sourceTree = "<group>"; };
-		E3025D6A6D47D34C1FAD95FAAFD53AE1 /* KeychainAccess.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = KeychainAccess.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		E8C4849872060F5691A6F7A0B09D6578 /* KeychainAccess-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "KeychainAccess-umbrella.h"; sourceTree = "<group>"; };
-		EEB1062056B4AAE9C8DC405D758FBC0B /* Kanna.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Kanna.swift; path = Sources/Kanna/Kanna.swift; sourceTree = "<group>"; };
+		D0375D111347069D9DDC4E398C1453CE /* Pinner.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = Pinner.modulemap; sourceTree = "<group>"; };
+		DB131B6166F83D33FFC9DA883E26BEE6 /* libxmlHTMLDocument.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = libxmlHTMLDocument.swift; path = Sources/Kanna/libxmlHTMLDocument.swift; sourceTree = "<group>"; };
+		DEB8AFAAA7F072A7B0CC739E406BCC80 /* Pinner-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pinner-prefix.pch"; sourceTree = "<group>"; };
+		E5066C449FD0A66C4BB021D343B61792 /* Kanna.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = Kanna.h; path = Sources/Kanna/Kanna.h; sourceTree = "<group>"; };
+		F768B2BAB6A9D732BDB0F77AE317804E /* Kanna.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = Kanna.modulemap; sourceTree = "<group>"; };
+		F991E226596FEA173F34BBB6453F186B /* libxmlParserOption.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = libxmlParserOption.swift; path = Sources/Kanna/libxmlParserOption.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		2C79D2C14E2586AB85E64723A0685358 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				A7A4E120CF81DA056EC0A114065CED93 /* Foundation.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		2DDC844C06D46A3907C42C9964BC7434 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -104,9 +117,103 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		DCA8AF19A8AE15EA6AF1A24194893BAC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4BFC7DA6BC04133C497056576E245A8E /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EEEBD58CF02792D2D0990BD283A6D5B5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3CD347130ECEDC2F5A92EC6B0184C32F /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		005F07047D24530C9D85F25DD30322E3 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				4B98437613545AA38333D48C26A25DB5 /* Info.plist */,
+				D0375D111347069D9DDC4E398C1453CE /* Pinner.modulemap */,
+				CCABB9FE9F5DE0FE2E64EAADEC460E4F /* Pinner.xcconfig */,
+				3023D675E4E98844211381F48002DCDE /* Pinner-dummy.m */,
+				DEB8AFAAA7F072A7B0CC739E406BCC80 /* Pinner-prefix.pch */,
+				3637B7A7CE16D4254452C323C1DD104B /* Pinner-umbrella.h */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/Pinner";
+			sourceTree = "<group>";
+		};
+		227C926D44A12B913EC887B62E7D86E1 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				33CDEB72A62DDF9925262994F0753E18 /* Info.plist */,
+				2389087F3E09797F34ABC7909FE31A65 /* KeychainAccess.modulemap */,
+				01CB152AF55493F8CDAAE02EAF2F0211 /* KeychainAccess.xcconfig */,
+				A8F810FE6D0EBA6A6CB4E98DF775B7BE /* KeychainAccess-dummy.m */,
+				249B88F8DABDE5BF25729A13FF415D8C /* KeychainAccess-prefix.pch */,
+				1A1D4AF9BB68DA9A24F2ADEF377416C2 /* KeychainAccess-umbrella.h */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/KeychainAccess";
+			sourceTree = "<group>";
+		};
+		24D5779E9106618F5363D1DFF3D48C05 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				3DD6B65C7CF3D12E8B1590A3C4E2B166 /* Kanna */,
+				B0B237B812863270EB2919FC4BE51BBC /* KeychainAccess */,
+				F403D9DC59EC3D337F730247CB3AE84C /* Pinner */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		3DD6B65C7CF3D12E8B1590A3C4E2B166 /* Kanna */ = {
+			isa = PBXGroup;
+			children = (
+				AEA51B339334D4EB120FEFA68B7E1219 /* CSS.swift */,
+				E5066C449FD0A66C4BB021D343B61792 /* Kanna.h */,
+				42ADE7580E93621491E589BDDEE81BF4 /* Kanna.swift */,
+				DB131B6166F83D33FFC9DA883E26BEE6 /* libxmlHTMLDocument.swift */,
+				294D1130F9224F198C26F2373B3A8C32 /* libxmlHTMLNode.swift */,
+				F991E226596FEA173F34BBB6453F186B /* libxmlParserOption.swift */,
+				5A6C93C266548FE66A8896E5899A7751 /* Support Files */,
+			);
+			name = Kanna;
+			path = Kanna;
+			sourceTree = "<group>";
+		};
+		48B47F5F8544AFF76C4424545AE5FC87 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				BB13C085ABB110E14FC45745084E164B /* Kanna.framework */,
+				337119DD9DB2C6B75EF065AC178209CD /* KeychainAccess.framework */,
+				3A117745D3B509DFC85D10148444B8DE /* Pinner.framework */,
+				6D44A1941D8961F238680B8923E04CCF /* Pods_Keddr.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		5A6C93C266548FE66A8896E5899A7751 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				C5D8BF15630CEFDC858ABE517B0FA7A4 /* Info.plist */,
+				F768B2BAB6A9D732BDB0F77AE317804E /* Kanna.modulemap */,
+				0433DEFDB326827F03A1DDDF10E7B008 /* Kanna.xcconfig */,
+				6A3BB736815643EFF1B1A8AF90E2F8C8 /* Kanna-dummy.m */,
+				79CA852870A57AD013E741603B5820A0 /* Kanna-prefix.pch */,
+				CBD3A306CEEAB737E6445C8E771F5F3A /* Kanna-umbrella.h */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/Kanna";
+			sourceTree = "<group>";
+		};
 		65BF0688594A4B2481337919D7851C82 /* Pods-Keddr */ = {
 			isa = PBXGroup;
 			children = (
@@ -130,43 +237,10 @@
 			children = (
 				93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */,
 				BC3CA7F9E30CC8F7E2DD044DD34432FC /* Frameworks */,
-				EF22CF89971F7C0E741A22CE537E4102 /* Pods */,
-				863F454A8557BC580FBB3548803901C1 /* Products */,
+				24D5779E9106618F5363D1DFF3D48C05 /* Pods */,
+				48B47F5F8544AFF76C4424545AE5FC87 /* Products */,
 				B0801C43794083BF0D741C950A33575A /* Targets Support Files */,
 			);
-			sourceTree = "<group>";
-		};
-		84B2F58FD3FEA5A88EC5B461421E1787 /* KeychainAccess */ = {
-			isa = PBXGroup;
-			children = (
-				8A7F758EFE3228BF31042676558C697F /* Keychain.swift */,
-				BFFBA1D4B2DB083C82B085827772BFCB /* Support Files */,
-			);
-			path = KeychainAccess;
-			sourceTree = "<group>";
-		};
-		863F454A8557BC580FBB3548803901C1 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				AD88CF8637C0CE0FE64963E70167EEBE /* Kanna.framework */,
-				E3025D6A6D47D34C1FAD95FAAFD53AE1 /* KeychainAccess.framework */,
-				A3032F5A339C752BEEFE08D454ECA0B3 /* Pods_Keddr.framework */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		90BFCB834FE4F60067CC0E6B4F84EEA4 /* Kanna */ = {
-			isa = PBXGroup;
-			children = (
-				B1CC42BA7B3D44FB99D3D15EE9BEB302 /* CSS.swift */,
-				B0C65907E70C25333649FC9B9A6E50BD /* Kanna.h */,
-				EEB1062056B4AAE9C8DC405D758FBC0B /* Kanna.swift */,
-				49EF6B45043EE51805C290190E8313CE /* libxmlHTMLDocument.swift */,
-				6198CB7F2A9D02E3503408AE0BD72489 /* libxmlHTMLNode.swift */,
-				B4F313ADFF62CC3EBF8662B1BFE42E01 /* libxmlParserOption.swift */,
-				C287CC7545A6115993D801D5CB7FD73F /* Support Files */,
-			);
-			path = Kanna;
 			sourceTree = "<group>";
 		};
 		B0801C43794083BF0D741C950A33575A /* Targets Support Files */ = {
@@ -177,40 +251,22 @@
 			name = "Targets Support Files";
 			sourceTree = "<group>";
 		};
+		B0B237B812863270EB2919FC4BE51BBC /* KeychainAccess */ = {
+			isa = PBXGroup;
+			children = (
+				1CD6D7338353AD4AFC2E883F8A213011 /* Keychain.swift */,
+				227C926D44A12B913EC887B62E7D86E1 /* Support Files */,
+			);
+			name = KeychainAccess;
+			path = KeychainAccess;
+			sourceTree = "<group>";
+		};
 		BC3CA7F9E30CC8F7E2DD044DD34432FC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
 				D35AF013A5F0BAD4F32504907A52519E /* iOS */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		BFFBA1D4B2DB083C82B085827772BFCB /* Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				A2961C5377545973BAC664C4C651E4D7 /* Info.plist */,
-				7790BAE3DD458230F690871E86E6B3D8 /* KeychainAccess.modulemap */,
-				B87F6037EB4D03F8412B46CA7169D685 /* KeychainAccess.xcconfig */,
-				90A2FEC9CB272880DFD6785237B88921 /* KeychainAccess-dummy.m */,
-				18882D8A705EDC42987261F451E896A1 /* KeychainAccess-prefix.pch */,
-				E8C4849872060F5691A6F7A0B09D6578 /* KeychainAccess-umbrella.h */,
-			);
-			name = "Support Files";
-			path = "../Target Support Files/KeychainAccess";
-			sourceTree = "<group>";
-		};
-		C287CC7545A6115993D801D5CB7FD73F /* Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				CE071393650286BC932D6756B9259495 /* Info.plist */,
-				8DE3ACE9604666BCB01195F69339FF85 /* Kanna.modulemap */,
-				5D4F1214016F9B70218516CBFD4663D1 /* Kanna.xcconfig */,
-				2BDFA1DF4D9B9A24846DB9789478F622 /* Kanna-dummy.m */,
-				3D24015729109D28AB4226728446E64E /* Kanna-prefix.pch */,
-				7DAF0396F5C7CF819088EF6DAD90A7E4 /* Kanna-umbrella.h */,
-			);
-			name = "Support Files";
-			path = "../Target Support Files/Kanna";
 			sourceTree = "<group>";
 		};
 		D35AF013A5F0BAD4F32504907A52519E /* iOS */ = {
@@ -221,23 +277,33 @@
 			name = iOS;
 			sourceTree = "<group>";
 		};
-		EF22CF89971F7C0E741A22CE537E4102 /* Pods */ = {
+		F403D9DC59EC3D337F730247CB3AE84C /* Pinner */ = {
 			isa = PBXGroup;
 			children = (
-				90BFCB834FE4F60067CC0E6B4F84EEA4 /* Kanna */,
-				84B2F58FD3FEA5A88EC5B461421E1787 /* KeychainAccess */,
+				8CA3E667DA98D2BF487C9AA49E1D4C85 /* CSMConstraintMaker.swift */,
+				30990E251FE8900BA981FAB10154906F /* UIView+LayoutHelpers.swift */,
+				005F07047D24530C9D85F25DD30322E3 /* Support Files */,
 			);
-			name = Pods;
+			name = Pinner;
+			path = Pinner;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
-		6DD6086620F35396F89C5667DBFEDDCC /* Headers */ = {
+		6E9E830993BDB330EFB4E2A889F607A3 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2865BBF3FABB87848A943A06E1FCEC0F /* Pods-Keddr-umbrella.h in Headers */,
+				C72E2403839E7B99326759BA5D49DA87 /* Pods-Keddr-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7C2CA12BD1FA609216B209299758A6DC /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BC770FCE57809DB0526C712A6FCC55D4 /* Pinner-umbrella.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -261,6 +327,23 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		1D99CED0553FB35D1CFEED9680B6F2F0 /* Pinner */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2B5B44C75DEDEB5CE42E946CAC5F46BB /* Build configuration list for PBXNativeTarget "Pinner" */;
+			buildPhases = (
+				717B9271389B3C19C87D5F5A819A84C4 /* Sources */,
+				EEEBD58CF02792D2D0990BD283A6D5B5 /* Frameworks */,
+				7C2CA12BD1FA609216B209299758A6DC /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Pinner;
+			productName = Pinner;
+			productReference = 3A117745D3B509DFC85D10148444B8DE /* Pinner.framework */;
+			productType = "com.apple.product-type.framework";
+		};
 		4D10E4FF5A483B852B47CCA0B994E340 /* Kanna */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 032FE6A4FF03E43B2C60899A35389C7F /* Build configuration list for PBXNativeTarget "Kanna" */;
@@ -275,26 +358,7 @@
 			);
 			name = Kanna;
 			productName = Kanna;
-			productReference = AD88CF8637C0CE0FE64963E70167EEBE /* Kanna.framework */;
-			productType = "com.apple.product-type.framework";
-		};
-		63E402B1679C2716A776069D7D486309 /* Pods-Keddr */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = AD287DEE638C3D597F79740BE387EA6C /* Build configuration list for PBXNativeTarget "Pods-Keddr" */;
-			buildPhases = (
-				1FB15B41A636ED457EB02E46400961FD /* Sources */,
-				2C79D2C14E2586AB85E64723A0685358 /* Frameworks */,
-				6DD6086620F35396F89C5667DBFEDDCC /* Headers */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				2997A09511A3A6AEA6C7E52ED79FACF2 /* PBXTargetDependency */,
-				3F5E4314D818AD2DB62220DC33E972B8 /* PBXTargetDependency */,
-			);
-			name = "Pods-Keddr";
-			productName = "Pods-Keddr";
-			productReference = A3032F5A339C752BEEFE08D454ECA0B3 /* Pods_Keddr.framework */;
+			productReference = BB13C085ABB110E14FC45745084E164B /* Kanna.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		8905DB6521F8FDC34752B69DEE3FDEB7 /* KeychainAccess */ = {
@@ -311,7 +375,27 @@
 			);
 			name = KeychainAccess;
 			productName = KeychainAccess;
-			productReference = E3025D6A6D47D34C1FAD95FAAFD53AE1 /* KeychainAccess.framework */;
+			productReference = 337119DD9DB2C6B75EF065AC178209CD /* KeychainAccess.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		A7D7BB5B7CE2C00E3F5C9420556B7B89 /* Pods-Keddr */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 51A292738790E7005CF7E59BB09B9777 /* Build configuration list for PBXNativeTarget "Pods-Keddr" */;
+			buildPhases = (
+				E794D5D8399C39B814AE8A13D594B0F0 /* Sources */,
+				DCA8AF19A8AE15EA6AF1A24194893BAC /* Frameworks */,
+				6E9E830993BDB330EFB4E2A889F607A3 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C1D1CE6F2E330E0DF2FAFD602BAA91E1 /* PBXTargetDependency */,
+				71E0240C08EAFFC6CC9124E5EF326AEE /* PBXTargetDependency */,
+				8C6D7F963E07177B588E2CC788FD5F33 /* PBXTargetDependency */,
+			);
+			name = "Pods-Keddr";
+			productName = "Pods-Keddr";
+			productReference = 6D44A1941D8961F238680B8923E04CCF /* Pods_Keddr.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
@@ -321,18 +405,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0830;
-				LastUpgradeCheck = 0900;
-				TargetAttributes = {
-					4D10E4FF5A483B852B47CCA0B994E340 = {
-						LastSwiftMigration = 0900;
-					};
-					63E402B1679C2716A776069D7D486309 = {
-						LastSwiftMigration = 0900;
-					};
-					8905DB6521F8FDC34752B69DEE3FDEB7 = {
-						LastSwiftMigration = 0900;
-					};
-				};
+				LastUpgradeCheck = 0700;
 			};
 			buildConfigurationList = 2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -342,26 +415,19 @@
 				en,
 			);
 			mainGroup = 7DB346D0F39D3F0E887471402A8071AB;
-			productRefGroup = 863F454A8557BC580FBB3548803901C1 /* Products */;
+			productRefGroup = 48B47F5F8544AFF76C4424545AE5FC87 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
 				4D10E4FF5A483B852B47CCA0B994E340 /* Kanna */,
 				8905DB6521F8FDC34752B69DEE3FDEB7 /* KeychainAccess */,
-				63E402B1679C2716A776069D7D486309 /* Pods-Keddr */,
+				1D99CED0553FB35D1CFEED9680B6F2F0 /* Pinner */,
+				A7D7BB5B7CE2C00E3F5C9420556B7B89 /* Pods-Keddr */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXSourcesBuildPhase section */
-		1FB15B41A636ED457EB02E46400961FD /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				CCD3D7311EE93F31B94C5FCA5FA03FFF /* Pods-Keddr-dummy.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		252B13ABC5AE0EA65897098097C1703E /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -375,6 +441,16 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		717B9271389B3C19C87D5F5A819A84C4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				92585A569FB05620DC738FF9CE2DF99D /* CSMConstraintMaker.swift in Sources */,
+				DF478860A4C512B5DCB100D194CADF05 /* Pinner-dummy.m in Sources */,
+				2034C0B40E7E0B7BAB9C3F4EF2035B55 /* UIView+LayoutHelpers.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D26A24617ECAE11F29337DC26BE0E14F /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -384,98 +460,74 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		E794D5D8399C39B814AE8A13D594B0F0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FF2AA6F5BF9B1281921340554E55B416 /* Pods-Keddr-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		2997A09511A3A6AEA6C7E52ED79FACF2 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = Kanna;
-			target = 4D10E4FF5A483B852B47CCA0B994E340 /* Kanna */;
-			targetProxy = DB68A41C82B2D1490E9E54A3BFC69637 /* PBXContainerItemProxy */;
-		};
-		3F5E4314D818AD2DB62220DC33E972B8 /* PBXTargetDependency */ = {
+		71E0240C08EAFFC6CC9124E5EF326AEE /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = KeychainAccess;
 			target = 8905DB6521F8FDC34752B69DEE3FDEB7 /* KeychainAccess */;
-			targetProxy = F36FD6DBE41043B9B303F4FC1BBECB92 /* PBXContainerItemProxy */;
+			targetProxy = 3C808C8CBF778E222A2867B3414EA46F /* PBXContainerItemProxy */;
+		};
+		8C6D7F963E07177B588E2CC788FD5F33 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Pinner;
+			target = 1D99CED0553FB35D1CFEED9680B6F2F0 /* Pinner */;
+			targetProxy = E323ACD9D7D0F4FB624F09ECAE74621F /* PBXContainerItemProxy */;
+		};
+		C1D1CE6F2E330E0DF2FAFD602BAA91E1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Kanna;
+			target = 4D10E4FF5A483B852B47CCA0B994E340 /* Kanna */;
+			targetProxy = 939B78EE2E17F00B9938A4B0DCAEB492 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		1D9DB51E75C19FB70C03BAA2529E6ECE /* Release */ = {
+		01FAC924794BB5D596D2687E3681F3C4 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 323254E7DF8329E2381317000097276E /* Pods-Keddr.release.xcconfig */;
+			baseConfigurationReference = 01CB152AF55493F8CDAAE02EAF2F0211 /* KeychainAccess.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
 				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
-				INFOPLIST_FILE = "Target Support Files/Pods-Keddr/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MACH_O_TYPE = staticlib;
-				MODULEMAP_FILE = "Target Support Files/Pods-Keddr/Pods-Keddr.modulemap";
-				MTL_ENABLE_DEBUG_INFO = NO;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = Pods_Keddr;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				SWIFT_VERSION = 3.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
-		3C4500082E09B27FACC5011B08DEC28D /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5D4F1214016F9B70218516CBFD4663D1 /* Kanna.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/Kanna/Kanna-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/Kanna/Info.plist";
+				GCC_PREFIX_HEADER = "Target Support Files/KeychainAccess/KeychainAccess-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/KeychainAccess/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/Kanna/Kanna.modulemap";
-				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_NAME = Kanna;
+				MODULEMAP_FILE = "Target Support Files/KeychainAccess/KeychainAccess.modulemap";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = KeychainAccess;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				SWIFT_VERSION = 3.0;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
-			name = Release;
+			name = Debug;
 		};
-		404BA43833AEB1C431BC0770DB1D7924 /* Debug */ = {
+		15AE15B1F947C0CD647C3C9A1E9AD61C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2FDAC6867A08B40188B9ED0954DABBF1 /* Pods-Keddr.debug.xcconfig */;
 			buildSettings = {
@@ -514,136 +566,9 @@
 			};
 			name = Debug;
 		};
-		82C32F0AA7D7241F54BAECFE5D62BE18 /* Debug */ = {
+		2DC933DC1FCCF4D0A93C91208104BEF4 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B87F6037EB4D03F8412B46CA7169D685 /* KeychainAccess.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/KeychainAccess/KeychainAccess-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/KeychainAccess/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/KeychainAccess/KeychainAccess.modulemap";
-				MTL_ENABLE_DEBUG_INFO = YES;
-				PRODUCT_NAME = KeychainAccess;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 3.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
-		95BBFC60E2176AF1544CDC154A52E536 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = B87F6037EB4D03F8412B46CA7169D685 /* KeychainAccess.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/KeychainAccess/KeychainAccess-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/KeychainAccess/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/KeychainAccess/KeychainAccess.modulemap";
-				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_NAME = KeychainAccess;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				SWIFT_VERSION = 3.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
-		97803B46811A9BDB5E70FA1303AFBFFE /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_COMMA = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INFINITE_RECURSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
-				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES;
-				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
-				CLANG_WARN_STRICT_PROTOTYPES = YES;
-				CLANG_WARN_SUSPICIOUS_MOVE = YES;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGNING_REQUIRED = NO;
-				COPY_PHASE_STRIP = NO;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENABLE_TESTABILITY = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"POD_CONFIGURATION_DEBUG=1",
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE_SPECIFIER = NO_SIGNING/;
-				STRIP_INSTALLED_PRODUCT = NO;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SYMROOT = "${SRCROOT}/../build";
-			};
-			name = Debug;
-		};
-		B038322EEBE5E5E01925E4E31D88737B /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5D4F1214016F9B70218516CBFD4663D1 /* Kanna.xcconfig */;
+			baseConfigurationReference = 0433DEFDB326827F03A1DDDF10E7B008 /* Kanna.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -669,12 +594,169 @@
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 3.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
 			name = Debug;
+		};
+		75DF62C6648BD6D85E09F97671F26A56 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = CCABB9FE9F5DE0FE2E64EAADEC460E4F /* Pinner.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/Pinner/Pinner-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/Pinner/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/Pinner/Pinner.modulemap";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = Pinner;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		97803B46811A9BDB5E70FA1303AFBFFE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGNING_REQUIRED = NO;
+				COPY_PHASE_STRIP = NO;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"POD_CONFIGURATION_DEBUG=1",
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				ONLY_ACTIVE_ARCH = YES;
+				PROVISIONING_PROFILE_SPECIFIER = NO_SIGNING/;
+				STRIP_INSTALLED_PRODUCT = NO;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SYMROOT = "${SRCROOT}/../build";
+			};
+			name = Debug;
+		};
+		AC5F89ACAD6E0D3A8E7665D313B2637E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = CCABB9FE9F5DE0FE2E64EAADEC460E4F /* Pinner.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/Pinner/Pinner-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/Pinner/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/Pinner/Pinner.modulemap";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = Pinner;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		B651733CF379C21CA2CBCC2C6A94C99D /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 323254E7DF8329E2381317000097276E /* Pods-Keddr.release.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = "Target Support Files/Pods-Keddr/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-Keddr/Pods-Keddr.modulemap";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = Pods_Keddr;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
 		};
 		BDD0139D6EB93FA375F887ABD62DAB2E /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -686,9 +768,7 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -696,20 +776,14 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
-				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES;
-				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
-				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGNING_REQUIRED = NO;
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"POD_CONFIGURATION_RELEASE=1",
 					"$(inherited)",
@@ -728,14 +802,93 @@
 			};
 			name = Release;
 		};
+		CD3CD8905EDF3FDB062D233D85AB1508 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 01CB152AF55493F8CDAAE02EAF2F0211 /* KeychainAccess.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/KeychainAccess/KeychainAccess-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/KeychainAccess/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/KeychainAccess/KeychainAccess.modulemap";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = KeychainAccess;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		D710FE2BE6EEAEECA30CFD9B2674EDDF /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0433DEFDB326827F03A1DDDF10E7B008 /* Kanna.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/Kanna/Kanna-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/Kanna/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/Kanna/Kanna.modulemap";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = Kanna;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 3.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
 		032FE6A4FF03E43B2C60899A35389C7F /* Build configuration list for PBXNativeTarget "Kanna" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				B038322EEBE5E5E01925E4E31D88737B /* Debug */,
-				3C4500082E09B27FACC5011B08DEC28D /* Release */,
+				2DC933DC1FCCF4D0A93C91208104BEF4 /* Debug */,
+				D710FE2BE6EEAEECA30CFD9B2674EDDF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2B5B44C75DEDEB5CE42E946CAC5F46BB /* Build configuration list for PBXNativeTarget "Pinner" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AC5F89ACAD6E0D3A8E7665D313B2637E /* Debug */,
+				75DF62C6648BD6D85E09F97671F26A56 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -749,20 +902,20 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		9FA048BBEA093CDB3F69C5B36929A5AF /* Build configuration list for PBXNativeTarget "KeychainAccess" */ = {
+		51A292738790E7005CF7E59BB09B9777 /* Build configuration list for PBXNativeTarget "Pods-Keddr" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				82C32F0AA7D7241F54BAECFE5D62BE18 /* Debug */,
-				95BBFC60E2176AF1544CDC154A52E536 /* Release */,
+				15AE15B1F947C0CD647C3C9A1E9AD61C /* Debug */,
+				B651733CF379C21CA2CBCC2C6A94C99D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		AD287DEE638C3D597F79740BE387EA6C /* Build configuration list for PBXNativeTarget "Pods-Keddr" */ = {
+		9FA048BBEA093CDB3F69C5B36929A5AF /* Build configuration list for PBXNativeTarget "KeychainAccess" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				404BA43833AEB1C431BC0770DB1D7924 /* Debug */,
-				1D9DB51E75C19FB70C03BAA2529E6ECE /* Release */,
+				01FAC924794BB5D596D2687E3681F3C4 /* Debug */,
+				CD3CD8905EDF3FDB062D233D85AB1508 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
